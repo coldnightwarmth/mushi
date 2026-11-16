@@ -81,9 +81,22 @@ layouts and timing, so capture compatibility must be checked before using them.
 open 'build/macos/Futari 1.5 Reference.app'
 ```
 
-Omit `--frameworks` when the MAME installation resolves its libraries itself.
-The launcher references the local ROM and emulator paths. Rebuild it if those
-paths or the repository move; it is not a self-contained redistributable port.
+Building requires Xcode Command Line Tools (`swiftc` and the macOS signing tools).
+For the verified SDL3 runtime, `--frameworks` names the folder containing
+`SDL3.framework`; omit it when the builder can find that framework next to MAME
+or in `/Library/Frameworks`.
+
+The native launcher bundles your MAME runtime, SDL3 framework and ROM inside the
+local app, so the whole app can be moved without rebuilding. Saves, settings and
+the startup log live in `~/Library/Application Support/Mushi/Reference`. Existing
+local settings are seeded at build time and do not overwrite later preferences.
+The generated app includes your ROM and stays local; it is not a release artifact
+or a native gameplay port. Missing runtime/data and save-folder failures show an
+error dialog. To inspect resolved paths without starting the game, run:
+
+```sh
+'build/macos/Futari 1.5 Reference.app/Contents/MacOS/FutariReference' --diagnose
+```
 
 | Action | Keys |
 | --- | --- |

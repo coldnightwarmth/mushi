@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Build a local macOS launcher for the original-game reference runtime."""
+"""Build a self-contained local macOS app for the original-game reference runtime."""
 import argparse
 import json
 import os
 from pathlib import Path
 import plistlib
-import shlex
+import shutil
+import subprocess
 import sys
 import xml.etree.ElementTree as ET
 
@@ -30,6 +31,33 @@ def main():
     app = args.output.resolve();contents = app / "Contents"
     resources = contents / "Resources";exe = contents / "MacOS/FutariReference"
     resources.mkdir(parents=True, exist_ok=True);exe.parent.mkdir(exist_ok=True)
+    frameworks = contents / "Frameworks"
+    frameworks.mkdir(exist_ok=True)
+    # Keep the runtime and ROM inside the app. Launching a shell script from
+    # Documents can fail TCC checks before its log redirection even executes.
+    # Bundled code/resources and Application Support saves avoid that path.
+    runtime = exe.parent / "mame"
+    shutil.copy2(binary, runtime)
+    dependencies = subprocess.run(["otool", "-L", str(runtime)], check=True, text=True, capture_output=True).stdout
+    if "@rpath/SDL3.framework/" in dependencies:
+        candidates = []
+        if args.frameworks:
+            candidates.append(args.frameworks.resolve() / "SDL3.framework")
+        candidates += [binary.parent / "SDL3.framework", binary.parent.parent / "frameworks/SDL3.framework",
+                       Path("/Library/Frameworks/SDL3.framework"),
+                       Path("/Library/Frameworks/SDL3.xcframework/macos-arm64_x86_64/SDL3.framework")]
+        source = next((p for p in candidates if p.is_dir()), None)
+        if source is None:
+            raise SystemExit("SDL3.framework was not found. Supply its parent directory with --frameworks.")
+        shutil.copytree(source, frameworks / "SDL3.framework", symlinks=True, dirs_exist_ok=True)
+        subprocess.run(["codesign", "--force", "--sign", "-", str(frameworks / "SDL3.framework")], check=True)
+        # Use a direct bundle-relative dependency, not the build machine's rpath.
+        subprocess.run(["install_name_tool", "-change", "@rpath/SDL3.framework/Versions/A/SDL3",
+                        "@executable_path/../Frameworks/SDL3.framework/Versions/A/SDL3", str(runtime)], check=True)
+    subprocess.run(["codesign", "--force", "--sign", "-", str(runtime)], check=True)
+    bundled_roms = resources / "roms"
+    bundled_roms.mkdir(exist_ok=True)
+    shutil.copy2(rom, bundled_roms / rom.name)
     state = ROOT / "build/reference";cfg = state / "cfg";cfg.mkdir(parents=True, exist_ok=True)
     bindings = {"COIN1":"KEYCODE_5 OR KEYCODE_BACKSLASH", "START1":"KEYCODE_ENTER OR KEYCODE_1",
                 "P1_JOYSTICK_UP":"KEYCODE_UP OR KEYCODE_W", "P1_JOYSTICK_DOWN":"KEYCODE_DOWN OR KEYCODE_S",
@@ -44,17 +72,21 @@ def main():
         for name,seq in bindings.items():
             port=ET.SubElement(inputs,"port",type=name);ET.SubElement(port,"newseq",type="standard").text=seq
         ET.indent(root);ET.ElementTree(root).write(config,encoding="utf-8",xml_declaration=True)
-    command = [str(binary), "futari15", "-rompath", str(rom.parent), "-window", "-resolution", "720x960", "-nofilter", "-keepaspect", "-sound", "sdl", "-skip_gameinfo",
-               "-cfg_directory", str(cfg), "-nvram_directory", str(state / "nvram"), "-snapshot_directory", str(state / "snap")]
-    script = "#!/bin/zsh\nset -eu\n"
-    if args.frameworks:
-        script += "export DYLD_FRAMEWORK_PATH=" + shlex.quote(str(args.frameworks.resolve())) + "\n"
-    script += "cd " + shlex.quote(str(ROOT)) + "\nexec " + shlex.join(command) + ' "$@" >> ' + shlex.quote(str(state / "app.log")) + " 2>&1\n"
-    exe.write_text(script);exe.chmod(0o755)
+    seeds = resources / "seed-state"
+    for name in ("cfg", "nvram"):
+        if (state / name).exists():
+            shutil.copytree(state / name, seeds / name, dirs_exist_ok=True)
+    subprocess.run(["xcrun", "swiftc", "-O", "-framework", "AppKit",
+                    str(ROOT / "native/ReferenceLauncher.swift"), "-o", str(exe)], check=True)
     with (contents / "Info.plist").open("wb") as stream:
         plistlib.dump(dict(CFBundleName="Futari 1.5 Reference",CFBundleDisplayName="Futari 1.5 Reference",CFBundleExecutable=exe.name,
-                          CFBundleIdentifier="local.mushi.reference",CFBundlePackageType="APPL",CFBundleVersion="1",NSHighResolutionCapable=True),stream)
-    (resources / "runtime.json").write_text(json.dumps(dict(kind="MAME reference launcher; not native decompiled gameplay",mame=str(binary),rom=str(rom),command=command),indent=2)+"\n")
+                          CFBundleIdentifier="local.mushi.reference",CFBundlePackageType="APPL",CFBundleVersion="2",
+                          CFBundleShortVersionString="0.1.1",NSHighResolutionCapable=True),stream)
+    (resources / "runtime.json").write_text(json.dumps(dict(kind="MAME reference launcher; not native decompiled gameplay",
+        mame="Contents/MacOS/mame",rom="Contents/Resources/roms/futari15.zip",
+        state="~/Library/Application Support/Mushi/Reference",launcher="native Mach-O v2"),indent=2)+"\n")
+    subprocess.run(["codesign", "--force", "--sign", "-", str(app)], check=True)
+    subprocess.run(["codesign", "--verify", "--deep", "--strict", str(app)], check=True)
     print(app)
 
 

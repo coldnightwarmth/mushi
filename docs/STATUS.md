@@ -66,8 +66,12 @@ not established by these numerical checks.
   resources and the program match Python and the isolated original decoder.
 - Every exported PNG and metadata link exists. Every observed-region PNG exactly
   equals its recorded crop of the source sheet.
-- The local macOS reference launcher starts the graphical/audio runtime and exits
-  successfully in a bounded smoke test. It depends on local emulator and ROM paths.
+- The original shell launcher passed a command-line smoke test but failed when
+  opened normally: macOS denied the shell's access to the Documents folder before
+  it could write its log. The replacement is a native Swift/Mach-O entry point,
+  with MAME, SDL3 and the user's ROM bundled locally and writable state in
+  Application Support. Normal Launch Services startup now opens the game window;
+  bundle signature verification and path diagnostics also pass.
   It explicitly selects SDL audio: this MAME build's default CoreAudio backend
   hung during shutdown on this Mac, while SDL audio completed the same test.
 - The browser automation connection was unavailable in this session. Catalog
