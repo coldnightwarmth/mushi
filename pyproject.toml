@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mushi-reconstruction"
+version = "0.1.0"
+description = "Mushihimesama Futari 1.5 ROM research, asset catalog and macOS reconstruction"
+requires-python = ">=3.9"
+dependencies = ["Pillow>=10", "numpy>=1.24"]
+
+[tool.setuptools]
+packages = ["mushi"]
+
+[tool.setuptools.package-data]
+mushi = ["web/*"]
+
+[project.scripts]
+mushi = "mushi.__main__:main"

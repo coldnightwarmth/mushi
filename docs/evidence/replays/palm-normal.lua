@@ -1,0 +1,15 @@
+return {
+    {2400, ":PORT_C", "Coin 1", 1},
+    {2412, ":PORT_C", "Coin 1", 0},
+    {2500, ":PORT_C", "1 Player Start", 1},
+    {2512, ":PORT_C", "1 Player Start", 0},
+    {2700, ":PORT_D", "P1 Button 1", 1},
+    {2712, ":PORT_D", "P1 Button 1", 0},
+    {2820, ":PORT_D", "P1 Right", 1},
+    {2832, ":PORT_D", "P1 Right", 0},
+    {2900, ":PORT_D", "P1 Button 1", 1},
+    {2912, ":PORT_D", "P1 Button 1", 0},
+    {3100, ":PORT_D", "P1 Button 1", 1},
+    {3112, ":PORT_D", "P1 Button 1", 0},
+    {3300, ":PORT_D", "P1 Button 3", 1},
+}
