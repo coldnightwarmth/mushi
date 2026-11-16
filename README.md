@@ -10,6 +10,8 @@ behavior and verify recovered data. It is not presented as decompiled gameplay.
 
 ## Asset catalog
 
+[Browse the asset catalog online](https://coldnightwarmth.github.io/mushi/).
+
 [Download the offline asset catalog](https://github.com/coldnightwarmth/mushi/releases/download/v0.1.0/futari15-asset-catalog.zip),
 extract it, and open `futari15-asset-catalog/index.html`. It works without a server.
 
@@ -66,6 +68,20 @@ open build/catalog/index.html
 This rebuilds all 1,201 source sheets. To add runtime-observed regions, make the
 reference captures below and run `mushi observe`. Regenerating the base catalog
 replaces its manifest; rerun `observe` afterward to restore observed regions.
+
+GitHub Pages serves the generated catalog from the `gh-pages` branch at
+<https://coldnightwarmth.github.io/mushi/>. To publish an updated local catalog
+and the current `mushi/web` interface, run:
+
+```sh
+.venv/bin/python tools/publish_pages.py
+```
+
+The helper uses a temporary checkout, validates every image and metadata file,
+checks JavaScript syntax, and pushes the generated site to `gh-pages`. GitHub
+then builds and deploys it automatically. Repository Pages settings use
+**Deploy from a branch → gh-pages → / (root)**. ROMs and native app builds stay
+outside the published catalog.
 
 ## macOS reference app
 
