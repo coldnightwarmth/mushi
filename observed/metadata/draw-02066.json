@@ -1,0 +1,76 @@
+{
+  "id": "draw-02066",
+  "index": 2066,
+  "resource_index": 185,
+  "resource_id": "u2-0185",
+  "width": 32,
+  "height": 16,
+  "source_rect": [
+    160,
+    64,
+    32,
+    16
+  ],
+  "attributes": [
+    4352,
+    4864
+  ],
+  "observations": [
+    {
+      "capture": "palm-abnormal",
+      "frame": 3400,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5ef694"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 3400,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5ef6bc"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 3400,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5ef6e4"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 3400,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5ef70c"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5f01fc"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5f0224"
+    }
+  ],
+  "source": "observed/draw-02066.png",
+  "thumbnail": "observed/thumbs/draw-02066.png",
+  "metadata": "observed/metadata/draw-02066.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0185. This is a draw region, not a verified animation sequence."
+}

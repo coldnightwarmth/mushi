@@ -1,0 +1,131 @@
+{
+  "id": "draw-00068",
+  "index": 68,
+  "resource_index": 1,
+  "resource_id": "u2-0001",
+  "width": 8,
+  "height": 8,
+  "source_rect": [
+    248,
+    168,
+    8,
+    8
+  ],
+  "attributes": [
+    4352
+  ],
+  "observations": [
+    {
+      "capture": "reco-normal",
+      "frame": 3400,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c5eff04"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 6000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c5f3fa0"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 9000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c5f2344"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 9000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c5f24ac"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 12000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c556144"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 12000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c556248"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 15000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c553b9c"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 18000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c553428"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 3400,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c5f0184"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c5f0f58"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c5f10ac"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5f11c4"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5f11ec"
+    }
+  ],
+  "source": "observed/draw-00068.png",
+  "thumbnail": "observed/thumbs/draw-00068.png",
+  "metadata": "observed/metadata/draw-00068.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0001. This is a draw region, not a verified animation sequence."
+}

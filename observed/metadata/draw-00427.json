@@ -1,0 +1,76 @@
+{
+  "id": "draw-00427",
+  "index": 427,
+  "resource_index": 30,
+  "resource_id": "u2-0030",
+  "width": 24,
+  "height": 40,
+  "source_rect": [
+    232,
+    160,
+    24,
+    40
+  ],
+  "attributes": [
+    4352,
+    4864
+  ],
+  "observations": [
+    {
+      "capture": "reco-normal",
+      "frame": 3000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c55019c"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 3000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c550200"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 3150,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c55140c"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 3000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c55019c"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 3000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c550200"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c5501b0"
+    }
+  ],
+  "source": "observed/draw-00427.png",
+  "thumbnail": "observed/thumbs/draw-00427.png",
+  "metadata": "observed/metadata/draw-00427.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0030. This is a draw region, not a verified animation sequence."
+}

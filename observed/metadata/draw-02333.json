@@ -1,0 +1,53 @@
+{
+  "id": "draw-02333",
+  "index": 2333,
+  "resource_index": 247,
+  "resource_id": "u2-0247",
+  "width": 16,
+  "height": 16,
+  "source_rect": [
+    208,
+    32,
+    16,
+    16
+  ],
+  "attributes": [
+    4864,
+    5888,
+    6912
+  ],
+  "observations": [
+    {
+      "capture": "palm-normal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c5f114c"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 3400,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5efeb4"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5f09a4"
+    }
+  ],
+  "source": "observed/draw-02333.png",
+  "thumbnail": "observed/thumbs/draw-02333.png",
+  "metadata": "observed/metadata/draw-02333.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0247. This is a draw region, not a verified animation sequence."
+}

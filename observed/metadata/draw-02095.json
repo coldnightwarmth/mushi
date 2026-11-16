@@ -1,0 +1,59 @@
+{
+  "id": "draw-02095",
+  "index": 2095,
+  "resource_index": 200,
+  "resource_id": "u2-0200",
+  "width": 24,
+  "height": 32,
+  "source_rect": [
+    200,
+    160,
+    24,
+    32
+  ],
+  "attributes": [
+    4864
+  ],
+  "observations": [
+    {
+      "capture": "palm-normal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c5f092c"
+    },
+    {
+      "capture": "palm-normal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c5f0990"
+    },
+    {
+      "capture": "palm-normal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c5f09cc"
+    },
+    {
+      "capture": "palm-normal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c5f0a30"
+    }
+  ],
+  "source": "observed/draw-02095.png",
+  "thumbnail": "observed/thumbs/draw-02095.png",
+  "metadata": "observed/metadata/draw-02095.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0200. This is a draw region, not a verified animation sequence."
+}

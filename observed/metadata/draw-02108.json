@@ -1,0 +1,68 @@
+{
+  "id": "draw-02108",
+  "index": 2108,
+  "resource_index": 200,
+  "resource_id": "u2-0200",
+  "width": 8,
+  "height": 32,
+  "source_rect": [
+    224,
+    128,
+    8,
+    32
+  ],
+  "attributes": [
+    4864,
+    4869
+  ],
+  "observations": [
+    {
+      "capture": "palm-normal",
+      "frame": 3400,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c5efab8"
+    },
+    {
+      "capture": "palm-normal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c5f02ec"
+    },
+    {
+      "capture": "palm-normal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c5f0314"
+    },
+    {
+      "capture": "palm-normal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c5f0878"
+    },
+    {
+      "capture": "palm-normal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c5f08f0"
+    }
+  ],
+  "source": "observed/draw-02108.png",
+  "thumbnail": "observed/thumbs/draw-02108.png",
+  "metadata": "observed/metadata/draw-02108.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0200. This is a draw region, not a verified animation sequence."
+}

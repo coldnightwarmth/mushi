@@ -1,0 +1,92 @@
+{
+  "id": "draw-02074",
+  "index": 2074,
+  "resource_index": 189,
+  "resource_id": "u2-0189",
+  "width": 8,
+  "height": 8,
+  "source_rect": [
+    224,
+    96,
+    8,
+    8
+  ],
+  "attributes": [
+    4352,
+    4864
+  ],
+  "observations": [
+    {
+      "capture": "palm-abnormal",
+      "frame": 3400,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5ef9a0"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 3400,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5ef9f0"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 3400,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5efa68"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 3400,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5efab8"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5f03c8"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5f0418"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5f0490"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 4200,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c5f04e0"
+    }
+  ],
+  "source": "observed/draw-02074.png",
+  "thumbnail": "observed/thumbs/draw-02074.png",
+  "metadata": "observed/metadata/draw-02074.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0189. This is a draw region, not a verified animation sequence."
+}

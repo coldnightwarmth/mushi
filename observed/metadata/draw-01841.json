@@ -1,0 +1,35 @@
+{
+  "id": "draw-01841",
+  "index": 1841,
+  "resource_index": 153,
+  "resource_id": "u2-0153",
+  "width": 16,
+  "height": 32,
+  "source_rect": [
+    16,
+    64,
+    16,
+    32
+  ],
+  "attributes": [
+    4352
+  ],
+  "observations": [
+    {
+      "capture": "reco-normal",
+      "frame": 15000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c5537a0"
+    }
+  ],
+  "source": "observed/draw-01841.png",
+  "thumbnail": "observed/thumbs/draw-01841.png",
+  "metadata": "observed/metadata/draw-01841.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0153. This is a draw region, not a verified animation sequence."
+}

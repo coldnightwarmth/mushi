@@ -1,0 +1,156 @@
+{
+  "id": "draw-00451",
+  "index": 451,
+  "resource_index": 31,
+  "resource_id": "u2-0031",
+  "width": 64,
+  "height": 64,
+  "source_rect": [
+    160,
+    96,
+    64,
+    64
+  ],
+  "attributes": [
+    4352,
+    5376
+  ],
+  "observations": [
+    {
+      "capture": "reco-normal",
+      "frame": 3000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c54f940"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 3000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c54f990"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 3150,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c550bb0"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 3150,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c550c00"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 3000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c54f940"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 3000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c54f990"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c54f940"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c54f990"
+    },
+    {
+      "capture": "palm-normal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c54f508"
+    },
+    {
+      "capture": "palm-normal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c54f558"
+    },
+    {
+      "capture": "palm-normal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c54fb0c"
+    },
+    {
+      "capture": "palm-normal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "normal",
+      "command_address": "0x0c54fb5c"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c54f508"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c54f558"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c54fb0c"
+    },
+    {
+      "capture": "palm-abnormal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "palm",
+      "shot": "abnormal",
+      "command_address": "0x0c54fb5c"
+    }
+  ],
+  "source": "observed/draw-00451.png",
+  "thumbnail": "observed/thumbs/draw-00451.png",
+  "metadata": "observed/metadata/draw-00451.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0031. This is a draw region, not a verified animation sequence."
+}

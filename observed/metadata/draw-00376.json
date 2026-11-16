@@ -1,0 +1,91 @@
+{
+  "id": "draw-00376",
+  "index": 376,
+  "resource_index": 29,
+  "resource_id": "u2-0029",
+  "width": 16,
+  "height": 24,
+  "source_rect": [
+    80,
+    168,
+    16,
+    24
+  ],
+  "attributes": [
+    4864
+  ],
+  "observations": [
+    {
+      "capture": "reco-normal",
+      "frame": 3000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c550034"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 3000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c5500d4"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 3150,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c5512a4"
+    },
+    {
+      "capture": "reco-normal",
+      "frame": 3150,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "normal",
+      "command_address": "0x0c551344"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 3000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c550034"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 3000,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c5500d4"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c550034"
+    },
+    {
+      "capture": "reco-abnormal",
+      "frame": 3090,
+      "mode": "Original",
+      "character": "reco",
+      "shot": "abnormal",
+      "command_address": "0x0c5500d4"
+    }
+  ],
+  "source": "observed/draw-00376.png",
+  "thumbnail": "observed/thumbs/draw-00376.png",
+  "metadata": "observed/metadata/draw-00376.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0029. This is a draw region, not a verified animation sequence."
+}

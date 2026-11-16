@@ -1,0 +1,51 @@
+{
+  "id": "u2-0993",
+  "index": 993,
+  "table_offset": 18000,
+  "block": 784,
+  "offset": 33426,
+  "length": 131092,
+  "compression": 0,
+  "width": 256,
+  "height": 256,
+  "header_words": [
+    5313,
+    16384,
+    0,
+    0,
+    31913,
+    4608,
+    255,
+    255
+  ],
+  "opaque_pixels": 60028,
+  "alpha_bbox": [
+    0,
+    0,
+    256,
+    256
+  ],
+  "pixel_format": "ARGB1555 big-endian; RGB5 << 3",
+  "spans": [
+    {
+      "offset": 106005138,
+      "length": 101742,
+      "block": 784
+    },
+    {
+      "offset": 106106880,
+      "length": 29350,
+      "block": 785
+    }
+  ],
+  "decoded_bytes": 131092,
+  "compressed_consumed": 131092,
+  "sha256": "51c0f7180b70e9b69a0e6584951b1cdc129deabf02e74348d0aaf87db92a2408",
+  "duplicate_of": null,
+  "source": "sheets/u2-0993.png",
+  "thumbnail": "thumbs/u2-0993.png",
+  "status": "decoded-resource",
+  "classification": "unclassified",
+  "note": "Resource sheet; individual frames and animation timing are not yet established.",
+  "runtime_validated": true
+}
