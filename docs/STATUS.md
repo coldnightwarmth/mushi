@@ -4,6 +4,15 @@
 the original game under a clearly identified MAME reference. No native gameplay,
 enemy AI, collision, menu state machine or audio engine is claimed complete.
 
+The first six Swift input services now match original SH-3 execution in 2,781
+cases, including 81 captured game states. The ESP Ra.De keyboard layout is
+implemented as a shared action model, with a separate Futari cabinet adapter.
+These components are not yet a playable native build. See
+[native architecture](NATIVE_ARCHITECTURE.md) and
+[input evidence](evidence/native-input.json). Reference verification now forces
+SDL dummy drivers and disables desktop input; no interactive reference windows
+are part of the development workflow.
+
 ## Verified resource recovery
 
 | Measure | Result |

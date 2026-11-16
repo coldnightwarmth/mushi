@@ -8,6 +8,13 @@ and stage one in **Original mode**, with **Reco and Palm, Normal and Abnormal**.
 first delivery is explicitly a **MAME reference launcher**, used to establish
 behavior and verify recovered data. It is not presented as decompiled gameplay.
 
+The requested native build follows the ESP Ra.De Swift/AppKit approach and its
+controls. Six native input services and a shared keyboard/action layer are now
+implemented and verified; native menus and gameplay remain unfinished. The
+[native architecture](docs/NATIVE_ARCHITECTURE.md) keeps game-specific services
+separate so elements of both builds can be combined later. All automated
+reference capture and comparison runs are strictly headless.
+
 ## Asset catalog
 
 [Browse the asset catalog online](https://coldnightwarmth.github.io/mushi/).

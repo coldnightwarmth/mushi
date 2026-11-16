@@ -4,7 +4,6 @@ import argparse
 import csv
 import hashlib
 import json
-import os
 from pathlib import Path
 import struct
 import subprocess
@@ -15,6 +14,7 @@ sys.path.insert(0,str(ROOT))
 from mushi.rom import load_roms,swap_words
 from mushi.nand import Nand
 from mushi.compression import decompress
+from mushi.reference import HEADLESS_OPTIONS, headless_environment
 
 
 def main():
@@ -31,9 +31,8 @@ def main():
             inputs.write(struct.pack(">II",len(data),len(result.data)));inputs.write(data);expected.write(result.data)
             records.append(dict(name=name,size=len(result.data),consumed=result.consumed,sha256=hashlib.sha256(result.data).hexdigest()))
     (out/"routine.bin").write_bytes(program[0x2ac4:0x2b56])
-    env=os.environ.copy();env["MUSHI_DECODER_TEST"]=str(out)
-    if args.frameworks:env["DYLD_FRAMEWORK_PATH"]=str(args.frameworks.resolve())
-    command=[str(args.mame.resolve()),"futari15","-rompath",str(args.rom.resolve().parent),"-video","none","-sound","none",
+    env=headless_environment(args.frameworks);env["MUSHI_DECODER_TEST"]=str(out)
+    command=[str(args.mame.resolve()),"futari15","-rompath",str(args.rom.resolve().parent),*HEADLESS_OPTIONS,
              "-nothrottle","-nodrc","-skip_gameinfo","-autoboot_delay","0","-autoboot_script",str(ROOT/"tools/verify_decoder.lua"),
              "-cfg_directory",str(out/"cfg"),"-nvram_directory",str(out/"nvram"),"-seconds_to_run","300"]
     with (out/"run.log").open("w") as log:

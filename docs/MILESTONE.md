@@ -10,6 +10,9 @@ close any native gameplay checkbox below.
 
 - [x] Revision-locked ROM ingestion and complete resource directory inventory.
 - [x] Native resource decoder with original-instruction differential checks.
+- [x] Native input initialization, edges/repeats, queries and output-pulse enqueue;
+  2,781 original-instruction comparisons pass. Hardware sampling remains open.
+- [x] Shared ESP Ra.De keyboard/action model with a separate Futari port adapter.
 - [x] Bitmap decoding with source offsets, hashes and coverage reporting.
 - [x] Runtime command capture and exact resource-to-VRAM matching.
 - [x] macOS reference launcher, keyboard controls, audio and input replays.
@@ -17,6 +20,9 @@ close any native gameplay checkbox below.
 - [x] Reference stage-one boss defeat/clear followed into stage two for all four choices.
 
 ## Native menu and stage-one implementation
+
+Follow [native architecture and shared controls](NATIVE_ARCHITECTURE.md), keeping
+the future combined-game intent and strictly headless reference policy.
 
 - [ ] Recover scheduler, frame timing, task dispatch and scene state.
 - [ ] Recover original resource upload/lifetime and sprite descriptor tables.

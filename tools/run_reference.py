@@ -10,6 +10,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from mushi.rom import load_roms
+from mushi.reference import HEADLESS_OPTIONS, headless_environment
 
 
 def arguments():
@@ -57,30 +58,32 @@ def main():
     _, manifest = load_roms(rom)
     if rom.name != "futari15.zip":
         raise SystemExit("MAME reference currently requires archive filename futari15.zip")
-    env = os.environ.copy()
+    env = headless_environment(args.frameworks) if args.capture else os.environ.copy()
     if args.frameworks:
         env["DYLD_FRAMEWORK_PATH"] = str(args.frameworks.resolve())
     state = (args.capture or ROOT / "build/reference").resolve()
     state.mkdir(parents=True, exist_ok=True)
     command = [str(binary), "futari15", "-rompath", str(rom.parent), "-skip_gameinfo",
                "-cfg_directory", str(state / "cfg"), "-nvram_directory", str(state / "nvram"),
-               "-snapshot_directory", str(state / "snap"), "-window"]
+               "-snapshot_directory", str(state / "snap")]
     if args.capture:
         replay = state / "replay.lua"
         replay.write_text(make_replay(args.character, args.shot, args.frames, args.autoplay))
         env.update(MUSHI_CAPTURE=str(state), MUSHI_FRAMES=str(args.frames),
                    MUSHI_SNAPSHOTS=args.snapshots, MUSHI_REPLAY=str(replay),
                    MUSHI_GFX="1" if args.graphics else "0")
-        command += ["-video", "none", "-sound", "none", "-nothrottle", "-seconds_to_run", str(args.frames // 59 + 10),
+        command += [*HEADLESS_OPTIONS, "-nothrottle", "-seconds_to_run", str(args.frames // 59 + 10),
                     "-autoboot_delay", "0", "-autoboot_script", str(ROOT / "tools/probe.lua")]
         if args.audio:
             command += ["-wavwrite", str(state / "audio.wav")]
     else:
-        command += ["-resolution", "720x960", "-nofilter", "-keepaspect", "-sound", "sdl"]
+        command += ["-window", "-resolution", "720x960", "-nofilter", "-keepaspect", "-sound", "sdl"]
     version = subprocess.run([str(binary), "-help"], env=env, capture_output=True, text=True, check=True).stdout.splitlines()[0]
     (state / "run.json").write_text(json.dumps(dict(runtime="MAME reference, not native decompiled gameplay", version=version,
         character=args.character, shot=args.shot, mode="Original", frames=args.frames if args.capture else None,
-        autoplay=args.autoplay, command=command, rom=manifest), indent=2) + "\n")
+        autoplay=args.autoplay, headless=bool(args.capture),
+        video_driver=env.get("SDL_VIDEO_DRIVER") if args.capture else "interactive",
+        command=command, rom=manifest), indent=2) + "\n")
     with (state / "run.log").open("w") as log:
         subprocess.run(command, env=env, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
     print(state)
