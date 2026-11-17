@@ -4,16 +4,71 @@ Reverse engineering of **Mushihimesama Futari 1.5**, set `futari15`, revision
 **2006/12/8 MAST VER. 1.54**. The first native target is the complete menu flow
 and stage one in **Original mode**, with **Reco and Palm, Normal and Abnormal**.
 
-**The native gameplay port is not complete.** The playable macOS app in this
-first delivery is explicitly a **MAME reference launcher**, used to establish
-behavior and verify recovered data. It is not presented as decompiled gameplay.
+**The first native milestone is playable on Apple Silicon macOS.** Menus and
+stage one in Original mode run as ahead-of-time compiled ARM64 game code, with
+native graphics, resource loading, cabinet input, audio and an AppKit frontend.
+All four character/shot combinations have defeated the first boss, shown results
+and entered stage two in headless native runs with ordinary damage and paid
+continues. The app contains no MAME runtime, CPU interpreter or JIT.
 
-The requested native build follows the ESP Ra.De Swift/AppKit approach and its
-controls. Six native input services and a shared keyboard/action layer are now
-implemented and verified; native menus and gameplay remain unfinished. The
-[native architecture](docs/NATIVE_ARCHITECTURE.md) keeps game-specific services
-separate so elements of both builds can be combined later. All automated
-reference capture and comparison runs are strictly headless.
+This is a native recompilation, not a completed readable-source decompilation.
+The [architecture](docs/NATIVE_ARCHITECTURE.md) keeps Futari's game adapter
+separate from the shared ESP Ra.De controls and presentation boundary for future
+combinations. Reference comparisons remain strictly headless.
+
+## Native macOS app
+
+Build locally using your verified ROM and Xcode Command Line Tools:
+
+```sh
+python3 tools/build_native_app.py --rom /path/to/futari15.zip
+open 'build/macos/Mushihimesama Futari.app'
+```
+
+The build generates C++ from the original program, compiles it ahead of time,
+and packages a signed ARM64 application. The generated code and game resources
+stay local under ignored `build/`. The app can be moved after building. Operator
+settings are stored separately in `~/Library/Application Support/Mushi/Native`.
+Power-on checks run quickly; menus and gameplay use the board's frame rate.
+Use the original operator menu's **Save & Exit** to commit configuration changes.
+
+| Action | Keys |
+| --- | --- |
+| Move / select | Arrows or WASD |
+| Shot / laser / confirm | J |
+| Full auto | K or X |
+| Bomb | L |
+| Insert credit | Backslash |
+| Start / continue | Return |
+| Pause | Space |
+| Native menu | Tab |
+| Return to title / attract | Escape |
+| Restart selected run | R |
+| Mute | M |
+| Filtering | P |
+| Hold camera zoom | Z |
+| Fullscreen | Control–Command–F or native menu |
+
+Restart restores the selected run's stage-entry state, including audio and
+random state. Operator settings are available from the native menu. The original
+operator switch requires a two-second hold; the frontend supplies it automatically.
+The former `Futari 1.5 Reference.app` is a separate historical comparison tool.
+Use **Mushihimesama Futari.app** for native play.
+
+A bundled startup check runs without creating a window or audio device:
+
+```sh
+'build/macos/Mushihimesama Futari.app/Contents/MacOS/Futari' --diagnose
+```
+
+The recorded native stage-clear routes can be reproduced without a window,
+audio device, or emulator:
+
+```sh
+python3 tools/verify_native_playthroughs.py --route all
+```
+
+![All four native stage-one results](docs/images/native-stage-one-clear.png)
 
 ## Asset catalog
 
@@ -52,7 +107,15 @@ Coverage and unmapped draws are recorded explicitly in the downloadable manifest
 - Reference input replays, RAM/VRAM capture, source-page matching, command-list
   parsing, screenshot comparisons and an original-instruction test harness.
 - Expanded-program import and explicitly unreviewed Ghidra analysis exports.
-- A local macOS reference app with keyboard controls and original game audio.
+- An ahead-of-time native game build and Swift/AppKit frontend using the shared
+  ESP Ra.De controls, including both characters and shot types.
+- Native command-list rendering: 1,045 original-device cases and all 64 blend
+  pairs match exactly across 33,554,432 pixels.
+- Native arithmetic: 2,592 original-instruction cases pass; compiled input
+  routines also match all 2,781 original-state comparisons.
+- Native YMZ770C sequencing and AMM audio, with credited BSD-licensed codec code.
+- Four 15,000-frame native route runs, stage-entry restart, title return,
+  operator/game settings and persistent EEPROM.
 
 ROM archives, program dumps, emulator binaries, Ghidra and Java are not included
 in the source repository. The catalog release contains derived artwork and its
@@ -90,7 +153,7 @@ then builds and deploys it automatically. Repository Pages settings use
 **Deploy from a branch → gh-pages → / (root)**. ROMs and native app builds stay
 outside the published catalog.
 
-## macOS reference app
+## Historical macOS reference app
 
 Supply a working macOS MAME binary with the `futari15` driver. The verified local
 runtime was **MAME 0.286 arm64 with SDL3**. Later versions may change saved-device
@@ -135,7 +198,7 @@ error dialog. To inspect resolved paths without starting the game, run:
 
 Choose **Original**, then Reco or Palm, then Normal or Abnormal. The current
 app runs original game instructions through MAME, including the later stages.
-The first native milestone is still scoped to menus and stage one.
+The verified native scope is menus and stage one; later stages are not claimed validated.
 
 ![Both characters and shot types reaching stage one](docs/images/route-matrix.png)
 

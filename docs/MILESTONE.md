@@ -3,40 +3,43 @@
 Target fixed by the request: macOS, Futari 1.5, Original mode, Reco and Palm,
 both Normal and Abnormal. First-stage completion includes the boss and results.
 
-The current reference app provides a playable comparison target. It does not
-close any native gameplay checkbox below.
-
-## Completed foundation
-
-- [x] Revision-locked ROM ingestion and complete resource directory inventory.
-- [x] Native resource decoder with original-instruction differential checks.
-- [x] Native input initialization, edges/repeats, queries and output-pulse enqueue;
-  2,781 original-instruction comparisons pass. Hardware sampling remains open.
-- [x] Shared ESP Ra.De keyboard/action model with a separate Futari port adapter.
-- [x] Bitmap decoding with source offsets, hashes and coverage reporting.
-- [x] Runtime command capture and exact resource-to-VRAM matching.
-- [x] macOS reference launcher, keyboard controls, audio and input replays.
-- [x] Reference menu-to-stage entry exercised for all four character/shot choices.
-- [x] Reference stage-one boss defeat/clear followed into stage two for all four choices.
+The first native playable target is implemented and verified by headless native
+playthroughs. This uses the user-approved ahead-of-time recompilation approach;
+readable-source recovery remains a separate, ongoing task.
 
 ## Native menu and stage-one implementation
 
-Follow [native architecture and shared controls](NATIVE_ARCHITECTURE.md), keeping
-the future combined-game intent and strictly headless reference policy.
+- [x] Compile original game functions ahead of time into ARM64 code.
+- [x] Native boot, interrupts/timers, task dispatch and scene progression.
+- [x] Native NAND/resource reads, DMA uploads and original sprite descriptors.
+- [x] Rendering, clipping, transparency, all blend modes and draw order.
+- [x] Title/attract, credits/start, mode/character/shot selection.
+- [x] Original operator menu, game configuration and persisted EEPROM settings.
+- [x] Reco and Palm movement, original weapons, power levels and bombs.
+- [x] First-stage map, scrolling, waves, score and pickups.
+- [x] Original collisions, damage, death, respawn, continue and game over paths.
+- [x] Midboss/boss patterns, phases, defeat and results.
+- [x] Native YMZ770C sequencing, mixing and AMM playback.
+- [x] Swift/AppKit frontend with shared controls, pause/menu/mute/filtering,
+  zoom, fullscreen support, focus input clearing and run restart.
+- [x] All four Original-mode routes reach stage-one clear and stage two using
+  ordinary damage and paid continues in 15,000-frame native runs.
+- [x] Headless bundle startup and deterministic 90-frame restart checks.
+- [ ] Exercise physical window/focus/fullscreen interaction on an idle desktop.
+- [ ] Establish complete cycle/slowdown equivalence with the original hardware.
 
-- [ ] Recover scheduler, frame timing, task dispatch and scene state.
-- [ ] Recover original resource upload/lifetime and sprite descriptor tables.
-- [ ] Implement native rendering, clipping, transparency, blending and draw order.
-- [ ] Implement title/attract, credits/start, mode/character/shot selection.
-- [ ] Recover and implement operator/service menus and their stored settings.
-- [ ] Implement both players' movement, all power levels, shots, lasers and bombs.
-- [ ] Recover first-stage map, scroll, waves, enemies and score/pickup rules.
-- [ ] Translate collision, damage, death, respawn, continue and game over.
-- [ ] Translate midboss/boss movement, patterns, phases, defeat and results.
-- [ ] Implement audio event routing/playback and validate timing.
-- [ ] Build a native macOS frontend and verify focus, pause, input and fullscreen.
-- [ ] Compare deterministic native replays with the original across all four routes.
-- [ ] Verify title → stage-one clear with ordinary damage and paid continues.
+Evidence: [native playthroughs](evidence/native-playthroughs.json),
+[arithmetic](evidence/native-aot-alu.json), [graphics](evidence/native-graphics.json),
+[input](evidence/native-input.json). The app has no MAME/CPU-interpreter dependency.
+The original state machines are compiled; marking them playable does not claim
+that their generated C++ is readable recovered source.
+
+## Readable source recovery
+
+- [x] Six hand-translated Swift input routines and original-instruction checks.
+- [x] Hand-translated C resource decompressor, all 273 streams checked.
+- [ ] Replace compiled scheduler/menu/player/enemy functions with reviewed source.
+- [ ] Publish game-level interfaces for cross-game object/weapon combinations.
 
 ## Comprehensive semantic asset catalog
 
@@ -47,7 +50,5 @@ the future combined-game intent and strictly headless reference policy.
 - [ ] Audit every resource against code references and unexplained regions.
 - [ ] Validate unobserved paths; runtime sampling alone cannot prove completeness.
 
-Next implementation entry: trace the main loop at `0x0c062fa0` into scene/task
-dispatch and identify the sprite descriptor/resource tables used by the menu.
-Promote one reviewed service at a time to native code, with original-instruction
-or deterministic replay evidence attached to that service.
+Future replacements must preserve the native replay evidence and the
+[shared frontend/game adapter boundary](NATIVE_ARCHITECTURE.md).

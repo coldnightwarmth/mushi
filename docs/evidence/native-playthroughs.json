@@ -1,0 +1,96 @@
+{
+  "runtime": "AOT ARM64 C++ game code, native graphics/input/resource/audio services",
+  "mame_runtime": false,
+  "cpu_interpreter": false,
+  "jit": false,
+  "routes": [
+    {
+      "character": "Reco",
+      "shot": "Normal",
+      "mode": "Original",
+      "frames": 15000,
+      "completed": true,
+      "normal_damage": true,
+      "paid_continues": true,
+      "results_frame": 10800,
+      "stage_two_frame": 11400,
+      "final_stage_index": 1,
+      "elapsed_seconds": 159.034,
+      "input_sha256": "bed3cf2ce766f0f3d8763fe6b5f0a0d547ad461a944b46f44b928aacc465cd53",
+      "results_rgba_sha256": "12d60929eeb4a8f1f2a8e7d2b6de8025a6cc1c97ff550e0729c309ef09b06c27"
+    },
+    {
+      "character": "Reco",
+      "shot": "Abnormal",
+      "mode": "Original",
+      "frames": 15000,
+      "completed": true,
+      "normal_damage": true,
+      "paid_continues": true,
+      "results_frame": 11400,
+      "stage_two_frame": 12000,
+      "final_stage_index": 1,
+      "elapsed_seconds": 153.018,
+      "input_sha256": "9538b9f320118d33badf9c6de2e5106ea932e5725f3a9349411499d7592d4e21",
+      "results_rgba_sha256": "7007744e9661d6c498c5a68ae743c0224e5083ad0f37ee687c961a3eb1aa61be"
+    },
+    {
+      "character": "Palm",
+      "shot": "Normal",
+      "mode": "Original",
+      "frames": 15000,
+      "completed": true,
+      "normal_damage": true,
+      "paid_continues": true,
+      "results_frame": 10800,
+      "stage_two_frame": 11100,
+      "final_stage_index": 1,
+      "elapsed_seconds": 113.674,
+      "input_sha256": "1eebaeb9f6ae153fc1387fde6301bbda9f6665edd396f7a4c3460502eb4e3932",
+      "results_rgba_sha256": "c97cbe1b5bf07ab8b4e599339120f2d4979a98aff52c6670f94a58295e9b6416"
+    },
+    {
+      "character": "Palm",
+      "shot": "Abnormal",
+      "mode": "Original",
+      "frames": 15000,
+      "completed": true,
+      "normal_damage": true,
+      "paid_continues": true,
+      "results_frame": 10800,
+      "stage_two_frame": 11100,
+      "final_stage_index": 1,
+      "elapsed_seconds": 107.234,
+      "input_sha256": "de72a148e3cc5d19d0e454af74c2890de14a1e6f58756b8d1a46bec33ff7569e",
+      "results_rgba_sha256": "5588c99d375baa36cbe9370acc33cd477f97e79558fc21d9b128fa8eed91914b"
+    }
+  ],
+  "host": {
+    "restart_comparison_frames": 90,
+    "pixels_exact": true,
+    "audio_exact": true,
+    "title_transition": true,
+    "operator_menu": true,
+    "game_configuration": true,
+    "settings_file_bytes": 512,
+    "operator_save_and_exit": true,
+    "changed_settings_reloaded": true,
+    "eeprom_word_round_trips": 256,
+    "difficulty_display_after_relaunch_exact": true,
+    "validation_log": "Native host: menus to stage, 90-frame restart pixels/audio exact, title, operator configuration/exit, changed settings persisted across recreation"
+  },
+  "limits": [
+    "AOT gameplay is not a completed readable-source decompilation.",
+    "Full-game cycle accuracy and slowdown equivalence are not established.",
+    "Physical-window/fullscreen behavior has not been exercised on the active desktop."
+  ],
+  "game_over": {
+    "frames": 6200,
+    "continue_countdown_seen": true,
+    "game_over_frame": 5400,
+    "attract_return_frame": 5706,
+    "input_sha256": "f1092daafdadc60f9784493216039384ca343ce94aacdfd9dd89c472dd739fa5",
+    "final_root_state": 3
+  },
+  "verification_revision": "Final board includes serial clock edge and EEPROM persistence fix."
+}

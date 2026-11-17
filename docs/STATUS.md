@@ -1,17 +1,43 @@
 # Status — 2026-11-16
 
-**Native menus/stage-one milestone: unfinished.** Current playable behavior runs
-the original game under a clearly identified MAME reference. No native gameplay,
-enemy AI, collision, menu state machine or audio engine is claimed complete.
+**Native menus and stage one are playable on Apple Silicon macOS.** The locally
+built `Mushihimesama Futari.app` uses ahead-of-time compiled game functions,
+native peripheral services and Swift/AppKit. It does not launch or link MAME,
+interpret SH instructions, or compile code at runtime.
 
-The first six Swift input services now match original SH-3 execution in 2,781
-cases, including 81 captured game states. The ESP Ra.De keyboard layout is
-implemented as a shared action model, with a separate Futari cabinet adapter.
-These components are not yet a playable native build. See
-[native architecture](NATIVE_ARCHITECTURE.md) and
-[input evidence](evidence/native-input.json). Reference verification now forces
-SDL dummy drivers and disables desktop input; no interactive reference windows
-are part of the development workflow.
+All four Original-mode routes completed 15,000 native frames using the existing
+input replays, ordinary damage and paid continues. Each defeated the stage-one
+boss, displayed results and entered stage two. Native progression evidence is
+in [native-playthroughs.json](evidence/native-playthroughs.json).
+
+| Native check | Result |
+| --- | --- |
+| Reco / Normal | Results at frame 10800; stage two at 11400 |
+| Reco / Abnormal | Results at frame 11400; stage two at 12000 |
+| Palm / Normal | Results at frame 10800; stage two at 11100 |
+| Palm / Abnormal | Results at frame 10800; stage two at 11100 |
+| Compiled arithmetic | 2,592 exact original-instruction comparisons |
+| Compiled input / Swift input | 2,781 exact original-state comparisons each |
+| Graphics | 1,045 draw cases, all 64 blend pairs, full VRAM byte exact |
+| Restart | 90 frames of restored pixels and audio repeat exactly |
+| Game over | Continue timeout, Game Over and return to attract exercised |
+| Operator menu | Game configuration, Save & Exit, saved difficulty after relaunch |
+| EEPROM | 256 words round-trip; repeated high-clock writes ignored |
+| Bundle | Signed ARM64; macOS Launch Services ran 120 frames without a window/audio device |
+
+![Native stage-one results](images/native-stage-one-clear.png)
+
+Controls follow ESP Ra.De: arrows/WASD, J, K/X, L, Return and backslash; Space,
+Tab, M, Escape, R, P and Z are frontend controls. The [architecture](NATIVE_ARCHITECTURE.md)
+keeps the game adapter separate from the shared physical controls/presentation.
+
+This milestone establishes playable native execution, not a finished readable
+source recovery. Full-game cycle accuracy/slowdown equivalence and later stages
+are unverified. The physical window/fullscreen interactions have not been
+exercised on the user's active desktop. All reference comparisons force SDL's
+dummy video/audio drivers and disable desktop input providers.
+The installed bundle's identity and diagnostic result are recorded in
+[native-bundle.json](evidence/native-bundle.json).
 
 ## Verified resource recovery
 
@@ -89,5 +115,6 @@ not established by these numerical checks.
 - Automatic decompiler output remains unreviewed. It is never counted as native
   implementation coverage.
 
-Next: recover menu scene/task dispatch and the descriptor tables behind the
-observed draw regions, then implement and differentially validate those services.
+Next readable-source work: replace generated game functions with reviewed
+services while preserving native replay behavior; recover semantic sprite
+assemblies, object identities, animation order and timing.
