@@ -741,5 +741,328 @@
     1196
   ],
   "blank_regions": 98,
-  "scope": "Finite reference captures only. Draws crossing resource pages and draws from dynamic VRAM are counted as unmapped. No inferred frame timing or multipart assembly."
+  "scope": "Finite reference captures only. Draws crossing resource pages and draws from dynamic VRAM are counted as unmapped. No inferred frame timing or multipart assembly.",
+  "native_runs": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "route": "reco-normal",
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "native": true,
+      "ordinary_damage": true,
+      "paid_continues": true,
+      "ram_cheats": false,
+      "all_clear": true,
+      "ending_frame": 82511,
+      "attract_frame": 90239,
+      "stages": [
+        {
+          "stage": 1,
+          "entry_frame": 3275,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "e5343f9b306b3efc39b2f73fee1a6a214bba9ec0c412c7b14289d78f18eaa218"
+        },
+        {
+          "stage": 2,
+          "entry_frame": 11219,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "09ab62e1ca300f7bfc196276b98ef5bb414d0012d8209c36b8a527ae16c51b06"
+        },
+        {
+          "stage": 3,
+          "entry_frame": 23740,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "413ca2e27bc4ed2f87c7188cec00ba99c3e51938b826e6bffaac4c8437f37b8f"
+        },
+        {
+          "stage": 4,
+          "entry_frame": 38758,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "245130a82554feaad9540128db60c413937044b6283d5a4dc3ba506510a7eb80"
+        },
+        {
+          "stage": 5,
+          "entry_frame": 56440,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "d16e47bb37fba82622bd370be06cbce24d65367b7e8508cee6f04667edca5c53"
+        }
+      ],
+      "input_sha256": "a65dff55a623daf682ec78a8ee277ed5ccd5f28a3b8aadda2477a104ae31ac27",
+      "matched_resources": 1047,
+      "contexts": [
+        {
+          "stage": -1,
+          "mapped_draws": 7824953,
+          "unmapped_draws": 586
+        },
+        {
+          "stage": 0,
+          "mapped_draws": 6280902,
+          "unmapped_draws": 301
+        },
+        {
+          "stage": 1,
+          "mapped_draws": 13326700,
+          "unmapped_draws": 2366
+        },
+        {
+          "stage": 2,
+          "mapped_draws": 15544665,
+          "unmapped_draws": 0
+        },
+        {
+          "stage": 3,
+          "mapped_draws": 18490098,
+          "unmapped_draws": 196
+        },
+        {
+          "stage": 4,
+          "mapped_draws": 26490033,
+          "unmapped_draws": 5
+        }
+      ]
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "route": "reco-abnormal",
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "native": true,
+      "ordinary_damage": true,
+      "paid_continues": true,
+      "ram_cheats": false,
+      "all_clear": true,
+      "ending_frame": 84410,
+      "attract_frame": 92129,
+      "stages": [
+        {
+          "stage": 1,
+          "entry_frame": 3275,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "af4a79e8bf58dea6da2fa5a32244d74706f1cb95e6f49c4e5085c7371fc6b6cd"
+        },
+        {
+          "stage": 2,
+          "entry_frame": 11752,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "8856b0de961e9927aea10fa9118cb2670e7165b8b58973bcbdda58d88f416479"
+        },
+        {
+          "stage": 3,
+          "entry_frame": 23961,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "086866932738a7955218695de1ce77dc42bf663355d972add8ee41477e041cdc"
+        },
+        {
+          "stage": 4,
+          "entry_frame": 39069,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "a6956ffd4e7c3f82fa943b2eae836a25421ed7db5ba98d7bb33829491022a95e"
+        },
+        {
+          "stage": 5,
+          "entry_frame": 57634,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "6ba52c0b031cf4984b440bd1e3ad17507f0ae1064f31ad770cca1728fa41f79c"
+        }
+      ],
+      "input_sha256": "91818c7e849fc9b1b602d3db91ff6b74ee7de6eeef1193ed614b7a05bfde1fb7",
+      "matched_resources": 1057,
+      "contexts": [
+        {
+          "stage": -1,
+          "mapped_draws": 7813462,
+          "unmapped_draws": 586
+        },
+        {
+          "stage": 0,
+          "mapped_draws": 6129691,
+          "unmapped_draws": 297
+        },
+        {
+          "stage": 1,
+          "mapped_draws": 14023202,
+          "unmapped_draws": 2419
+        },
+        {
+          "stage": 2,
+          "mapped_draws": 16751282,
+          "unmapped_draws": 0
+        },
+        {
+          "stage": 3,
+          "mapped_draws": 20548107,
+          "unmapped_draws": 196
+        },
+        {
+          "stage": 4,
+          "mapped_draws": 28804047,
+          "unmapped_draws": 5
+        }
+      ]
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "route": "palm-normal",
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "native": true,
+      "ordinary_damage": true,
+      "paid_continues": true,
+      "ram_cheats": false,
+      "all_clear": true,
+      "ending_frame": 80729,
+      "attract_frame": 87977,
+      "stages": [
+        {
+          "stage": 1,
+          "entry_frame": 3275,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "3c44b9a4cb4b5077ff2964708278e4b7636ee18b988cd40a7c365dfc37eace6d"
+        },
+        {
+          "stage": 2,
+          "entry_frame": 10982,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "41d2faa38453f4b9bba7c6f57903dd814cde9e07d56b19822aad25d123ee5f98"
+        },
+        {
+          "stage": 3,
+          "entry_frame": 22694,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "8fbb039ad02556facf922df38b1c0405c1eff428aa5be3ba9693bf244a5a7290"
+        },
+        {
+          "stage": 4,
+          "entry_frame": 36654,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "ce08d3c1db95906c2d92b6c5d14d8449e7cda45f28ae0aceba5fea199e36f714"
+        },
+        {
+          "stage": 5,
+          "entry_frame": 54981,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "7e6b4b4c9f31ef43c9939836937fbc13a4d3d282fc5a69a308f15543ddd643b8"
+        }
+      ],
+      "input_sha256": "1a483cc5505484fdfc5838c61fc1a180d196015b75f4177aef3c08e45624c1d5",
+      "matched_resources": 1033,
+      "contexts": [
+        {
+          "stage": -1,
+          "mapped_draws": 8576645,
+          "unmapped_draws": 588
+        },
+        {
+          "stage": 0,
+          "mapped_draws": 6654189,
+          "unmapped_draws": 297
+        },
+        {
+          "stage": 1,
+          "mapped_draws": 11969820,
+          "unmapped_draws": 2526
+        },
+        {
+          "stage": 2,
+          "mapped_draws": 14160598,
+          "unmapped_draws": 0
+        },
+        {
+          "stage": 3,
+          "mapped_draws": 18174008,
+          "unmapped_draws": 1
+        },
+        {
+          "stage": 4,
+          "mapped_draws": 24861701,
+          "unmapped_draws": 5
+        }
+      ]
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "route": "palm-abnormal",
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "native": true,
+      "ordinary_damage": true,
+      "paid_continues": true,
+      "ram_cheats": false,
+      "all_clear": true,
+      "ending_frame": 82465,
+      "attract_frame": 89699,
+      "stages": [
+        {
+          "stage": 1,
+          "entry_frame": 3275,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "36ef3b49ba5979f78183826b237590cb1ddc8dd776745c17478b55e218f52e2e"
+        },
+        {
+          "stage": 2,
+          "entry_frame": 11033,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "fecbaaeb8ce3597f60ee5f5d84f985ac42f45846eef61528dd95ad2964560012"
+        },
+        {
+          "stage": 3,
+          "entry_frame": 23468,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "34d14418bf5ed47cfe77fbbaa655a6e52e66fba1b4e8d5ad2bfdd0e68195701c"
+        },
+        {
+          "stage": 4,
+          "entry_frame": 37411,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "3bf40920dec3062454343e6aad0ef4adbb065317287845a9bc3c272c1b3e55c3"
+        },
+        {
+          "stage": 5,
+          "entry_frame": 55873,
+          "restart_frames": 90,
+          "restart_pixels_audio_sha256": "b0fefe2c170c5a1a0e0e3fcc5b0f177f547e7b46768ded21482d5dd6a5319a49"
+        }
+      ],
+      "input_sha256": "fb242621cbf2dfd8c917395122079a69cb68129bade9b269d65dc43ec9aa9246",
+      "matched_resources": 1042,
+      "contexts": [
+        {
+          "stage": -1,
+          "mapped_draws": 8621084,
+          "unmapped_draws": 588
+        },
+        {
+          "stage": 0,
+          "mapped_draws": 6617438,
+          "unmapped_draws": 297
+        },
+        {
+          "stage": 1,
+          "mapped_draws": 13159169,
+          "unmapped_draws": 2392
+        },
+        {
+          "stage": 2,
+          "mapped_draws": 14280788,
+          "unmapped_draws": 0
+        },
+        {
+          "stage": 3,
+          "mapped_draws": 18733920,
+          "unmapped_draws": 70
+        },
+        {
+          "stage": 4,
+          "mapped_draws": 26042462,
+          "unmapped_draws": 5
+        }
+      ]
+    }
+  ],
+  "native_scope": "Every draw in four native Original-mode campaigns, including all five stages and epilogues. Source pages match ROM pixels exactly. Dynamic/cross-page sources remain unmapped; no inferred multipart assembly or animation timing."
 }

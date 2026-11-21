@@ -1,0 +1,78 @@
+{
+  "id": "draw-23297",
+  "index": 23297,
+  "resource_index": 494,
+  "resource_id": "u2-0494",
+  "width": 8,
+  "height": 32,
+  "source_rect": [
+    24,
+    96,
+    8,
+    32
+  ],
+  "attributes": [
+    4352
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 61204,
+      "last_frame": 71113,
+      "draw_count": 87,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5f1988"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 62464,
+      "last_frame": 72433,
+      "draw_count": 74,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5f1cf0"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 59743,
+      "last_frame": 69844,
+      "draw_count": 44,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac551568"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 60795,
+      "last_frame": 71076,
+      "draw_count": 60,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac552bac"
+    }
+  ],
+  "source": "observed/draw-23297.png",
+  "thumbnail": "observed/thumbs/draw-23297.png",
+  "metadata": "observed/metadata/draw-23297.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 0,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    5
+  ]
+}

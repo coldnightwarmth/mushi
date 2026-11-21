@@ -31,6 +31,18 @@
       "character": "palm",
       "shot": "abnormal",
       "command_address": "0x0c5ef8c4"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 3305,
+      "last_frame": 6269,
+      "draw_count": 5064,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac55f104"
     }
   ],
   "source": "observed/draw-02075.png",
@@ -40,5 +52,8 @@
   "classification": "unclassified",
   "duplicate_of": null,
   "compression": 33554432,
-  "note": "Original blitter source rectangle matched byte-for-byte to u2-0189. This is a draw region, not a verified animation sequence."
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0189. This is a draw region, not a verified animation sequence.",
+  "native_stages": [
+    1
+  ]
 }

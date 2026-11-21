@@ -1,0 +1,95 @@
+{
+  "id": "draw-58555",
+  "index": 58555,
+  "resource_index": 170,
+  "resource_id": "u2-0170",
+  "width": 24,
+  "height": 16,
+  "source_rect": [
+    32,
+    48,
+    24,
+    16
+  ],
+  "attributes": [
+    4352,
+    5376
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 10009,
+      "last_frame": 10529,
+      "draw_count": 638,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac5503cc"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 11763,
+      "last_frame": 22807,
+      "draw_count": 38860,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac54eec8"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 23972,
+      "last_frame": 37911,
+      "draw_count": 42978,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac5f1eb8"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 39084,
+      "last_frame": 56311,
+      "draw_count": 47226,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac5ff614"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 57645,
+      "last_frame": 83075,
+      "draw_count": 66762,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5512c8"
+    }
+  ],
+  "source": "observed/draw-58555.png",
+  "thumbnail": "observed/thumbs/draw-58555.png",
+  "metadata": "observed/metadata/draw-58555.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+}

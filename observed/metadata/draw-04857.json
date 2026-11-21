@@ -1,0 +1,167 @@
+{
+  "id": "draw-04857",
+  "index": 4857,
+  "resource_index": 11,
+  "resource_id": "u2-0011",
+  "width": 16,
+  "height": 16,
+  "source_rect": [
+    240,
+    64,
+    16,
+    16
+  ],
+  "attributes": [
+    4352,
+    4864,
+    7424,
+    7936
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 25503,
+      "last_frame": 25552,
+      "draw_count": 48,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac554d10"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 40143,
+      "last_frame": 48340,
+      "draw_count": 34,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac553cc0"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 79509,
+      "last_frame": 80060,
+      "draw_count": 195,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac55267c"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 40414,
+      "last_frame": 41175,
+      "draw_count": 16,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac5f5b58"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 81193,
+      "last_frame": 81266,
+      "draw_count": 84,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac55339c"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 78777,
+      "last_frame": 78916,
+      "draw_count": 72,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac552424"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 31861,
+      "last_frame": 31862,
+      "draw_count": 12,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac552bcc"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 38197,
+      "last_frame": 38254,
+      "draw_count": 16,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac554b30"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 25083,
+      "last_frame": 25100,
+      "draw_count": 24,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac554838"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 80233,
+      "last_frame": 80842,
+      "draw_count": 393,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5524b0"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 43033,
+      "last_frame": 43098,
+      "draw_count": 48,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac552b40"
+    }
+  ],
+  "source": "observed/draw-04857.png",
+  "thumbnail": "observed/thumbs/draw-04857.png",
+  "metadata": "observed/metadata/draw-04857.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    3,
+    4,
+    5
+  ]
+}

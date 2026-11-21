@@ -46,6 +46,30 @@
       "character": "reco",
       "shot": "abnormal",
       "command_address": "0x0c5500c0"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 2971,
+      "last_frame": 3165,
+      "draw_count": 195,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 0,
+      "command_address": "0xac5f385c"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 2971,
+      "last_frame": 3165,
+      "draw_count": 195,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 0,
+      "command_address": "0xac5f385c"
     }
   ],
   "source": "observed/draw-00381.png",
@@ -55,5 +79,6 @@
   "classification": "unclassified",
   "duplicate_of": null,
   "compression": 33554432,
-  "note": "Original blitter source rectangle matched byte-for-byte to u2-0029. This is a draw region, not a verified animation sequence."
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0029. This is a draw region, not a verified animation sequence.",
+  "native_stages": []
 }

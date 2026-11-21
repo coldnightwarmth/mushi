@@ -1,0 +1,83 @@
+{
+  "id": "draw-34754",
+  "index": 34754,
+  "resource_index": 670,
+  "resource_id": "u2-0670",
+  "width": 8,
+  "height": 32,
+  "source_rect": [
+    64,
+    0,
+    8,
+    32
+  ],
+  "attributes": [
+    4352,
+    4864,
+    5376,
+    6400,
+    6912,
+    7424
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 20907,
+      "last_frame": 21088,
+      "draw_count": 357,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac54f3b4"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 21047,
+      "last_frame": 21234,
+      "draw_count": 404,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac54f0f8"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 20168,
+      "last_frame": 20350,
+      "draw_count": 291,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5ef310"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 20358,
+      "last_frame": 20543,
+      "draw_count": 277,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5ef284"
+    }
+  ],
+  "source": "observed/draw-34754.png",
+  "thumbnail": "observed/thumbs/draw-34754.png",
+  "metadata": "observed/metadata/draw-34754.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 0,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    2
+  ]
+}

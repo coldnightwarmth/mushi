@@ -1,0 +1,81 @@
+{
+  "id": "draw-28678",
+  "index": 28678,
+  "resource_index": 578,
+  "resource_id": "u2-0578",
+  "width": 24,
+  "height": 40,
+  "source_rect": [
+    32,
+    0,
+    24,
+    40
+  ],
+  "attributes": [
+    4352,
+    5376,
+    6400,
+    7424
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 63905,
+      "last_frame": 64735,
+      "draw_count": 39,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac54f7c4"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 65338,
+      "last_frame": 66236,
+      "draw_count": 208,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5ef6e4"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 62575,
+      "last_frame": 63205,
+      "draw_count": 28,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac54f684"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 63611,
+      "last_frame": 64388,
+      "draw_count": 34,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac54f544"
+    }
+  ],
+  "source": "observed/draw-28678.png",
+  "thumbnail": "observed/thumbs/draw-28678.png",
+  "metadata": "observed/metadata/draw-28678.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 0,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    5
+  ]
+}

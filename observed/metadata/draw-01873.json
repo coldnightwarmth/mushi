@@ -12,6 +12,7 @@
     32
   ],
   "attributes": [
+    4864,
     5888
   ],
   "observations": [
@@ -22,6 +23,66 @@
       "character": "reco",
       "shot": "normal",
       "command_address": "0x0c5f19a8"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 7551,
+      "last_frame": 9912,
+      "draw_count": 488,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac551b14"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 11226,
+      "last_frame": 22554,
+      "draw_count": 1968,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5f1d50"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 23749,
+      "last_frame": 37580,
+      "draw_count": 2480,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac551060"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 38763,
+      "last_frame": 55222,
+      "draw_count": 3059,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac54fbac"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 56447,
+      "last_frame": 81132,
+      "draw_count": 4894,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac54f9b8"
     }
   ],
   "source": "observed/draw-01873.png",
@@ -31,5 +92,12 @@
   "classification": "unclassified",
   "duplicate_of": null,
   "compression": 33554432,
-  "note": "Original blitter source rectangle matched byte-for-byte to u2-0162. This is a draw region, not a verified animation sequence."
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0162. This is a draw region, not a verified animation sequence.",
+  "native_stages": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
 }

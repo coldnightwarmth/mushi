@@ -1,0 +1,83 @@
+{
+  "id": "draw-28770",
+  "index": 28770,
+  "resource_index": 583,
+  "resource_id": "u2-0583",
+  "width": 72,
+  "height": 88,
+  "source_rect": [
+    96,
+    0,
+    72,
+    88
+  ],
+  "attributes": [
+    4352,
+    4864,
+    5376,
+    5888,
+    6400,
+    7424
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 63832,
+      "last_frame": 63865,
+      "draw_count": 22,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5ef48c"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 65182,
+      "last_frame": 65527,
+      "draw_count": 149,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5ef874"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 62439,
+      "last_frame": 62543,
+      "draw_count": 17,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac54fcd8"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 63417,
+      "last_frame": 63477,
+      "draw_count": 25,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac54f378"
+    }
+  ],
+  "source": "observed/draw-28770.png",
+  "thumbnail": "observed/thumbs/draw-28770.png",
+  "metadata": "observed/metadata/draw-28770.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 0,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    5
+  ]
+}

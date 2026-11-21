@@ -1,0 +1,81 @@
+{
+  "id": "draw-42216",
+  "index": 42216,
+  "resource_index": 844,
+  "resource_id": "u2-0844",
+  "width": 16,
+  "height": 16,
+  "source_rect": [
+    208,
+    240,
+    16,
+    16
+  ],
+  "attributes": [
+    4352,
+    4864,
+    5376,
+    5888
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 52228,
+      "last_frame": 55246,
+      "draw_count": 1066,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac5eeeec"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 52797,
+      "last_frame": 56321,
+      "draw_count": 1149,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac54edec"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 50646,
+      "last_frame": 53781,
+      "draw_count": 1116,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac5eeeec"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 51111,
+      "last_frame": 54688,
+      "draw_count": 1396,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac54edc4"
+    }
+  ],
+  "source": "observed/draw-42216.png",
+  "thumbnail": "observed/thumbs/draw-42216.png",
+  "metadata": "observed/metadata/draw-42216.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 0,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    4
+  ]
+}

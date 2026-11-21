@@ -1,0 +1,81 @@
+{
+  "id": "draw-23889",
+  "index": 23889,
+  "resource_index": 511,
+  "resource_id": "u2-0511",
+  "width": 16,
+  "height": 64,
+  "source_rect": [
+    176,
+    128,
+    16,
+    64
+  ],
+  "attributes": [
+    4352,
+    4864,
+    5376,
+    5888
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 65518,
+      "last_frame": 67509,
+      "draw_count": 915,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5f0454"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 66846,
+      "last_frame": 68968,
+      "draw_count": 1240,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5f0490"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 64207,
+      "last_frame": 66303,
+      "draw_count": 1220,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5506b0"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 65261,
+      "last_frame": 67383,
+      "draw_count": 1240,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac550980"
+    }
+  ],
+  "source": "observed/draw-23889.png",
+  "thumbnail": "observed/thumbs/draw-23889.png",
+  "metadata": "observed/metadata/draw-23889.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 0,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    5
+  ]
+}

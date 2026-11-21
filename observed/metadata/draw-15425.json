@@ -1,0 +1,164 @@
+{
+  "id": "draw-15425",
+  "index": 15425,
+  "resource_index": 272,
+  "resource_id": "u2-0272",
+  "width": 24,
+  "height": 32,
+  "source_rect": [
+    96,
+    224,
+    24,
+    32
+  ],
+  "attributes": [
+    4865
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 6785,
+      "last_frame": 7183,
+      "draw_count": 715,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac54edc4"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 25892,
+      "last_frame": 25908,
+      "draw_count": 17,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac5f1288"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 40889,
+      "last_frame": 49905,
+      "draw_count": 778,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac550fbc"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 6793,
+      "last_frame": 7051,
+      "draw_count": 217,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac54edc4"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 26093,
+      "last_frame": 26209,
+      "draw_count": 34,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac54f120"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 47504,
+      "last_frame": 50235,
+      "draw_count": 734,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac5ef1d0"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 6831,
+      "last_frame": 7103,
+      "draw_count": 305,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac54ed9c"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 24812,
+      "last_frame": 24928,
+      "draw_count": 34,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac5f1288"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 45451,
+      "last_frame": 46748,
+      "draw_count": 676,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac54f058"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 6859,
+      "last_frame": 7035,
+      "draw_count": 220,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac54ed9c"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 38305,
+      "last_frame": 47229,
+      "draw_count": 459,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac551494"
+    }
+  ],
+  "source": "observed/draw-15425.png",
+  "thumbnail": "observed/thumbs/draw-15425.png",
+  "metadata": "observed/metadata/draw-15425.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 0,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    1,
+    3,
+    4
+  ]
+}

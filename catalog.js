@@ -14,13 +14,14 @@ $('stats').innerHTML = [
 if (!catalog.observed?.length) $('collection').value = 'resources';
 
 function filter() {
-  const query = $('search').value.trim().toLowerCase(), mode = $('filter').value;
+  const query = $('search').value.trim().toLowerCase(), mode = $('filter').value, stage = $('stage-filter').value;
   const records = catalog[$('collection').value] || [];
   visible = records.filter(r => {
-    const contexts = (r.observations || []).map(o => `${o.character} ${o.shot}`).join(' ');
+    const contexts = r.search_context || (r.observations || []).map(o => `${o.character} ${o.shot}`).join(' ');
+    const stages = r.native_stages || [];
     const text = [r.id, r.index, r.resource_id || '', r.spans ? hex(r.spans[0].offset) : '',
-      `${r.width}x${r.height}`, contexts].join(' ').toLowerCase();
-    return text.includes(query) && (mode === 'all' ||
+      `${r.width}x${r.height}`, contexts, stages.map(s => `stage ${s}`).join(' ')].join(' ').toLowerCase();
+    return text.includes(query) && (stage === 'all' || stages.includes(Number(stage))) && (mode === 'all' ||
       mode === 'unique' && r.duplicate_of === null || mode === 'duplicates' && r.duplicate_of !== null ||
       mode === 'compressed' && r.compression !== 0 || mode === 'raw' && r.compression === 0);
   });
@@ -56,7 +57,8 @@ function detail(r) {
   $('metadata').href = r.metadata || `metadata/${r.id}.json`;
   const properties = r.observations ? [
     ['Source sheet', r.resource_id], ['Source rectangle', r.source_rect.join(', ')],
-    ['Original size', `${r.width} × ${r.height}`], ['Captured draws', number(r.observations.length)],
+    ['Original size', `${r.width} × ${r.height}`], ['Evidence records', number(r.observation_count || r.observations.length)],
+    ['Native stage usage', (r.native_stages || []).join(', ') || 'Menus / not observed in stage play'],
     ['First evidence', `${r.observations[0].capture} / frame ${r.observations[0].frame}`],
     ['Command address', r.observations[0].command_address],
     ['Attributes', r.attributes.map(hex).join(', ')], ['Status', 'Exact draw region; animation unverified']
@@ -64,7 +66,9 @@ function detail(r) {
     ['Source ROM', 'futari15_u2'], ['Directory record', hex(r.table_offset)],
     ['Physical offset', hex(r.spans[0].offset)], ['Dimensions', `${r.width} × ${r.height}`],
     ['Storage', r.compression ? 'Flag-stream LZ' : 'Raw'], ['Decoded bytes', number(r.decoded_bytes)],
-    ['Opaque pixels', number(r.opaque_pixels)], ['VRAM match', r.runtime_validated ? 'Byte-exact original page' : 'Not yet captured'],
+    ['Opaque pixels', number(r.opaque_pixels)], ['Reference VRAM match', r.runtime_validated ? 'Byte-exact page' : 'Not captured in reference'],
+    ['Native VRAM match', r.native_validated ? 'Byte-exact page' : 'Not captured in native runs'],
+    ['Native stage usage', (r.native_stages || []).join(', ') || 'Menus / not observed in stage play'],
     ['Status', 'Decoded sheet / unclassified']
   ];
   $('properties').replaceChildren();
@@ -78,6 +82,7 @@ function detail(r) {
 
 $('search').addEventListener('input', filter);
 $('filter').addEventListener('change', filter);
+$('stage-filter').addEventListener('change', filter);
 $('collection').addEventListener('change', filter);
 $('rotation').addEventListener('change', render);
 $('prev').onclick = () => { page--; render(); };

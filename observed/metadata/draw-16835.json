@@ -1,0 +1,85 @@
+{
+  "id": "draw-16835",
+  "index": 16835,
+  "resource_index": 328,
+  "resource_id": "u2-0328",
+  "width": 32,
+  "height": 64,
+  "source_rect": [
+    224,
+    128,
+    32,
+    64
+  ],
+  "attributes": [
+    4352,
+    4864,
+    5376,
+    5888,
+    6400,
+    6912,
+    7424,
+    7936
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 5534,
+      "last_frame": 7244,
+      "draw_count": 348,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac5f0378"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 5585,
+      "last_frame": 7050,
+      "draw_count": 100,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac54fe7c"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 5648,
+      "last_frame": 7068,
+      "draw_count": 176,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac5efa2c"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 5625,
+      "last_frame": 7021,
+      "draw_count": 244,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac54ff30"
+    }
+  ],
+  "source": "observed/draw-16835.png",
+  "thumbnail": "observed/thumbs/draw-16835.png",
+  "metadata": "observed/metadata/draw-16835.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 0,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    1
+  ]
+}

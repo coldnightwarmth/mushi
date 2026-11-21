@@ -30,6 +30,18 @@
       "character": "palm",
       "shot": "normal",
       "command_address": "0x0c5efa68"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 3311,
+      "last_frame": 5555,
+      "draw_count": 690,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac54ee78"
     }
   ],
   "source": "observed/draw-02017.png",
@@ -39,5 +51,8 @@
   "classification": "unclassified",
   "duplicate_of": null,
   "compression": 33554432,
-  "note": "Original blitter source rectangle matched byte-for-byte to u2-0174. This is a draw region, not a verified animation sequence."
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0174. This is a draw region, not a verified animation sequence.",
+  "native_stages": [
+    1
+  ]
 }

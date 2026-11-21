@@ -22,6 +22,54 @@
       "character": "reco",
       "shot": "normal",
       "command_address": "0x0c5ef270"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 5959,
+      "last_frame": 6310,
+      "draw_count": 352,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac54f184"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 5956,
+      "last_frame": 6310,
+      "draw_count": 355,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac5ef284"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 6005,
+      "last_frame": 6428,
+      "draw_count": 353,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac54f15c"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 6033,
+      "last_frame": 6454,
+      "draw_count": 353,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac54f184"
     }
   ],
   "source": "observed/draw-03446.png",
@@ -31,5 +79,8 @@
   "classification": "unclassified",
   "duplicate_of": null,
   "compression": 0,
-  "note": "Original blitter source rectangle matched byte-for-byte to u2-1006. This is a draw region, not a verified animation sequence."
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-1006. This is a draw region, not a verified animation sequence.",
+  "native_stages": [
+    1
+  ]
 }

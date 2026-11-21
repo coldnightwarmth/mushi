@@ -1,0 +1,83 @@
+{
+  "id": "draw-34763",
+  "index": 34763,
+  "resource_index": 670,
+  "resource_id": "u2-0670",
+  "width": 16,
+  "height": 16,
+  "source_rect": [
+    64,
+    176,
+    16,
+    16
+  ],
+  "attributes": [
+    4352,
+    4864,
+    5376,
+    6400,
+    6912,
+    7424
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 20907,
+      "last_frame": 21087,
+      "draw_count": 343,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac54fc74"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 21050,
+      "last_frame": 21233,
+      "draw_count": 365,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5ef25c"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 20168,
+      "last_frame": 20349,
+      "draw_count": 352,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5ef860"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 20358,
+      "last_frame": 20542,
+      "draw_count": 293,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5ef310"
+    }
+  ],
+  "source": "observed/draw-34763.png",
+  "thumbnail": "observed/thumbs/draw-34763.png",
+  "metadata": "observed/metadata/draw-34763.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 0,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    2
+  ]
+}

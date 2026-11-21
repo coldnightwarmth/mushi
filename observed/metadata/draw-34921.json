@@ -1,0 +1,83 @@
+{
+  "id": "draw-34921",
+  "index": 34921,
+  "resource_index": 671,
+  "resource_id": "u2-0671",
+  "width": 24,
+  "height": 24,
+  "source_rect": [
+    232,
+    168,
+    24,
+    24
+  ],
+  "attributes": [
+    4352,
+    4864,
+    5376,
+    6400,
+    6912,
+    7424
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 20907,
+      "last_frame": 21049,
+      "draw_count": 166,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac54f328"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 21048,
+      "last_frame": 21209,
+      "draw_count": 136,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5ef39c"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 20168,
+      "last_frame": 20318,
+      "draw_count": 169,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5ef75c"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 20358,
+      "last_frame": 20517,
+      "draw_count": 160,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5ef874"
+    }
+  ],
+  "source": "observed/draw-34921.png",
+  "thumbnail": "observed/thumbs/draw-34921.png",
+  "metadata": "observed/metadata/draw-34921.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 0,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    2
+  ]
+}

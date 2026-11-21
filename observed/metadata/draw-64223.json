@@ -1,0 +1,97 @@
+{
+  "id": "draw-64223",
+  "index": 64223,
+  "resource_index": 187,
+  "resource_id": "u2-0187",
+  "width": 24,
+  "height": 32,
+  "source_rect": [
+    96,
+    224,
+    24,
+    32
+  ],
+  "attributes": [
+    4352,
+    4864,
+    5376,
+    5888
+  ],
+  "observations": [
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 6249,
+      "last_frame": 9835,
+      "draw_count": 1256,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac551808"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 11042,
+      "last_frame": 22289,
+      "draw_count": 4010,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5ef0e0"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 23475,
+      "last_frame": 36223,
+      "draw_count": 4470,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac54fd28"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 37418,
+      "last_frame": 54693,
+      "draw_count": 5978,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac5ef554"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 55884,
+      "last_frame": 81089,
+      "draw_count": 8756,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5ef090"
+    }
+  ],
+  "source": "observed/draw-64223.png",
+  "thumbnail": "observed/thumbs/draw-64223.png",
+  "metadata": "observed/metadata/draw-64223.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+}

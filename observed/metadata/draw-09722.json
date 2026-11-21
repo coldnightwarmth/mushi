@@ -1,0 +1,54 @@
+{
+  "id": "draw-09722",
+  "index": 9722,
+  "resource_index": 200,
+  "resource_id": "u2-0200",
+  "width": 16,
+  "height": 16,
+  "source_rect": [
+    240,
+    224,
+    16,
+    16
+  ],
+  "attributes": [
+    4864
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 22393,
+      "last_frame": 22517,
+      "draw_count": 72,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac55366c"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 22142,
+      "last_frame": 22266,
+      "draw_count": 72,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5f32e4"
+    }
+  ],
+  "source": "observed/draw-09722.png",
+  "thumbnail": "observed/thumbs/draw-09722.png",
+  "metadata": "observed/metadata/draw-09722.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    2
+  ]
+}

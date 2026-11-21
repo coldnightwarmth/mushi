@@ -542,6 +542,66 @@
       "character": "reco",
       "shot": "normal",
       "command_address": "0x0c552b04"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 5122,
+      "last_frame": 9917,
+      "draw_count": 34590,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac5f47b8"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 11225,
+      "last_frame": 22556,
+      "draw_count": 111483,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac55137c"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 23746,
+      "last_frame": 37598,
+      "draw_count": 133793,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac5f0314"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 38764,
+      "last_frame": 55226,
+      "draw_count": 158691,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac5ef9c8"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 56446,
+      "last_frame": 81135,
+      "draw_count": 223657,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5ef3c4"
     }
   ],
   "source": "observed/draw-02034.png",
@@ -551,5 +611,12 @@
   "classification": "unclassified",
   "duplicate_of": null,
   "compression": 33554432,
-  "note": "Original blitter source rectangle matched byte-for-byte to u2-0178. This is a draw region, not a verified animation sequence."
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0178. This is a draw region, not a verified animation sequence.",
+  "native_stages": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
 }

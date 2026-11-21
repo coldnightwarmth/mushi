@@ -30,6 +30,150 @@
       "character": "reco",
       "shot": "normal",
       "command_address": "0x0c5530cc"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 3220,
+      "last_frame": 90221,
+      "draw_count": 482,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 0,
+      "command_address": "0xac5ef1d0"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 3284,
+      "last_frame": 11212,
+      "draw_count": 408,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac5ef48c"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 11244,
+      "last_frame": 23739,
+      "draw_count": 608,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5f1534"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 23741,
+      "last_frame": 38732,
+      "draw_count": 724,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac556a8c"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 38764,
+      "last_frame": 56414,
+      "draw_count": 871,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac5f033c"
+    },
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 56446,
+      "last_frame": 82505,
+      "draw_count": 1284,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5efd24"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 3220,
+      "last_frame": 92109,
+      "draw_count": 482,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 0,
+      "command_address": "0xac5ef1d0"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 3284,
+      "last_frame": 11740,
+      "draw_count": 420,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac5ef48c"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 11772,
+      "last_frame": 23948,
+      "draw_count": 624,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5f4244"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 23980,
+      "last_frame": 39068,
+      "draw_count": 739,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac5f4eb0"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 39100,
+      "last_frame": 57603,
+      "draw_count": 894,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac602530"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 57635,
+      "last_frame": 84393,
+      "draw_count": 1297,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac54e964"
     }
   ],
   "source": "observed/draw-01849.png",
@@ -39,5 +183,12 @@
   "classification": "unclassified",
   "duplicate_of": null,
   "compression": 33554432,
-  "note": "Original blitter source rectangle matched byte-for-byte to u2-0154. This is a draw region, not a verified animation sequence."
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0154. This is a draw region, not a verified animation sequence.",
+  "native_stages": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
 }

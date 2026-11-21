@@ -1,0 +1,96 @@
+{
+  "id": "draw-58474",
+  "index": 58474,
+  "resource_index": 168,
+  "resource_id": "u2-0168",
+  "width": 40,
+  "height": 24,
+  "source_rect": [
+    32,
+    96,
+    40,
+    24
+  ],
+  "attributes": [
+    4352,
+    4864,
+    5888
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 10012,
+      "last_frame": 10522,
+      "draw_count": 3390,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac5f0a94"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 11839,
+      "last_frame": 22799,
+      "draw_count": 37851,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5521b8"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 24032,
+      "last_frame": 37900,
+      "draw_count": 54813,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac5f4528"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 39204,
+      "last_frame": 56305,
+      "draw_count": 71013,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac601d9c"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 57714,
+      "last_frame": 83067,
+      "draw_count": 108060,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac5f1728"
+    }
+  ],
+  "source": "observed/draw-58474.png",
+  "thumbnail": "observed/thumbs/draw-58474.png",
+  "metadata": "observed/metadata/draw-58474.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+}

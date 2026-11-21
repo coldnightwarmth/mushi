@@ -1,0 +1,42 @@
+{
+  "id": "draw-58893",
+  "index": 58893,
+  "resource_index": 531,
+  "resource_id": "u2-0531",
+  "width": 16,
+  "height": 8,
+  "source_rect": [
+    96,
+    88,
+    16,
+    8
+  ],
+  "attributes": [
+    4352
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 6603,
+      "last_frame": 6802,
+      "draw_count": 200,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac54f828"
+    }
+  ],
+  "source": "observed/draw-58893.png",
+  "thumbnail": "observed/thumbs/draw-58893.png",
+  "metadata": "observed/metadata/draw-58893.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 0,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    1
+  ]
+}

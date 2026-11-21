@@ -12,7 +12,10 @@
     16
   ],
   "attributes": [
-    4864
+    4864,
+    5888,
+    6912,
+    7936
   ],
   "observations": [
     {
@@ -46,6 +49,150 @@
       "character": "palm",
       "shot": "abnormal",
       "command_address": "0x0c5f1124"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 2904,
+      "last_frame": 3274,
+      "draw_count": 70,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 0,
+      "command_address": "0xac553a70"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 3281,
+      "last_frame": 10976,
+      "draw_count": 1119,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac55f780"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 10994,
+      "last_frame": 22677,
+      "draw_count": 1577,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5f1e40"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 22971,
+      "last_frame": 36653,
+      "draw_count": 2330,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac5525f0"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 36669,
+      "last_frame": 54980,
+      "draw_count": 2999,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac550778"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 54989,
+      "last_frame": 80725,
+      "draw_count": 4096,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac54f9b8"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 2904,
+      "last_frame": 3274,
+      "draw_count": 70,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 0,
+      "command_address": "0xac553a70"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 3281,
+      "last_frame": 11025,
+      "draw_count": 1209,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac55f834"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 11041,
+      "last_frame": 23462,
+      "draw_count": 1778,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac54f8b4"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 23471,
+      "last_frame": 37407,
+      "draw_count": 2508,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 3,
+      "command_address": "0xac5502a0"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 37414,
+      "last_frame": 55869,
+      "draw_count": 3681,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 4,
+      "command_address": "0xac5efb6c"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 55877,
+      "last_frame": 82462,
+      "draw_count": 4296,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 5,
+      "command_address": "0xac54f418"
     }
   ],
   "source": "observed/draw-02228.png",
@@ -55,5 +202,12 @@
   "classification": "unclassified",
   "duplicate_of": null,
   "compression": 33554432,
-  "note": "Original blitter source rectangle matched byte-for-byte to u2-0246. This is a draw region, not a verified animation sequence."
+  "note": "Original blitter source rectangle matched byte-for-byte to u2-0246. This is a draw region, not a verified animation sequence.",
+  "native_stages": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
 }

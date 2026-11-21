@@ -1,0 +1,42 @@
+{
+  "id": "draw-61007",
+  "index": 61007,
+  "resource_index": 172,
+  "resource_id": "u2-0172",
+  "width": 16,
+  "height": 8,
+  "source_rect": [
+    96,
+    128,
+    16,
+    8
+  ],
+  "attributes": [
+    4864
+  ],
+  "observations": [
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 3445,
+      "last_frame": 5572,
+      "draw_count": 229,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 1,
+      "command_address": "0xac54fcec"
+    }
+  ],
+  "source": "observed/draw-61007.png",
+  "thumbnail": "observed/thumbs/draw-61007.png",
+  "metadata": "observed/metadata/draw-61007.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 33554432,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    1
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "id": "draw-38714",
+  "index": 38714,
+  "resource_index": 715,
+  "resource_id": "u2-0715",
+  "width": 8,
+  "height": 32,
+  "source_rect": [
+    64,
+    160,
+    8,
+    32
+  ],
+  "attributes": [
+    4352,
+    4864,
+    5376,
+    5888
+  ],
+  "observations": [
+    {
+      "capture": "native-reco-normal-all-stages",
+      "frame": 22002,
+      "last_frame": 22037,
+      "draw_count": 24,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5f0918"
+    },
+    {
+      "capture": "native-reco-abnormal-all-stages",
+      "frame": 22459,
+      "last_frame": 22494,
+      "draw_count": 24,
+      "mode": "Original",
+      "character": "Reco",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac550854"
+    },
+    {
+      "capture": "native-palm-normal-all-stages",
+      "frame": 21151,
+      "last_frame": 21186,
+      "draw_count": 24,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Normal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac550818"
+    },
+    {
+      "capture": "native-palm-abnormal-all-stages",
+      "frame": 21730,
+      "last_frame": 21765,
+      "draw_count": 24,
+      "mode": "Original",
+      "character": "Palm",
+      "shot": "Abnormal",
+      "runtime": "native-aot",
+      "stage": 2,
+      "command_address": "0xac5f0864"
+    }
+  ],
+  "source": "observed/draw-38714.png",
+  "thumbnail": "observed/thumbs/draw-38714.png",
+  "metadata": "observed/metadata/draw-38714.json",
+  "status": "observed-draw-region",
+  "classification": "unclassified",
+  "duplicate_of": null,
+  "compression": 0,
+  "note": "Native game draw source matched byte-for-byte to the complete ROM sheet. A draw region may be a clipped tile, text, effect or partial sprite; animation assembly is unverified.",
+  "native_stages": [
+    2
+  ]
+}
