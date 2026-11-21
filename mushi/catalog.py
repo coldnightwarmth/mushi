@@ -4,6 +4,7 @@ from dataclasses import asdict
 from hashlib import sha256
 from pathlib import Path
 import json
+import gzip
 import shutil
 from PIL import Image, ImageDraw
 from .compression import decompress
@@ -14,6 +15,61 @@ from .graphics import decode_bitmap
 
 def write_json(path, data):
     path.write_text(json.dumps(data, indent=2) + "\n")
+
+
+def read_manifest(output):
+    manifest=json.loads((output/'catalog.json').read_text())
+    if manifest.get('full_manifest'):
+        manifest=json.loads(gzip.decompress((output/manifest['full_manifest']).read_bytes()))
+    return manifest
+
+
+def write_manifest(output, manifest):
+    encoded=(json.dumps(manifest,indent=2)+'\n').encode()
+    (output/'catalog-full.json.gz').write_bytes(gzip.compress(encoded,compresslevel=6,mtime=0))
+    if len(encoded)>64*1024*1024:
+        # Keep every individual provenance file, and avoid a >100 MB Git blob.
+        index={k:v for k,v in manifest.items() if k!='observed'}
+        index['schema']=2;index['full_manifest']='catalog-full.json.gz'
+        index['observed']=[{k:r[k] for k in ('id','resource_index','source_rect','metadata')} for r in manifest['observed']]
+        write_json(output/'catalog.json',index)
+    else:(output/'catalog.json').write_bytes(encoded)
+
+
+def write_browser_data(output, manifest):
+    """Compact the large rectangle index; complete evidence stays in JSON files."""
+    observed=manifest.get('observed',[])
+    contexts=[];context_ids={};rows=[];descriptions=[];description_ids={}
+    for r in observed:
+        evidence=r['observations'];ids=[]
+        for o in evidence:
+            context=(o['capture'],o['mode'],o['character'],o['shot'],o.get('runtime','reference'),o.get('stage',0))
+            if context not in context_ids:context_ids[context]=len(contexts);contexts.append(context)
+            ident=context_ids[context]
+            if ident not in ids:ids.append(ident)
+        description=(r['status'],r['classification'],r['duplicate_of'],r['note'])
+        if description not in description_ids:description_ids[description]=len(descriptions);descriptions.append(description)
+        rows.append([r['index'],r['resource_index'],*r['source_rect'],r['attributes'],ids,
+                     len(evidence),evidence[0]['frame'],int(evidence[0]['command_address'],16),description_ids[description]])
+    data={k:v for k,v in manifest.items() if k!='observed'}
+    script='window.MUSHI_CATALOG='+json.dumps(data,separators=(',',':'))+';\n'
+    script+='(()=>{const contexts='+json.dumps(contexts,separators=(',',':'))+';\n'
+    script+='const descriptions='+json.dumps(descriptions,separators=(',',':'))+';\n'
+    script+='window.MUSHI_CATALOG.observed='+json.dumps(rows,separators=(',',':'))+'''.map(r=>{
+const [index,resource_index,x,y,width,height,attributes,ids,observation_count,frame,address,description]=r;
+const id='draw-'+String(index).padStart(5,'0'),resource_id='u2-'+String(resource_index).padStart(4,'0');
+const [capture,mode,character,shot,runtime,stage]=contexts[ids[0]];
+const [status,classification,duplicate_of,note]=descriptions[description];
+return {id,index,resource_index,resource_id,width,height,source_rect:[x,y,width,height],attributes,
+source:'observed/'+id+'.png',thumbnail:'observed/thumbs/'+id+'.png',metadata:'observed/metadata/'+id+'.json',
+status,classification,duplicate_of,note,
+compression:window.MUSHI_CATALOG.resources[resource_index].compression,
+native_stages:[...new Set(ids.filter(i=>contexts[i][4]==='native-aot').map(i=>contexts[i][5]).filter(s=>s>0))].sort((a,b)=>a-b),
+runtime_kinds:[...new Set(ids.map(i=>contexts[i][4]))],
+search_context:ids.map(i=>contexts[i].join(' ')+' '+(contexts[i][5]>0?'stage '+contexts[i][5]:'menus ending')).join(' '),
+observation_count,observations:[{capture,mode,character,shot,runtime,stage,frame,command_address:'0x'+address.toString(16).padStart(8,'0')}]};
+});})();\n'''
+    (output/'catalog-data.js').write_text(script)
 
 
 def build(rom_path: Path, output: Path):
@@ -82,11 +138,11 @@ def build(rom_path: Path, output: Path):
                     scope="All directory-listed bitmap resources are decoded. This is not yet a comprehensive semantic sprite/animation catalog.")
     manifest = dict(schema=1, game="Mushihimesama Futari 1.5", rom=rom_manifest,
                     coverage=coverage, program=program_info, resources=records)
-    write_json(output / "catalog.json", manifest)
+    write_manifest(output,manifest)
     write_json(output / "coverage.json", coverage)
     write_json(program_dir / "program.json", program_info)
     # Static data script allows offline browsing from file:// as well as HTTP.
-    (output / "catalog-data.js").write_text("window.MUSHI_CATALOG=" + json.dumps(manifest, separators=(",", ":")) + ";\n")
+    write_browser_data(output,manifest)
     web = Path(__file__).parent / "web"
     for name in ("index.html", "catalog.css", "catalog.js"):
         shutil.copyfile(web / name, output / name)

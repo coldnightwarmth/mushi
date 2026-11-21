@@ -2,10 +2,11 @@
 from pathlib import Path
 import json
 from PIL import Image
+from .catalog import read_manifest
 
 
 def validate(path: Path):
-    manifest=json.loads((path/'catalog.json').read_text())
+    manifest=read_manifest(path)
     resources=manifest['resources'];observed=manifest.get('observed',[])
     assert len(resources)==manifest['coverage']['decoded_resources']==manifest['coverage']['resource_entries']
     assert [r['index'] for r in resources]==list(range(len(resources)))

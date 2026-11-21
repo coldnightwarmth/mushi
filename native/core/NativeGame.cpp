@@ -1,18 +1,21 @@
 #include "NativeGame.h"
 #include "Board.hpp"
+#include "CampaignState.hpp"
 #include <fstream>
 #include <memory>
 
 namespace {
 struct Game {
     std::unique_ptr<futari::Board> board;
-    std::unique_ptr<futari::Board> title,start;
+    std::shared_ptr<futari::Board> title,start,stage;
     uint32_t previousRoot=0,previousPlay=0;
+    int previousStage=-1;
     std::string settings,error;
 };
 thread_local std::string creationError;
 Game &get(FutariGame g) {return *static_cast<Game*>(g);}
 }
+namespace futari { Board &inspectNativeGame(FutariGame game) {return *get(game).board;} }
 extern "C" {
 FutariGame futari_create(const char *resources,const char *settings) {
     try {
@@ -32,8 +35,13 @@ int futari_frame(FutariGame game,uint8_t c,uint8_t d) {
         // Scene 3 is attract/title, 5 the paid game. The inner game's transition
         // into state 4 follows completed selections and stage resource loading.
         if(root==3&&b.read(0x0c38a4bc,4)==2&&!g.title)g.title=b.checkpoint();
-        if(root==5&&g.previousRoot!=5)g.start.reset();
-        if(root==5&&play==4&&g.previousPlay!=4&&!g.start)g.start=b.checkpoint();
+        int stage=int(b.read(0x0c38a586,2));
+        if(root==5&&g.previousRoot!=5){g.start.reset();g.stage.reset();g.previousStage=-1;}
+        if(root==5&&play==4&&stage>=0&&stage<futari::CampaignState::stageCount) {
+            if(!g.start) {g.start=b.checkpoint();g.stage=g.start;}
+            else if(stage!=g.previousStage)g.stage=b.checkpoint();
+        }
+        g.previousStage=root==5?stage:-1;
         g.previousRoot=root;g.previousPlay=play;
         return 1;
     }
@@ -50,23 +58,30 @@ void futari_test_switch(FutariGame game,int enabled){get(game).board->portF=enab
 int futari_restart(FutariGame game) {
     auto &g=get(game);if(!g.start)return 0;
     auto settings=g.board->eeprom;g.board=g.start->checkpoint();g.board->eeprom=settings;
-    g.board->portC=g.board->portD=255;g.error.clear();g.previousRoot=5;g.previousPlay=4;return 1;
+    g.board->portC=g.board->portD=255;g.error.clear();g.previousRoot=5;g.previousPlay=4;
+    g.previousStage=int(g.board->read(0x0c38a586,2));g.stage=g.start;return 1;
+}
+int futari_restart_stage(FutariGame game) {
+    auto &g=get(game);if(!g.stage)return 0;
+    auto settings=g.board->eeprom;g.board=g.stage->checkpoint();g.board->eeprom=settings;
+    g.board->portC=g.board->portD=255;g.error.clear();g.previousRoot=5;g.previousPlay=4;
+    g.previousStage=int(g.board->read(0x0c38a586,2));return 1;
 }
 int futari_title(FutariGame game) {
     auto &g=get(game);
     if(g.title) {
         auto settings=g.board->eeprom;g.board=g.title->checkpoint();g.board->eeprom=settings;
-        g.board->portC=g.board->portD=255;g.error.clear();g.start.reset();g.previousRoot=3;g.previousPlay=0;return 1;
+        g.board->portC=g.board->portD=255;g.error.clear();g.start.reset();g.stage.reset();g.previousRoot=3;g.previousPlay=0;g.previousStage=-1;return 1;
     }
     // Before the title has first appeared, request the game's own attract reset.
-    if(g.board->read(0x0c38a4b4,4)>=3) {g.board->write(0x0c38a4b4,2,4);g.start.reset();return 1;}
+    if(g.board->read(0x0c38a4b4,4)>=3) {g.board->write(0x0c38a4b4,2,4);g.start.reset();g.stage.reset();return 1;}
     return 0;
 }
 int futari_scene(FutariGame game) {
-    auto &b=*get(game).board;uint32_t root=b.read(0x0c38a4b4,4);
-    if(root==6)return 4;
-    if(root==5)return b.read(0x0c38a578,2)==4?3:2;
-    if(root==3)return 1;
-    return 0;
+    return int(futari::CampaignState::read(*get(game).board).phase);
+}
+FutariStatus futari_status(FutariGame game) {
+    auto &g=get(game);auto s=futari::CampaignState::read(*g.board);
+    return {int(s.phase),s.stage,futari::CampaignState::stageCount,s.mode,int(s.allClear),int(bool(g.stage))};
 }
 }

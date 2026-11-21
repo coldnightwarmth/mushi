@@ -10,7 +10,7 @@ import json
 import numpy as np
 from PIL import Image
 from .blitter import commands
-from .catalog import write_json
+from .catalog import write_json,write_browser_data,read_manifest,write_manifest
 
 
 def argb_to_vram(rgba):
@@ -19,7 +19,7 @@ def argb_to_vram(rgba):
 
 
 def export(catalog: Path, captures: list[Path]):
-    manifest=json.loads((catalog/'catalog.json').read_text())
+    manifest=read_manifest(catalog)
     hashes={}
     for record in manifest['resources']:
         with Image.open(catalog/record['source']) as im:
@@ -90,8 +90,8 @@ def export(catalog: Path, captures: list[Path]):
     for resource in manifest['resources']:
         resource['runtime_validated']=resource['index'] in validated
         write_json(catalog/'metadata'/f"{resource['id']}.json",resource)
-    write_json(catalog/'catalog.json',manifest);write_json(catalog/'coverage.json',manifest['coverage'])
+    write_manifest(catalog,manifest);write_json(catalog/'coverage.json',manifest['coverage'])
     write_json(catalog/'observations.json',manifest['observations'])
-    (catalog/'catalog-data.js').write_text('window.MUSHI_CATALOG='+json.dumps(manifest,separators=(',',':'))+';\n')
+    write_browser_data(catalog,manifest)
     print(json.dumps(manifest['coverage'],indent=2))
     return manifest

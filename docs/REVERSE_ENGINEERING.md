@@ -93,6 +93,42 @@ Repeated uses of the same source rectangle are grouped without claiming animatio
 timing. A live command buffer can describe a pending backbuffer; its snapshot frame
 is an observation timestamp, not proof of the visible animation phase.
 
+## Paid-game context and full campaign
+
+The paid-game context begins at `0x0c38a530`. These fields were reviewed against
+the original dispatcher and checked in all four complete native routes:
+
+| Address / offset | Recovered meaning |
+| --- | --- |
+| `0x0c38a4b4` (outside context) | Outer scene: 3 attract, 5 paid game, 6 operator menu |
+| Context `+0x48` | Paid-game phase: 0–2 setup/selections, 3 loading, 4 gameplay, 5 game-over sequence, 6 ranking, 7 epilogue, 8 teardown |
+| Context `+0x4a` | Substate within the paid-game phase |
+| Context `+0x50` | Mode; 0 selects Original in the verified routes |
+| Context `+0x56` | Zero-based stage index, 0 through 4 |
+| Context `+0x144` | All-clear flag, read by the gameplay callback before scheduling the epilogue |
+
+`0x0c067a70` dispatches the paid-game phases. Its gameplay callback is
+`0x0c0694e0`; it schedules the epilogue task at `0x0c11a560` when the all-clear
+condition is met. The game-over and ranking callbacks are `0x0c069580` and
+`0x0c069610`. The compiled originals still execute these transitions.
+`CampaignState.hpp` provides a readable, non-mutating view of their state for
+the frontend, extraction tools and verification.
+
+Every native campaign reached stages 0–4 in order, set the all-clear flag,
+entered phase 7, completed the epilogue/ranking flow and returned to outer
+scene 3. Inputs after epilogue entry are released; confirmation presses are
+used only during ranking. No damage rules, stage indices, lives or enemy HP
+are patched. The input transcripts and state timelines are reproducible with
+`tools/verify_native_campaign.py`; compact results are tracked in
+[evidence/native-campaigns.json](evidence/native-campaigns.json).
+
+The native graphics observer matches complete source pages to decoded ROM
+sheets using SHA-256. It invalidates page identities on every destination write,
+then records contained source rectangles with stage and frame ranges. Across
+four full runs it matched 1,091 sheets; merging the original reference evidence
+yielded 64,458 nonblank regions. Cropped tile/glyph variants remain distinct,
+and these are not claims of 64,458 independent sprites or verified animations.
+
 ## Ghidra
 
 Run `tools/analyze_program.py --ghidra /path/to/ghidra --java-home /path/to/jdk`.

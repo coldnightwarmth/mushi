@@ -123,26 +123,29 @@ final class FutariView: NSView {
     }
     override func keyUp(with event: NSEvent) { controls.keyUp(event.keyCode) }
     private func syncAudio() { player.stop(); if !paused && !menuOpen && audioReady { player.play() } }
-    private func restoreRun(title: Bool) {
-        let restored = game.map { title ? futari_title($0) : futari_restart($0) } ?? 0
+    private func restoreRun(title: Bool, stage: Bool = false) {
+        let restored = game.map { title ? futari_title($0) : stage ? futari_restart_stage($0) : futari_restart($0) } ?? 0
         if restored == 0 { createGame() }
         failure = nil; paused = false; controls.clear(); accumulator = 0
         lastTime = ProcessInfo.processInfo.systemUptime; syncAudio()
     }
     private func setMenu(_ open: Bool) { menuOpen = open; controls.clear(); accumulator = 0; syncAudio(); needsDisplay = true }
     private var menuItems: [String] {
-        ["Resume", "Restart game", "Return to title", muted ? "Sound: off" : "Sound: on",
+        let restart = game.map { futari_status($0).can_restart_stage != 0 } ?? false
+        return ["Resume", restart ? "Restart stage" : "Restart stage (unavailable)", "Restart game", "Return to title", muted ? "Sound: off" : "Sound: on",
          filtered ? "Filtering: smooth" : "Filtering: pixel", "Toggle fullscreen", "Operator settings"]
     }
     private func chooseMenu() {
         switch menuIndex {
         case 0: paused = false; setMenu(false)
-        case 1: restoreRun(title: false); setMenu(false)
-        case 2: restoreRun(title: true); setMenu(false)
-        case 3: muted.toggle(); player.volume = muted ? 0 : 1
-        case 4: filtered.toggle()
-        case 5: window?.toggleFullScreen(nil)
-        case 6: if let game { futari_test_switch(game,1); testSwitchFrames = 180 }; paused = false; setMenu(false)
+        case 1:
+            if let game, futari_status(game).can_restart_stage != 0 { restoreRun(title: false,stage: true); setMenu(false) }
+        case 2: restoreRun(title: false); setMenu(false)
+        case 3: restoreRun(title: true); setMenu(false)
+        case 4: muted.toggle(); player.volume = muted ? 0 : 1
+        case 5: filtered.toggle()
+        case 6: window?.toggleFullScreen(nil)
+        case 7: if let game { futari_test_switch(game,1); testSwitchFrames = 180 }; paused = false; setMenu(false)
         default: break
         }
     }
@@ -163,9 +166,15 @@ final class FutariView: NSView {
             if let failure { text("Futari stopped", y: 100, size: 26); text(failure, y: 155, size: 14) }
             else if menuOpen {
                 text("Mushihimesama Futari", y: 70, size: 25)
-                for (index,item) in menuItems.enumerated() { text((index == menuIndex ? "› " : "  ")+item, y: 140+CGFloat(index)*36, size: 19) }
-                text("Move: arrows / WASD   Confirm: J / Return", y: 430, size: 13)
-                text("J shot   K / X auto   L bomb   \\ credit", y: 458, size: 13)
+                if let game {
+                    let status=futari_status(game)
+                    if status.stage>=0 && status.stage<status.stage_count {
+                        text("Stage \(status.stage+1) / \(status.stage_count)"+(status.all_clear != 0 ? " · All clear" : ""),y:108,size:14)
+                    }
+                }
+                for (index,item) in menuItems.enumerated() { text((index == menuIndex ? "› " : "  ")+item, y: 150+CGFloat(index)*36, size: 19) }
+                text("Move: arrows / WASD   Confirm: J / Return", y: 470, size: 13)
+                text("J shot   K / X auto   L bomb   \\ credit", y: 498, size: 13)
             } else { text("Paused", y: bounds.midY-20, size: 28) }
         }
     }

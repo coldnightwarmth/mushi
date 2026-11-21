@@ -5,9 +5,9 @@ build: a Swift/AppKit frontend with native game services. The current MAME
 reference app does not satisfy that deliverable. A new launcher around MAME,
 a renamed emulator, or a capture-playback window cannot close the native milestone.
 
-The native app now runs the menus and first stage in Original mode with
-Reco/Palm and Normal/Abnormal. Four native input replays defeat the first boss,
-display results and reach stage two. The user explicitly approved ahead-of-time
+The native app now runs the menus and all five stages in Original mode with
+Reco/Palm and Normal/Abnormal. Four native input replays defeat every boss,
+complete the epilogue/ranking flow and return to attract. The user explicitly approved ahead-of-time
 recompilation while readable gameplay source is recovered.
 
 ## Ahead-of-time game code
@@ -29,7 +29,10 @@ codec. BSD references and the vendored codec are credited in
 `NativeGame.h` exposes frames, pixels, samples, scene category, settings and
 checkpoints to Swift. Immutable program/resource/audio data is shared; a restart
 checkpoint copies simulation state, RAM, graphics memory and audio decoder state.
-A 90-frame input sequence reproduces identical graphics and audio after restart.
+At every stage entry, a 90-frame input sequence reproduces identical graphics
+and audio after restart: 20 checks across the four full campaigns. Run restart
+and current-stage restart retain separate checkpoints; they share the same
+checkpoint at stage one to avoid a redundant graphics-memory copy.
 The serial EEPROM samples clock edges; tests cover all 256 words, repeated writes
 at the same clock level, and an operator difficulty change displayed after relaunch.
 The frontend has no access to Futari RAM addresses. This interface is also the
@@ -40,6 +43,29 @@ verified replacement candidate. The AOT game currently calls its compiled input
 routines; the shared Swift physical controls and Futari port adapter are integrated.
 This is native recompilation, not a complete readable-source decompilation.
 Peripheral timing is functional but complete cycle/slowdown accuracy is unproven.
+
+## Campaign state and extraction
+
+`CampaignState.hpp` names the paid-game context at `0x0c38a530`, its phase word,
+stage index and all-clear flag. Its layout comes from the dispatcher at
+`0x0c067a70`, gameplay callback `0x0c0694e0`, and observed transitions in all four
+runs. `FutariStatus` exposes phase, mode, stage and restart availability without
+putting addresses in the frontend. This is reviewed state-layout recovery,
+not a replacement claim for the compiled stage/boss algorithms.
+
+The optional graphics observer is disabled in normal play. Extraction hashes a
+complete 256×256 source page before recording a contained draw rectangle. Any
+upload or draw to a page invalidates its cached identity, including wraparound
+uploads and writes through a copied/dynamic page. The tooling matches SHA-256
+against all 1,201 decoded resource pages and records stage, inputs, frame range,
+attributes and usage count. It does not infer animation boundaries or stitch
+multipart art. Original reference observations remain separately attributed.
+
+`NativeInspection.hpp` is a tooling-only interface. The Swift frontend imports
+only the public C adapter. Full campaign verification uses that same adapter,
+ordinary cabinet inputs, normal damage and paid continues. Extra restart checks
+run on restored checkpoints and then restore again before the recorded route
+continues; they neither grant invulnerability nor skip stages.
 
 ## Code boundaries
 
@@ -92,7 +118,8 @@ tick, and focus/menu/title transitions can clear held and pending inputs.
 
 Host commands are modeled separately from arcade buttons. Pause/menu stop the
 simulation; mute/filtering/zoom affect presentation. R restores the selected run's
-stage-entry checkpoint; Escape returns to title/attract. Focus loss clears input.
+first-stage checkpoint; the menu also restores the current stage. Escape returns
+to title/attract. Focus loss clears input.
 The native menu also supplies the two-second operator-switch hold and fullscreen.
 
 ## Implemented input services
@@ -110,7 +137,7 @@ different physical ordering of Futari's bomb/full-auto buttons.
 
 The IRQ sampler, coin/credit controller, menus, scheduler and stage logic execute
 as compiled native functions. Their playable scope is established by the four
-full native route runs, separately from the input-service differential checks.
+full five-stage native campaigns, separately from the input-service differential checks.
 
 ## Headless reference policy
 

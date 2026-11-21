@@ -1,42 +1,43 @@
-# Status — 2026-11-16
+# Status — 2026-11-21
 
-**Native menus and stage one are playable on Apple Silicon macOS.** The locally
-built `Mushihimesama Futari.app` uses ahead-of-time compiled game functions,
-native peripheral services and Swift/AppKit. It does not launch or link MAME,
-interpret SH instructions, or compile code at runtime.
+**Native menus and all five Original-mode stages are playable on Apple Silicon
+macOS.** The signed 0.3.0 app uses ahead-of-time compiled game code, native
+peripheral services and Swift/AppKit. It has no MAME runtime, CPU interpreter,
+or runtime compiler.
 
-All four Original-mode routes completed 15,000 native frames using the existing
-input replays, ordinary damage and paid continues. Each defeated the stage-one
-boss, displayed results and entered stage two. Native progression evidence is
-in [native-playthroughs.json](evidence/native-playthroughs.json).
+All four character/shot routes completed the entire campaign using ordinary
+damage and paid continues, followed by the unskipped epilogue, ranking and return
+to attract. The full runs total **360,048 native frames**. Each stage also passed
+a 90-frame restart comparison of both pixels and audio: **20 checks**.
+See [native-campaigns.json](evidence/native-campaigns.json).
 
 | Native check | Result |
 | --- | --- |
-| Reco / Normal | Results at frame 10800; stage two at 11400 |
-| Reco / Abnormal | Results at frame 11400; stage two at 12000 |
-| Palm / Normal | Results at frame 10800; stage two at 11100 |
-| Palm / Abnormal | Results at frame 10800; stage two at 11100 |
+| Reco / Normal | All five stages; ending at 82511; attract at 90239 |
+| Reco / Abnormal | All five stages; ending at 84410; attract at 92129 |
+| Palm / Normal | All five stages; ending at 80729; attract at 87977 |
+| Palm / Abnormal | All five stages; ending at 82465; attract at 89699 |
 | Compiled arithmetic | 2,592 exact original-instruction comparisons |
 | Compiled input / Swift input | 2,781 exact original-state comparisons each |
 | Graphics | 1,045 draw cases, all 64 blend pairs, full VRAM byte exact |
-| Restart | 90 frames of restored pixels and audio repeat exactly |
+| Restart stage | All 20 stage/character/shot combinations reproduce graphics and audio |
 | Game over | Continue timeout, Game Over and return to attract exercised |
-| Operator menu | Game configuration, Save & Exit, saved difficulty after relaunch |
+| Operator menu | Game configuration, Save & Exit, changed difficulty after relaunch |
 | EEPROM | 256 words round-trip; repeated high-clock writes ignored |
-| Bundle | Signed ARM64; macOS Launch Services ran 120 frames without a window/audio device |
+| Bundle | Signed ARM64; headless macOS launch diagnostic |
 
-![Native stage-one results](images/native-stage-one-clear.png)
+![Native stages and epilogues](images/native-full-campaign.png)
 
-Controls follow ESP Ra.De: arrows/WASD, J, K/X, L, Return and backslash; Space,
-Tab, M, Escape, R, P and Z are frontend controls. The [architecture](NATIVE_ARCHITECTURE.md)
-keeps the game adapter separate from the shared physical controls/presentation.
+Controls follow ESP Ra.De. R / Restart game starts the selected run over from
+stage one. Tab → Restart stage restores the current stage. The menu shows the
+current stage, and the public game adapter exposes named campaign phases and
+completion state without leaking RAM addresses into the frontend.
 
-This milestone establishes playable native execution, not a finished readable
-source recovery. Full-game cycle accuracy/slowdown equivalence and later stages
-are unverified. The physical window/fullscreen interactions have not been
-exercised on the user's active desktop. All reference comparisons force SDL's
-dummy video/audio drivers and disable desktop input providers.
-The installed bundle's identity and diagnostic result are recorded in
+This establishes full Original-mode native playability, not completed readable
+source recovery. Hardware cycle/slowdown equivalence and other modes remain
+unverified. Physical window/fullscreen interaction was not exercised on the
+active desktop. All work in this milestone was headless; no MAME process was
+needed for the full-game runs. Bundle identity is in
 [native-bundle.json](evidence/native-bundle.json).
 
 ## Verified resource recovery
@@ -49,7 +50,9 @@ The installed bundle's identity and diagnostic result are recorded in
 | Decoded bitmap payload bytes | 157,441,492 |
 | Unique bitmap payloads | 1,201 |
 | Sheets matched exactly to original VRAM | 569 |
-| Observed draw rectangles exported | 3,965 |
+| Sheets matched exactly to native source pages | 1,091 |
+| Observed draw rectangles exported | 64,458 |
+| Native stage coverage | All five stages, four routes |
 | Screenshot / framebuffer comparisons | 21, all exact |
 | Verified animation sequences | 0 |
 | Native decoder streams checked against original SH-3 | 273, all exact |
@@ -61,8 +64,10 @@ See [coverage](evidence/catalog-coverage.json),
 [native decoder results](evidence/native-decoder.json), and
 [original-instruction results](evidence/original-decoder.json).
 
-The 3,965 regions are distinct resource rectangles, not a unique-art or animation
-count. Some are glyphs, background tiles, partial UI pieces or partial sprites.
+The 64,458 regions are distinct resource rectangles, not a unique-art or animation
+count. Many are cropped glyphs, background strips, partial UI pieces or partial sprites.
+The browser supports stage filtering and uses a compact index; complete evidence
+is retained in per-region JSON and the downloadable compressed manifest.
 Draws from dynamic/cross-page VRAM sources are retained as unmapped counts.
 
 ## Reference playthroughs
@@ -101,17 +106,15 @@ not established by these numerical checks.
   resources and the program match Python and the isolated original decoder.
 - Every exported PNG and metadata link exists. Every observed-region PNG exactly
   equals its recorded crop of the source sheet.
-- The original shell launcher passed a command-line smoke test but failed when
-  opened normally: macOS denied the shell's access to the Documents folder before
-  it could write its log. The replacement is a native Swift/Mach-O entry point,
-  with MAME, SDL3 and the user's ROM bundled locally and writable state in
-  Application Support. Normal Launch Services startup now opens the game window;
-  bundle signature verification and path diagnostics also pass.
-  It explicitly selects SDL audio: this MAME build's default CoreAudio backend
-  hung during shutdown on this Mac, while SDL audio completed the same test.
-- The browser automation connection was unavailable in this session. Catalog
-  images/contact sheets and source data were inspected, and JavaScript syntax
-  checked; interactive browser layout and keyboard behavior need a live UI pass.
+- The installed 0.3.0 bundle passes code-signature verification and a Launch
+  Services diagnostic that executes 120 native frames without opening a window
+  or audio device. Resources are bundled locally and writable settings use
+  Application Support. The earlier MAME launcher has been replaced entirely.
+- A hidden-browser pass verified resource/region switching, stage filtering,
+  combined stage/text searching and region detail provenance. Stage five has
+  339 matched sheets and 16,524 observed regions. The complete browser index also
+  matches the full extraction manifest. Keyboard-only navigation and physical
+  game-window/fullscreen interaction remain untested.
 - Automatic decompiler output remains unreviewed. It is never counted as native
   implementation coverage.
 

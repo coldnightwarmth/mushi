@@ -1,14 +1,14 @@
 # Mushihimesama Futari reconstruction
 
 Reverse engineering of **Mushihimesama Futari 1.5**, set `futari15`, revision
-**2006/12/8 MAST VER. 1.54**. The first native target is the complete menu flow
-and stage one in **Original mode**, with **Reco and Palm, Normal and Abnormal**.
+**2006/12/8 MAST VER. 1.54**. The native target now includes the complete
+**five-stage Original-mode campaign**, with **Reco and Palm, Normal and Abnormal**.
 
-**The first native milestone is playable on Apple Silicon macOS.** Menus and
-stage one in Original mode run as ahead-of-time compiled ARM64 game code, with
-native graphics, resource loading, cabinet input, audio and an AppKit frontend.
-All four character/shot combinations have defeated the first boss, shown results
-and entered stage two in headless native runs with ordinary damage and paid
+**All five stages and both characters' epilogues are playable on Apple Silicon
+macOS.** The signed 0.3.0 app runs ahead-of-time compiled ARM64 game code with
+native graphics, resources, input, audio and an AppKit frontend. Four full native
+runs completed **360,048 frames**, defeating every stage boss and returning from
+the epilogue/ranking sequence to attract mode. Runs use ordinary damage and paid
 continues. The app contains no MAME runtime, CPU interpreter or JIT.
 
 This is a native recompilation, not a completed readable-source decompilation.
@@ -49,8 +49,10 @@ Use the original operator menu's **Save & Exit** to commit configuration changes
 | Hold camera zoom | Z |
 | Fullscreen | Control–Command–F or native menu |
 
-Restart restores the selected run's stage-entry state, including audio and
-random state. Operator settings are available from the native menu. The original
+R / **Restart game** restores the selected run from stage one. **Tab → Restart
+stage** restores the current stage, including audio, random state and resources.
+All 20 character/shot/stage restart checks reproduced 90 frames of pixels and
+audio exactly. Operator settings are available from the native menu. The original
 operator switch requires a two-second hold; the frontend supplies it automatically.
 The former `Futari 1.5 Reference.app` is a separate historical comparison tool.
 Use **Mushihimesama Futari.app** for native play.
@@ -61,36 +63,46 @@ A bundled startup check runs without creating a window or audio device:
 'build/macos/Mushihimesama Futari.app/Contents/MacOS/Futari' --diagnose
 ```
 
-The recorded native stage-clear routes can be reproduced without a window,
-audio device, or emulator:
+Full native campaigns, stage restart checks and asset observations can be
+reproduced without a window, audio device, or emulator. Build the app and catalog
+first, then use a fresh output directory for factory settings:
 
 ```sh
-python3 tools/verify_native_playthroughs.py --route all
+.venv/bin/python tools/verify_native_campaign.py --jobs 2 --output build/campaign-check
+.venv/bin/python tools/export_native_assets.py build/campaign-check
 ```
 
-![All four native stage-one results](docs/images/native-stage-one-clear.png)
+The smaller first-stage regression remains `tools/verify_native_playthroughs.py`.
+
+![All stages and epilogues in the native build](docs/images/native-full-campaign.png)
 
 ## Asset catalog
 
 [Browse the asset catalog online](https://coldnightwarmth.github.io/mushi/).
 
-[Download the offline asset catalog](https://github.com/coldnightwarmth/mushi/releases/download/v0.1.0/futari15-asset-catalog.zip),
-extract it, and open `futari15-asset-catalog/index.html`. It works without a server.
+[Download the older v0.1.0 offline snapshot](https://github.com/coldnightwarmth/mushi/releases/download/v0.1.0/futari15-asset-catalog.zip),
+extract it, and open `futari15-asset-catalog/index.html`. That snapshot contains
+the original first-stage observations; Pages contains the current full-campaign
+catalog. Locally rebuilt catalogs also work without a server.
 
 The catalog includes:
 
 - **1,201 / 1,201 directory-listed bitmap sheets**, all decoded, with transparent
   PNGs, upright previews, contact sheets, exact NAND byte spans, hashes and JSON.
-- **3,965 observed drawing regions**, cropped using original blitter commands
-  and byte-exact matches to the source sheets. Search by Reco, Palm, shot type,
-  resource ID, or dimensions. Downloads preserve source orientation.
+- **64,458 observed drawing regions**, cropped from byte-exact source sheets.
+  Native observation covers every draw in all four completed campaigns. Filter
+  sheets or regions by stage; search by Reco, Palm, shot type, ID or dimensions.
+  Downloads preserve source orientation.
+- **1,091 sheets matched exactly to native source pages**, with per-stage usage.
+  The browser index is compact; full evidence is downloadable as compressed JSON
+  and each region retains its complete metadata file.
 - **569 source sheets matched byte for byte to live graphics memory**, across
   21 reference captures. Each captured visible framebuffer also matches its
   reference screenshot exactly.
 
 The sheet inventory is exhaustive for the NAND resource directory. The semantic
 sprite catalog is **unfinished**: source regions include text, background tiles,
-effects and partial assemblies; these counts do not mean 3,965 independent
+effects and partial assemblies; these counts do not mean 64,458 independent
 characters or complete animation frames. Family names, multipart composition,
 animation order, timing and complete gameplay reachability remain to recover.
 Coverage and unmapped draws are recorded explicitly in the downloadable manifest.
@@ -114,8 +126,10 @@ Coverage and unmapped draws are recorded explicitly in the downloadable manifest
 - Native arithmetic: 2,592 original-instruction cases pass; compiled input
   routines also match all 2,781 original-state comparisons.
 - Native YMZ770C sequencing and AMM audio, with credited BSD-licensed codec code.
-- Four 15,000-frame native route runs, stage-entry restart, title return,
+- Four full native campaigns through all five stages, ending and ranking.
+- Readable campaign-state adapter, current-stage restart, title return,
   operator/game settings and persistent EEPROM.
+- Twenty deterministic stage-restart checks, covering both characters and shots.
 
 ROM archives, program dumps, emulator binaries, Ghidra and Java are not included
 in the source repository. The catalog release contains derived artwork and its
@@ -137,7 +151,8 @@ open build/catalog/index.html
 
 This rebuilds all 1,201 source sheets. To add runtime-observed regions, make the
 reference captures below and run `mushi observe`. Regenerating the base catalog
-replaces its manifest; rerun `observe` afterward to restore observed regions.
+replaces its manifest; rerun `observe` and `tools/export_native_assets.py` afterward
+to restore reference and native observations.
 
 GitHub Pages serves the generated catalog from the `gh-pages` branch at
 <https://coldnightwarmth.github.io/mushi/>. To publish an updated local catalog

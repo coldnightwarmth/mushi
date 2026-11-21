@@ -1,6 +1,6 @@
 {
   "app": "Mushihimesama Futari.app",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "architecture": "arm64",
   "code_signing": "ad-hoc; codesign --verify --deep --strict passed",
   "launch_services_diagnostic": "120 native frames; no window or audio device",
@@ -9,6 +9,7 @@
   "jit": false,
   "compiled_instruction_sites": 796843,
   "program_sha256": "2d21872e06fd4d1a1e1505ae0dc0e1bfeff78f0730eb9730e5787347f97c6f35",
-  "executable_sha256": "3c9e0c9847d925ffbc20d855ba4bc6db0bd1ec9c5988093a39fc2998f2faa82b",
-  "physical_window_tested": false
+  "executable_sha256": "2e8b748c577d176c413514af180140c1f7516171a4000a4765e609241598a545",
+  "physical_window_tested": false,
+  "checked_at": "2026-11-21"
 }

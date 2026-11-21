@@ -36,7 +36,7 @@ def main():
     shutil.copy2(ROOT/'native/THIRD_PARTY_NOTICES.md',bundled/'THIRD_PARTY_NOTICES.md')
     (bundled/'runtime.json').write_text(json.dumps(dict(kind='Ahead-of-time native game code and native board services',architecture='arm64',cpu_interpreter=False,jit=False,mame_runtime=False,program=manifest,roms=verification),indent=2)+'\n')
     with (contents/'Info.plist').open('wb') as f:
-        plistlib.dump(dict(CFBundleName='Mushihimesama Futari',CFBundleDisplayName='Mushihimesama Futari',CFBundleExecutable='Futari',CFBundleIdentifier='local.mushi.native',CFBundlePackageType='APPL',CFBundleVersion='1',CFBundleShortVersionString='0.2.0',NSHighResolutionCapable=True,LSMinimumSystemVersion='13.0'),f)
+        plistlib.dump(dict(CFBundleName='Mushihimesama Futari',CFBundleDisplayName='Mushihimesama Futari',CFBundleExecutable='Futari',CFBundleIdentifier='local.mushi.native',CFBundlePackageType='APPL',CFBundleVersion='2',CFBundleShortVersionString='0.3.0',NSHighResolutionCapable=True,LSMinimumSystemVersion='13.0'),f)
     subprocess.run(['codesign','--force','--sign','-',str(app)],check=True)
     subprocess.run(['codesign','--verify','--deep','--strict',str(app)],check=True)
     print(app)

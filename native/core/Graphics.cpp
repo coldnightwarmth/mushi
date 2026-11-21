@@ -13,6 +13,7 @@ void Graphics::execute(Bus &bus) {
     uint32_t address=list; bool clip=true; ++lists;
     auto word=[&](){uint16_t v=bus.read(address,2);address+=2;return v;};
     for(unsigned commands=0;commands<100000;commands++) {
+        uint32_t commandAddress=address;
         uint16_t attr=word();unsigned op=attr>>12;
         if(op==0||op==15) return;
         if(op==12) {clip=word()!=0;continue;}
@@ -26,10 +27,12 @@ void Graphics::execute(Bus &bus) {
                 uint16_t p=word();
                 pixels[((dy+y)&4095)*8192+((dx+x)&8191)]=((p&0x8000u)<<14)|((p&0x7c00u)<<9)|((p&0x3e0u)<<6)|((p&31u)<<3);
             }
+            if(observer)observer->written(dx,dy,width,height);
             continue;
         }
         ++draws;
         unsigned tintR=(word()&255)>>2,tintGB=word();
+        if(observer)observer->draw(*this,commandAddress,attr,sx,sy,width,height);
         int tint[3]={int(tintR),int((tintGB>>10)&63),int((tintGB>>2)&63)};
         bool tinted=tint[0]!=32||tint[1]!=32||tint[2]!=32;
         bool transparent=attr&0x100,blend=attr&0x200,flipY=attr&0x400,flipX=attr&0x800;
@@ -59,6 +62,7 @@ void Graphics::execute(Bus &bus) {
                 dst[dx+x]=(source&0x20000000)|(s[0]<<19)|(s[1]<<11)|(s[2]<<3);
             }
         }
+        if(observer&&x1>x0&&y1>y0)observer->written(dx+x0,dy+y0,x1-x0,y1-y0);
     }
     throw std::runtime_error("Unterminated graphics list");
 }
