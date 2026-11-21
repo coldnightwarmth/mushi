@@ -6,7 +6,14 @@
 #include <vector>
 
 namespace futari {
+struct Board;
+struct BoardHooks {
+    virtual ~BoardHooks() = default;
+    virtual void writing(Board &,uint32_t,uint32_t &,unsigned) = 0;
+    virtual bool native(Board &,uint32_t,CompiledState &) {return false;}
+};
 struct Board final : Bus {
+    BoardHooks *hooks=nullptr;
     CompiledState state;
     Graphics graphics;
     std::vector<uint8_t> ram;
@@ -14,7 +21,7 @@ struct Board final : Bus {
     std::shared_ptr<Audio> audio;
     std::vector<float> audioFrame;
     std::unordered_map<uint32_t,uint8_t> io;
-    uint8_t portC=255,portD=255,portF=255;
+    uint8_t portC=255,portD=255,portF=255,portL=255;
     uint32_t flashCommand=0,flashColumn=0,flashPage=0,flashAddressCycle=0,flashID=0;
     uint32_t serialCommand=0,serialPosition=0,serialAddress=0,serialValue=0,serialDataPosition=0;
     int serialMode=-1;uint8_t serialLines=0;
@@ -28,6 +35,7 @@ struct Board final : Bus {
     std::unique_ptr<Board> checkpoint() const;
     uint32_t read(uint32_t address,unsigned size) override;
     void write(uint32_t address,uint32_t value,unsigned size) override;
+    bool nativeHook(uint32_t address,CompiledState &s) override {return hooks&&hooks->native(*this,address,s);}
     void frame();
     void advanceTimers(uint64_t instructions);
     void interrupt();

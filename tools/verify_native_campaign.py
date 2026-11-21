@@ -32,10 +32,10 @@ def main():
                 digest=hashlib.sha256(argb_to_vram(np.asarray(im)).tobytes()).hexdigest()
             h.write(f"{record['index']} {digest}\n")
     exe=out/'NativeCampaign'
-    sources=['native/core/Board.cpp','native/core/Graphics.cpp','native/core/Audio.cpp','native/core/NativeGame.cpp',
+    sources=['native/core/Board.cpp','native/core/Graphics.cpp','native/core/Audio.cpp','native/core/NativeGame.cpp','native/core/NativePresentation.cpp',
              'native/vendor/mpeg_audio.cpp','native/tests/NativeCampaign.cpp']
     subprocess.run(['xcrun','clang++','-std=c++17','-O2','-Wno-deprecated-declarations','-I',str(ROOT/'native/core'),
-                    *[str(ROOT/s) for s in sources],str(ROOT/'build/aot/libFutariProgram.a'),'-o',str(exe)],check=True)
+                    *[str(ROOT/s) for s in sources],str(ROOT/'build/aot/libFutariProgram.a'),'-lcompression','-o',str(exe)],check=True)
     def run(route):
         prefix=out/route;events=prefix.with_suffix('.menu.tsv')
         convert_replay(ROOT/'docs/evidence/replays'/f'{ROUTES[route]}.lua',events)

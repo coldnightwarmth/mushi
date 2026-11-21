@@ -5,7 +5,7 @@ Reverse engineering of **Mushihimesama Futari 1.5**, set `futari15`, revision
 **five-stage Original-mode campaign**, with **Reco and Palm, Normal and Abnormal**.
 
 **All five stages and both characters' epilogues are playable on Apple Silicon
-macOS.** The signed 0.3.0 app runs ahead-of-time compiled ARM64 game code with
+macOS.** The signed 0.4.0 app runs ahead-of-time compiled ARM64 game code with
 native graphics, resources, input, audio and an AppKit frontend. Four full native
 runs completed **360,048 frames**, defeating every stage boss and returning from
 the epilogue/ranking sequence to attract mode. Runs use ordinary damage and paid
@@ -47,15 +47,24 @@ Use the original operator menu's **Save & Exit** to commit configuration changes
 | Mute | M |
 | Filtering | P |
 | Hold camera zoom | Z |
+| Hold movement boost | Shift |
+| Hold rewind / 4× playback | Q / E |
+| Protection / background / HUD | I / − / + |
 | Fullscreen | Control–Command–F or native menu |
 
-R / **Restart game** restores the selected run from stage one. **Tab → Restart
+R / **Restart run** restores the selected run from stage one. **Tab → Restart
 stage** restores the current stage, including audio, random state and resources.
 All 20 character/shot/stage restart checks reproduced 90 frames of pixels and
 audio exactly. Operator settings are available from the native menu. The original
 operator switch requires a two-second hold; the frontend supplies it automatically.
 The former `Futari 1.5 Reference.app` is a separate historical comparison tool.
 Use **Mushihimesama Futari.app** for native play.
+
+**Tab opens the complete custom menu**, adapted from the ESP Ra.De. build:
+Reco/Palm formation, combined/endless stages, infinite resources, exploration,
+protection modes, trails, expanded view, fourteen art-effect families, playback
+speed and rewind. See the [custom menu guide](docs/CUSTOM_MENU.md) for controls,
+Futari-specific behavior and headless verification.
 
 A bundled startup check runs without creating a window or audio device:
 

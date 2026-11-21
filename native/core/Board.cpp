@@ -36,6 +36,7 @@ uint32_t Board::read(uint32_t a,unsigned size) {
     if(data) {uint32_t v=0;for(unsigned i=0;i<size;i++)v=(v<<8)|data[i];return v;}
     if(p==0x04000124) return portC;
     if(p==0x04000126) return portD;
+    if(p==0x04000134) return portL;
     if(p==0x0400012a) return portF;
     if(p>=0x04000120&&p<=0x04000136) return 255;
     for(int t=0;t<3;t++) {
@@ -60,6 +61,7 @@ uint32_t Board::read(uint32_t a,unsigned size) {
 void Board::write(uint32_t a,uint32_t value,unsigned size) {
     if(size<4)value&=(1u<<(size*8))-1;
     uint32_t p=a>=0xe0000000?a:a&0x1fffffff;
+    if(hooks)hooks->writing(*this,p,value,size);
     if(p>=0x0c000000&&p+size<=0x0c800000) {
         for(unsigned i=0;i<size;i++) ram[p-0x0c000000+i]=value>>((size-1-i)*8);
         return;

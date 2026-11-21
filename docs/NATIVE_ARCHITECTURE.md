@@ -44,6 +44,41 @@ routines; the shared Swift physical controls and Futari port adapter are integra
 This is native recompilation, not a complete readable-source decompilation.
 Peripheral timing is functional but complete cycle/slowdown accuracy is unproven.
 
+## Custom menu and reviewed extension points
+
+The shared ESP Ra.De. art engine, menu vocabulary and bitmap font are under
+`native/shared/`. `FutariVisuals` supplies native scenery, actors, HUD and impact
+layers; it does not read game RAM. `FutariTrails` is a bounded, render-only sprite
+history. The C adapter exposes custom options, status, layers, multiple worlds
+and rewind. See [the custom menu guide](CUSTOM_MENU.md) for the adaptations.
+
+Eight optional, compile-time call sites cover movement at `0x0c07900e`, left/right
+limits at `0x0c07902a` and `0x0c079036`, protected contact at `0x0c079e86`, and
+scenery integration at `0x0c09b912`, and the scrolling controller's matching
+left/right bounds at `0x0c09c712`, `0x0c09c6fe` and `0x0c09c706`. The original statements still execute with
+options disabled. Other hooks observe writes to recovered player, credit and
+stage-clock fields; no runtime instruction decoder is added.
+
+`NativePresentation` records command headers in both alternating list buffers,
+recovers sorted draw priorities, and retains both completed display buffers.
+Selection follows the actual display registers, including repeated buffers
+during busy frames and camera offsets. Layer
+zero is checked against the actual native framebuffer. Tilemaps and native
+foreground shading form scenery; priorities 236+ form HUD; explosion/impact
+priorities 150–153 feed the art effects. These are presentation categories,
+not complete semantic object/animation recovery.
+
+`NativeHistory` saves changed 4 KiB RAM pages and 32×32 VRAM tiles before their
+first write each frame, plus an independent device/audio checkpoint. Records use
+Apple's LZ4 compression and a per-world limit. Formation pulse and absorption
+counters rewind with simulation state. EEPROM settings remain outside gameplay
+rewind. Restarts restore the separate native run/stage snapshots.
+
+Combined play instantiates the original stage loader three times, with initial
+stage indices 0/1/2. Each instance retains a distinct native board and collision
+state while sharing immutable ROM/resource/audio data. Rewind advances all
+worlds together; endless resets only the world that completed its opening.
+
 ## Campaign state and extraction
 
 `CampaignState.hpp` names the paid-game context at `0x0c38a530`, its phase word,
@@ -53,7 +88,8 @@ runs. `FutariStatus` exposes phase, mode, stage and restart availability without
 putting addresses in the frontend. This is reviewed state-layout recovery,
 not a replacement claim for the compiled stage/boss algorithms.
 
-The optional graphics observer is disabled in normal play. Extraction hashes a
+The native frontend uses a graphics observer for custom layers and rewind.
+The separate extraction observer hashes a
 complete 256×256 source page before recording a contained draw rectangle. Any
 upload or draw to a page invalidates its cached identity, including wraparound
 uploads and writes through a copied/dynamic page. The tooling matches SHA-256
@@ -115,6 +151,9 @@ tick, and focus/menu/title transitions can clear held and pending inputs.
 | R | Host restart | Restart the current run |
 | P | Host filtering | Toggle image filtering |
 | Z | Camera zoom | Hold centered 2× presentation zoom; never shoot |
+| Shift | Quick boost | Hold 2.5× movement speed when enabled |
+| Q / E | Time controls | Hold 2× rewind / temporary 4× playback |
+| I / − / + | Custom shortcuts | Protection / background / HUD |
 
 Host commands are modeled separately from arcade buttons. Pause/menu stop the
 simulation; mute/filtering/zoom affect presentation. R restores the selected run's

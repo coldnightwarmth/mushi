@@ -1,0 +1,177 @@
+{
+  "native": true,
+  "headless": true,
+  "mame_runtime": false,
+  "core": [
+    {
+      "name": "reco-normal",
+      "mode": "standard",
+      "route": "reco-normal",
+      "passed": true,
+      "checks": [
+        "PASS baseline equivalence and exact 60-frame reverse/replay (1.128s)",
+        "PASS Shift boost and original/open horizontal movement limits",
+        "PASS native resources, invincibility and Reco/Palm formation",
+        "PASS exploration stop, forward and reverse scenery",
+        "PASS absorbing contacts refill bombs",
+        "PASS infinite respawns"
+      ],
+      "input_sha256": "bed3cf2ce766f0f3d8763fe6b5f0a0d547ad461a944b46f44b928aacc465cd53"
+    },
+    {
+      "name": "reco-abnormal",
+      "mode": "standard",
+      "route": "reco-abnormal",
+      "passed": true,
+      "checks": [
+        "PASS baseline equivalence and exact 60-frame reverse/replay (1.102s)",
+        "PASS Shift boost and original/open horizontal movement limits",
+        "PASS native resources, invincibility and Reco/Palm formation",
+        "PASS exploration stop, forward and reverse scenery",
+        "PASS absorbing contacts refill bombs",
+        "PASS infinite respawns"
+      ],
+      "input_sha256": "9538b9f320118d33badf9c6de2e5106ea932e5725f3a9349411499d7592d4e21"
+    },
+    {
+      "name": "palm-normal",
+      "mode": "standard",
+      "route": "palm-normal",
+      "passed": true,
+      "checks": [
+        "PASS baseline equivalence and exact 60-frame reverse/replay (1.122s)",
+        "PASS Shift boost and original/open horizontal movement limits",
+        "PASS native resources, invincibility and Reco/Palm formation",
+        "PASS exploration stop, forward and reverse scenery",
+        "PASS absorbing contacts refill bombs",
+        "PASS infinite respawns"
+      ],
+      "input_sha256": "1eebaeb9f6ae153fc1387fde6301bbda9f6665edd396f7a4c3460502eb4e3932"
+    },
+    {
+      "name": "palm-abnormal",
+      "mode": "standard",
+      "route": "palm-abnormal",
+      "passed": true,
+      "checks": [
+        "PASS baseline equivalence and exact 60-frame reverse/replay (0.986s)",
+        "PASS Shift boost and original/open horizontal movement limits",
+        "PASS native resources, invincibility and Reco/Palm formation",
+        "PASS exploration stop, forward and reverse scenery",
+        "PASS absorbing contacts refill bombs",
+        "PASS infinite respawns"
+      ],
+      "input_sha256": "de72a148e3cc5d19d0e454af74c2890de14a1e6f58756b8d1a46bec33ff7569e"
+    },
+    {
+      "name": "combined",
+      "mode": "combined",
+      "route": "reco-normal",
+      "passed": true,
+      "checks": [
+        "PASS combined three stages, formation and exact 30-frame rewind/replay"
+      ],
+      "input_sha256": "bed3cf2ce766f0f3d8763fe6b5f0a0d547ad461a944b46f44b928aacc465cd53"
+    }
+  ],
+  "menu": {
+    "actions": 43,
+    "audio_device_opened": false,
+    "checks": 32085,
+    "effect_variants": 43,
+    "headless": true,
+    "rewind_bytes_at_budget": 200388076,
+    "rewind_frames_at_budget": 198,
+    "trail_frame_ms": {
+      "Fade": 20.411123077456768,
+      "Flash": 14.802970513343238,
+      "Loop": 14.357545192783268,
+      "Normal": 16.855882371489244,
+      "Off": 5.332416025563502,
+      "Random": 23.02353076923352,
+      "Scale": 24.680585256562782,
+      "Scale2x": 30.515935897039107,
+      "Spaced": 21.347154807657578,
+      "Sparse": 15.540403204683502
+    },
+    "trail_styles": 10
+  },
+  "checked_at": "2026-11-21",
+  "version": "0.4.0",
+  "program_sha256": "2d21872e06fd4d1a1e1505ae0dc0e1bfeff78f0730eb9730e5787347f97c6f35",
+  "translator_sha256": "b36214eb7ddcf313c5309d8dbd118637e2237086d6ea27ee98d0ad3e406f4124",
+  "executable_sha256": "b5b29cdaf26aadbfecf6250c05c24b3f35ead6d983e0e0e3a84fc6ac1736fadb",
+  "five_stage_custom_run": {
+    "passed": true,
+    "character": "Reco",
+    "shot": "Normal",
+    "formation": true,
+    "invincible": true,
+    "infinite_bombs": true,
+    "ordinary_damage_baseline": "native-campaigns.json",
+    "layer_comparison_interval_frames": 120,
+    "stage_observations": [
+      {
+        "stage": 1,
+        "frame": 4001
+      },
+      {
+        "stage": 2,
+        "frame": 11501
+      },
+      {
+        "stage": 3,
+        "frame": 24643
+      },
+      {
+        "stage": 4,
+        "frame": 40732
+      },
+      {
+        "stage": 5,
+        "frame": 59196
+      }
+    ],
+    "result": "All five stages cleared; original and separated composition matched every sampled gameplay frame."
+  },
+  "endless": {
+    "passed": true,
+    "worlds": 3,
+    "initial_stages": [
+      1,
+      2,
+      3
+    ],
+    "independent_loops": [
+      {
+        "world": 0,
+        "test_tick": 7164
+      },
+      {
+        "world": 1,
+        "test_tick": 11859
+      },
+      {
+        "world": 2,
+        "test_tick": 14924
+      }
+    ]
+  },
+  "composition": {
+    "original_equals_native_layers": true,
+    "scenery_actors_hud_recombine_exactly": true,
+    "alternating_and_repeated_display_buffers": true
+  },
+  "presentation_adaptations": [
+    "Expanded views use native overscan, up to 304 by 384 pixels.",
+    "Random uses observed sprite variants for afterimages; it does not substitute live enemy animations on damage.",
+    "Native explosion and impact layers supply flower, sediment and tile-burst events.",
+    "Exploration reverses scenery but does not respawn defeated enemies or undo stage events."
+  ],
+  "physical_window_tested": false,
+  "shared_source": {
+    "ArtEffects.swift": "b3df021d0e5a2e190f1869e1dc42f8b9084791ce0a191a78113b8732b71595e2",
+    "ArtEffectOptions.swift": "97129eb9929a048efacfde46ad972d8c54941a50f3d15b31edff137974a1bdb3",
+    "RetroMenuFont.swift": "7249e5812ccefefc44967257c9631b392227ac66b66827dee97fed6dd04a7bed"
+  }
+}

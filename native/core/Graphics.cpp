@@ -23,6 +23,7 @@ void Graphics::execute(Bus &bus) {
         int width=(word()&8191)+1,height=(word()&4095)+1;
         if(op==2) {
             ++uploads;dx&=8191;dy&=4095;
+            if(observer)observer->beforeWrite(*this,dx,dy,width,height);
             for(int y=0;y<height;y++) for(int x=0;x<width;x++) {
                 uint16_t p=word();
                 pixels[((dy+y)&4095)*8192+((dx+x)&8191)]=((p&0x8000u)<<14)|((p&0x7c00u)<<9)|((p&0x3e0u)<<6)|((p&31u)<<3);
@@ -43,6 +44,10 @@ void Graphics::execute(Bus &bus) {
         int y0=std::max(0,(clip?std::max(0,int(clipY)-32):0)-dy);
         int x1=std::min(width,(clip?std::min(8192,int(clipX)+352):8192)-dx);
         int y1=std::min(height,(clip?std::min(4096,int(clipY)+272):4096)-dy);
+        if(observer&&x1>x0&&y1>y0) {
+            observer->blit(*this,commandAddress,attr,alpha,sx,sy,dx,dy,width,height,x0,y0,x1,y1,(tintR<<16)|tintGB);
+            observer->beforeWrite(*this,dx+x0,dy+y0,x1-x0,y1-y0);
+        }
         for(int y=y0;y<y1;y++) {
             unsigned sourceRow=((sy+(flipY?height-1-y:y))&4095)*8192;
             auto *dst=pixels.data()+(dy+y)*8192;

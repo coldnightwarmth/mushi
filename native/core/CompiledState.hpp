@@ -7,10 +7,12 @@
 // Register-shaped ABI for ahead-of-time compiled functions. There is deliberately
 // no instruction fetch/decode loop here. The build-time translator emits C++.
 namespace futari {
+struct CompiledState;
 struct Bus {
     virtual ~Bus() = default;
     virtual uint32_t read(uint32_t address, unsigned size) = 0;
     virtual void write(uint32_t address, uint32_t value, unsigned size) = 0;
+    virtual bool nativeHook(uint32_t,CompiledState &) {return false;}
 };
 struct CompiledState {
     uint32_t r[16]{}, bank[8]{};

@@ -172,6 +172,10 @@ def generate(program,out,end):
                 continue
             supported+=1
             lines.append(f'case 0x{pc:x}: {{ ++cost;')
+            # Reviewed optional custom-play seams. With no host hook these emit
+            # the identical original operations; no runtime decoding is added.
+            if pc in (0x0c07900e,0x0c07902a,0x0c079036,0x0c079e86,0x0c09b912,0x0c09c712,0x0c09c6fe,0x0c09c706):
+                lines.append(f'if(c.bus->nativeHook(0x{pc:x},c)){{c.cycles+=cost;return;}}')
             if target is not None:
                 # Capture targets before the slot or a bank change can alter operands.
                 lines.append(f'uint32_t next={target}; {code}')
@@ -215,7 +219,7 @@ void runCompiled(CompiledState &c,uint64_t deadline) {{
 }}
 '''
     (out/'dispatch.cpp').write_text(dispatch)
-    (out/'manifest.json').write_text(json.dumps({'program_sha256':hashlib.sha256(data).hexdigest(),'instructions':supported,'pages':len(pages),'sources':files+['dispatch.cpp']},indent=2)+'\n')
+    (out/'manifest.json').write_text(json.dumps({'program_sha256':hashlib.sha256(data).hexdigest(),'translator_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'instructions':supported,'pages':len(pages),'sources':files+['dispatch.cpp']},indent=2)+'\n')
     print(f'Generated {supported:,} instruction sites in {len(files)} native source files')
 
 if __name__=='__main__':

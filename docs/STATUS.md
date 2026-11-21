@@ -1,7 +1,7 @@
 # Status — 2026-11-21
 
 **Native menus and all five Original-mode stages are playable on Apple Silicon
-macOS.** The signed 0.3.0 app uses ahead-of-time compiled game code, native
+macOS.** The signed 0.4.0 app uses ahead-of-time compiled game code, native
 peripheral services and Swift/AppKit. It has no MAME runtime, CPU interpreter,
 or runtime compiler.
 
@@ -39,6 +39,19 @@ unverified. Physical window/fullscreen interaction was not exercised on the
 active desktop. All work in this milestone was headless; no MAME process was
 needed for the full-game runs. Bundle identity is in
 [native-bundle.json](evidence/native-bundle.json).
+
+## Custom menu
+
+The 0.4.0 build adds the ESP Ra.De. custom menu, adapted to Futari: 43 actions,
+all 43 art-effect variants, ten trail styles, Reco/Palm formation, combined and
+endless stages, exploration, infinite bombs/credits, protection modes, expanded
+view, playback speeds and rewind. Shared art code and game-specific simulation
+remain separated for future combinations.
+
+The [menu guide](CUSTOM_MENU.md) explains the adaptations and shortcuts.
+[Custom-menu evidence](evidence/native-custom-menu.json) records native and
+offscreen checks. The original four complete ordinary-damage campaign baselines
+above remain separate from custom-option stress runs.
 
 ## Verified resource recovery
 
@@ -106,7 +119,7 @@ not established by these numerical checks.
   resources and the program match Python and the isolated original decoder.
 - Every exported PNG and metadata link exists. Every observed-region PNG exactly
   equals its recorded crop of the source sheet.
-- The installed 0.3.0 bundle passes code-signature verification and a Launch
+- The installed 0.4.0 bundle passes code-signature verification and a Launch
   Services diagnostic that executes 120 native frames without opening a window
   or audio device. Resources are bundled locally and writable settings use
   Application Support. The earlier MAME launcher has been replaced entirely.
