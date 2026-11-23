@@ -24,10 +24,14 @@ void NativePresentation::tag(Board &b,uint32_t address,uint32_t value,unsigned s
  Tag tag;
  for(unsigned off=0;off<128;off+=4) {
   auto p=b.read(b.state.r[15]+off,4);
-  if(p>=0xc058348&&p<=0xc059340&&(p&7)==0){tag.priority=int((p-0xc058340)/8)-1;break;}
+  if(p>=0xc058348&&p<=0xc059340&&(p&7)==0){
+   tag.priority=int((p-0xc058340)/8)-1;
+   if(off>=8){auto node=b.read(b.state.r[15]+off-8,4);tag.callback=b.read(node+4,4);tag.object=b.read(node+8,4);}
+   break;
+  }
  }
  tag.scenery=b.state.pr==0xc09c7aa;
- tag.callback=b.state.pr;
+ if(!tag.callback)tag.callback=b.state.pr;
  tags[address]=tag;
  if(tags.size()>30000)tags.clear();
 }
@@ -42,6 +46,12 @@ void NativePresentation::capture(const Graphics &g,uint32_t address,uint16_t att
  int layer=(tag.scenery||tag.priority==119)?1:(tag.priority>=236?3:2);
  Draw d{dx+x0-originX+32,dy+y0-originY+32,x1-x0,y1-y0,layer,attr,alpha,tint,{}};
  d.priority=tag.priority;
+ // Original game draw bands: 150..153 impact/bomb/debris, 156..162
+ // player bodies/options/weapons, 98..149 enemies/hostile projectiles.
+ // Unclassified sprites and pickups remain in the separate other-actor group.
+ d.group=tag.priority>=150&&tag.priority<=153?0:
+         tag.priority>=156&&tag.priority<=162?1:
+         tag.priority>=98&&tag.priority<=149?2:3;
  d.source.reserve(d.w*d.h);
  for(int y=y0;y<y1;y++)for(int x=x0;x<x1;x++)d.source.push_back(g.pixels[((sy+((attr&0x400)?h-1-y:y))&4095)*8192+sx+((attr&0x800)?w-1-x:x)]);
  // Burst effects occupy the original high actor priorities; gameplay masks use
@@ -86,12 +96,16 @@ void NativePresentation::finish() {
   if(d.layer==1) {
    planes[1][i]=blend(s,planes[1][i],d.attr,d.alpha,d.tint);
    bool translucent=(d.attr&0x200)&&!(((d.attr>>4)&7)==0&&(d.attr&7)==4&&(d.alpha>>11)==31&&((d.alpha&255)>>3)==31);
-   if(translucent){if(planes[2][i])planes[2][i]=color;if(planes[4][i])planes[4][i]=color;}
-   else planes[2][i]=planes[4][i]=0;
+   if(translucent){if(planes[2][i])planes[2][i]=color;if(planes[4][i])planes[4][i]=color;for(int k=6;k<10;k++)if(planes[k][i])planes[k][i]=color;}
+   else {planes[2][i]=planes[4][i]=0;for(int k=6;k<10;k++)planes[k][i]=0;}
   }
   else if(color!=prior) {
    if(d.layer==3)planes[3][i]=color;
-   else {planes[2][i]=color;if(d.layer==4)planes[4][i]=color;}
+   else {
+    planes[2][i]=color;if(d.layer==4)planes[4][i]=color;
+    for(int k=6;k<10;k++)planes[k][i]=0;
+    planes[6+d.group][i]=color;
+   }
   }
  }
  // A separate actors-only plane supplies Random afterimages. Every replacement
@@ -105,12 +119,12 @@ void NativePresentation::finish() {
   for(int y=0;y<d.h;y++)for(int x=0;x<d.w;x++) {
    auto s=(*source)[y*d.w+x];if((d.attr&0x100)&&!(s&0x20000000))continue;
    auto i=(d.y+y)*384+d.x+x;auto color=blend(s,planes[1][i],d.attr,d.alpha,d.tint);
-   if(color!=planes[1][i])planes[5][i]=color;
+   if(color!=planes[1][i]){planes[5][i]=color;for(int k=10;k<14;k++)planes[k][i]=0;planes[10+d.group][i]=color;}
   }
  }
 }
 void NativePresentation::rgba(int layer,int width,int height,uint8_t *out,int scrollX,int scrollY) {
- finish();layer=std::clamp(layer,0,5);width=std::clamp(width,1,304);height=std::clamp(height,1,384);
+ finish();layer=std::clamp(layer,0,13);width=std::clamp(width,1,304);height=std::clamp(height,1,384);
  for(int y=0;y<height;y++)for(int x=0;x<width;x++) {
   int px=383-y-(384-height)/2+(scrollX<0?0:scrollX-displayOriginX),py=x+(304-width)/2+(scrollY<0?0:scrollY-displayOriginY);
   uint32_t p=px>=0&&px<384&&py>=0&&py<304?planes[layer][py*384+px]:0;unsigned i=(y*width+x)*4;

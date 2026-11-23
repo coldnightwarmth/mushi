@@ -1,18 +1,18 @@
 import Foundation
 
 enum ArtEffect: Int, CaseIterable {
-    case slitScan, timeBands, videoFeedback, datamosh, rasterFabric
+    case slitScan, timeBands, videoFeedback, datamosh, codecDatamosh, rasterFabric
     case pixelSediment, tileShuffle, scanlineWeaving, misregistration, inkBleed
     case negativeSpace, flowers, foldedStage, typography
     var title: String {
-        ["Slit-scan","Time bands","Video feedback","Motion-block datamosh",
+        ["Slit-scan","Time bands","Video feedback","Motion-block datamosh","Datamosh",
          "Raster fabric","Pixel sediment","Tile shuffle","Scanline weaving","Misregistration",
          "Ink bleed","Negative space","Explosions as flowers","Folded stage",
          "Typography invasion"][rawValue]
     }
     var choices: [String] {
         let pairs=[["Vertical","Horizontal","Fast V","Fast H","Thin V","Thin H"],["Drift","Alternate"],["Zoom","Spiral"],
-                   ["Loose","Heavy","Streak","Scatter"],["Ripple","Shred"],["Light","Heavy","Burst"],["Small","Large","Burst"],
+                   ["Loose","Heavy","Streak","Scatter"],["Melt","Bloom"],["Ripple","Shred"],["Light","Heavy","Burst"],["Small","Large","Burst"],
                    ["Fine","Coarse"],["Split","Orbit"],["Soft","Flood"],["Past","Color"],
                    ["Garden","Dense"],["Mirror","Kaleido","Vertical","Horizontal","Pinwheel","Tunnel"],["Drift","Storm","Rain","Orbit","Ticker"]]
         return ["Off"]+pairs[rawValue]
@@ -22,6 +22,7 @@ enum ArtEffect: Int, CaseIterable {
          "Give horizontal bands different delays. Alternate sends neighboring bands backward through recent images.",
          "Blend recent images into the scene with a gentle zoom or rotating spiral.",
          "Carry old images in moving blocks. Heavy retains more; Streak stretches motion and Scatter scatters small blocks.",
+         "Melt carries damaged images forward with new motion. Bloom repeats the motion and color changes, making them spread.",
          "Ripple or shred the scene into independently displaced pixel rows.",
          "Enemies explode into colorful pixels. Light and Heavy settle into drifting piles; Burst scatters without accumulating.",
          "Shuffle small or large tiles. Burst sends a temporary ring of shuffled tiles outward from each destroyed enemy.",
@@ -37,8 +38,8 @@ enum ArtEffect: Int, CaseIterable {
 
 struct ArtOptions: Equatable {
     enum Scope: Int, CaseIterable {
-        case off,on,background
-        var title: String { ["Off","On","Bkg"][rawValue] }
+        case off,on,background,nonPlayer,player,enemies
+        var title: String { ["Off","Yes","Bkg","Non-player","Player","Enemies"][rawValue] }
     }
     var scope=Scope.on
     var enabled: Bool {
@@ -46,7 +47,10 @@ struct ArtOptions: Equatable {
         set { if !newValue { scope = .off } else if scope == .off { scope = .on } }
     }
     var backgroundOnly: Bool { scope == .background }
-    mutating func cycleScope(_ direction: Int) { scope=Scope(rawValue:(scope.rawValue+direction+3)%3)! }
+    var protectsActors: Bool { scope == .background || scope == .nonPlayer }
+    mutating func cycleScope(_ direction: Int) {
+        let count=Scope.allCases.count;scope=Scope(rawValue:(scope.rawValue+direction+count)%count)!
+    }
     var values=[Int](repeating:0,count:ArtEffect.allCases.count)
     var memoryIndex=1
     var memoryTicks: Int { [58,116,232][memoryIndex] }
@@ -60,6 +64,6 @@ struct ArtOptions: Equatable {
     }
     var needsSprites: Bool {
         (self[.pixelSediment]>0 && self[.pixelSediment]<3) ||
-            [.slitScan,.timeBands,.videoFeedback,.datamosh,.scanlineWeaving,.typography,.inkBleed,.negativeSpace,.flowers].contains{self[$0]>0}
+            [.slitScan,.timeBands,.videoFeedback,.datamosh,.codecDatamosh,.scanlineWeaving,.typography,.inkBleed,.negativeSpace,.flowers].contains{self[$0]>0}
     }
 }

@@ -45,7 +45,13 @@ final class FutariTrails {
             if style == .flash && (tick/(3+Int((hash^(hash>>31))%11)))%2==1 {continue}
             let alpha=style == .fade ? max(0,255-age*255/180):255
             if style.scaleRate==0 {
-                for dot in echo.dots {background.pixels[dot.at]=alpha==255 ? dot.color:ArtEffectEngine.mix(background.pixels[dot.at],dot.color,alpha)}
+                for dot in echo.dots {if alpha==255 {background.pixels[dot.at]=dot.color}
+                    else {
+                        let old=background.pixels[dot.at],oa=Int(old>>24),retained=oa*(255-alpha)/255,total=alpha+retained
+                        var color=UInt32(total)<<24
+                        for shift in [0,8,16] {color |= UInt32((Int(dot.color>>shift&255)*alpha+Int(old>>shift&255)*retained)/max(1,total))<<shift}
+                        background.pixels[dot.at]=color
+                    }}
             } else {
                 let scale=1+Double(age)*style.scaleRate/600
                 for stamp in echo.stamps {

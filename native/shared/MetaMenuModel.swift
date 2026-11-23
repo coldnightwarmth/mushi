@@ -5,10 +5,10 @@ import Foundation
 enum MetaAction: CaseIterable {
     case resume, restart, restartStage, title, credit, operatorSettings
     case infiniteCredits, infiniteCharge, combined, formation, exploration, chargeZoom, invincibility, boost
-    case trails, background, hud, tallScreen, horizontal, filtering, fullscreen
-    case artMaster, slitScan, timeBands, videoFeedback, datamosh, rasterFabric
+    case background, hud, tallScreen, horizontal, filtering, fullscreen
+    case trails, artMaster, slitScan, timeBands, videoFeedback, datamosh, codecDatamosh, rasterFabric
     case pixelSediment, tileShuffle, scanlineWeaving, misregistration, inkBleed, negativeSpace
-    case flowers, foldedStage, typography, artMemory, clearArt, resetArt
+    case flowers, foldedStage, typography, artPresets, artMemory, randomArt, resetArt
     case pause, speed, rewind, sound
     var artEffect: ArtEffect? {
         switch self {
@@ -16,6 +16,7 @@ enum MetaAction: CaseIterable {
         case .timeBands:return .timeBands
         case .videoFeedback:return .videoFeedback
         case .datamosh:return .datamosh
+        case .codecDatamosh:return .codecDatamosh
         case .rasterFabric:return .rasterFabric
         case .pixelSediment:return .pixelSediment
         case .tileShuffle:return .tileShuffle
@@ -33,11 +34,11 @@ enum MetaAction: CaseIterable {
         switch self {
         case .resume,.restart,.restartStage,.title,.credit,.operatorSettings:return "Run"
         case .infiniteCredits,.infiniteCharge,.combined,.formation,.exploration,.invincibility,.boost,.chargeZoom:return "Custom play"
-        case .trails,.background,.hud,.filtering,.tallScreen,.horizontal,.fullscreen:return "Display"
+        case .background,.hud,.filtering,.tallScreen,.horizontal,.fullscreen:return "Display"
         case .pause,.speed,.rewind,.sound:return "Time & sound"
-        case .artMaster,.slitScan,.timeBands,.videoFeedback,.datamosh,.rasterFabric,
+        case .artMaster,.trails,.slitScan,.timeBands,.videoFeedback,.datamosh,.codecDatamosh,.rasterFabric,
              .pixelSediment,.tileShuffle,.scanlineWeaving,.misregistration,.inkBleed,.negativeSpace,
-             .flowers,.foldedStage,.typography,.artMemory,.clearArt,.resetArt:return "Art effects"
+             .flowers,.foldedStage,.typography,.artPresets,.artMemory,.randomArt,.resetArt:return "Art effects"
         }
     }
     var title: String {
@@ -67,11 +68,12 @@ enum MetaAction: CaseIterable {
         case .speed:return "Playback speed"
         case .rewind:return "Rewind 2×"
         case .sound:return "Sound"
-        case .artMaster:return "Effects"
+        case .artMaster:return "Other effects"
+        case .artPresets:return "Presets"
         case .artMemory:return "Effect memory"
-        case .clearArt:return "Clear canvas"
+        case .randomArt:return "Randomize effects"
         case .resetArt:return "Reset effects"
-        case .slitScan,.timeBands,.videoFeedback,.datamosh,.rasterFabric,
+        case .slitScan,.timeBands,.videoFeedback,.datamosh,.codecDatamosh,.rasterFabric,
              .pixelSediment,.tileShuffle,.scanlineWeaving,.misregistration,.inkBleed,.negativeSpace,
              .flowers,.foldedStage,.typography:return artEffect!.title
         }
@@ -82,7 +84,8 @@ struct CustomGameOptions {
         case off,on,endless
         var title: String { ["Off","On","Endless"][rawValue] }
     }
-    var art=ArtOptions()
+    var artScopes=ArtScopeSettings()
+    var art: ArtOptions { get { artScopes.current } set { artScopes.current=newValue } }
     var infiniteCredits=false
     var infiniteLives=false
     var absorbBullets=false

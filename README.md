@@ -5,7 +5,7 @@ Reverse engineering of **Mushihimesama Futari 1.5**, set `futari15`, revision
 **five-stage Original-mode campaign**, with **Reco and Palm, Normal and Abnormal**.
 
 **All five stages and both characters' epilogues are playable on Apple Silicon
-macOS.** The signed 0.4.0 app runs ahead-of-time compiled ARM64 game code with
+macOS.** The signed 0.5.0 app runs ahead-of-time compiled ARM64 game code with
 native graphics, resources, input, audio and an AppKit frontend. Four full native
 runs completed **360,048 frames**, defeating every stage boss and returning from
 the epilogue/ranking sequence to attract mode. Runs use ordinary damage and paid
@@ -62,7 +62,7 @@ Use **Mushihimesama Futari.app** for native play.
 
 **Tab opens the complete custom menu**, adapted from the ESP Ra.De. build:
 Reco/Palm formation, combined/endless stages, infinite resources, exploration,
-protection modes, trails, expanded view, fourteen art-effect families, playback
+protection modes, trails, expanded view, fifteen art-effect families, independent targets, saved presets and randomization, playback
 speed and rewind. See the [custom menu guide](docs/CUSTOM_MENU.md) for controls,
 Futari-specific behavior and headless verification.
 

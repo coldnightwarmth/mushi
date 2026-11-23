@@ -77,30 +77,57 @@ func verifyFutariMenu(resources:URL,inputs:URL,folder:URL) throws {
     key(24);try check(view.hideHUD,"plus hides HUD");key(24)
     view.setMenu(true)
     let native=pixels()
+    // The four target groups form a disjoint partition of visible native actors.
+    // Check the actual game, not only synthetic filter canvases.
+    let groupCount=240*320
+    var targets=[[UInt8]]()
+    for kind in 6..<10 {
+        var bytes=[UInt8](repeating:0,count:groupCount*4)
+        futari_layer_pixels(game,0,Int32(kind),240,320,&bytes);targets.append(bytes)
+    }
+    for i in 0..<groupCount {
+        try check(targets.filter{$0[i*4+3]>0}.count<=1,"overlapping native target ownership")
+    }
+    try check(targets[1].enumerated().contains{$0.offset%4==3 && $0.element>0},"missing live player group")
+    try check(targets[2].enumerated().contains{$0.offset%4==3 && $0.element>0},"missing enemy group")
+    view.customOptions.artScopes=ArtScopeSettings();view.customOptions.trailStyle = .off
+    let plain=view.visuals.render(game,options:view.customOptions,hideHUD:false,rewinding:false,width:240,height:320)
+    let nativeColors=stride(from:0,to:native.count,by:4).map{UInt32(native[$0])|UInt32(native[$0+1])<<8|UInt32(native[$0+2])<<16|0xff000000}
+    try check(plain.pixels==nativeColors,"target groups do not reconstruct native pixels")
+    var nativeHUD=[UInt8](repeating:0,count:groupCount*4);futari_layer_pixels(game,0,3,240,320,&nativeHUD)
+    for scope:ArtOptions.Scope in [.background,.nonPlayer,.player,.enemies] {
+        view.customOptions.artScopes=ArtScopeSettings();view.customOptions.artScopes.select(scope)
+        view.customOptions.art[.foldedStage]=1;view.visuals.clear()
+        let transformed=view.visuals.render(game,options:view.customOptions,hideHUD:false,rewinding:false,width:240,height:320)
+        let protected=scope == .player ? [2,3]:scope == .enemies || scope == .nonPlayer ? [1]:[1,2,3]
+        for group in protected {for i in 0..<groupCount where targets[group][i*4+3]>0 && nativeHUD[i*4+3]==0 {
+            try check(transformed.pixels[i]==nativeColors[i],"\(scope) changed protected native group \(group)")
+        }}
+    }
+    view.customOptions.artScopes=ArtScopeSettings();view.visuals.clear()
     for background in StageBackground.allCases {view.customOptions.background=background;view.refreshImage()}
     try check(native==pixels(),"background render does not alter native frame")
     view.customOptions.background = .art
     var variants=0
     for effect in ArtEffect.allCases {
         for variant in 1..<effect.choices.count {
-            view.customOptions.art=ArtOptions();view.customOptions.art[effect]=variant;view.visuals.clear()
+            view.customOptions.artScopes=ArtScopeSettings();view.customOptions.art[effect]=variant;view.visuals.clear()
             for _ in 0..<12 {try step();view.refreshImage()}
             try check(view.image?.width==240 && view.image?.height==320,"render \(effect.title) \(variant)")
             variants+=1
         }
     }
-    view.customOptions.art=ArtOptions();view.customOptions.art[.flowers]=1;view.customOptions.art[.foldedStage]=2
+    view.customOptions.artScopes=ArtScopeSettings();view.customOptions.art[.flowers]=1;view.customOptions.art[.foldedStage]=2
     view.menuIndex=MetaAction.allCases.firstIndex(of:.flowers)!;view.menuScroll=view.menuRowPositions[view.menuIndex]-240;view.refreshImage();try snapshot("menu-art")
-    view.customOptions.art=ArtOptions();view.customOptions.art[.rasterFabric]=1
-    view.customOptions.art.scope = .background
-    let actorsCount=240*320*4;var actors=[UInt8](repeating:0,count:actorsCount),hud=actors
-    futari_layer_pixels(game,0,2,240,320,&actors);futari_layer_pixels(game,0,3,240,320,&hud)
+    view.customOptions.artScopes=ArtScopeSettings();view.customOptions.artScopes.select(.background);view.customOptions.art[.rasterFabric]=1
+    let actorsCount=240*320*4;var actors=[UInt8](repeating:0,count:actorsCount),hud=actors,effects=actors
+    futari_layer_pixels(game,0,6,240,320,&effects);futari_layer_pixels(game,0,2,240,320,&actors);futari_layer_pixels(game,0,3,240,320,&hud)
     let bkg=view.visuals.render(game,options:view.customOptions,hideHUD:false,rewinding:false,width:240,height:320)
-    for i in 0..<240*320 where actors[i*4+3]>0 && hud[i*4+3]==0 {
+    for i in 0..<240*320 where actors[i*4+3]>0 && hud[i*4+3]==0 && effects[i*4+3]==0 {
         let c=UInt32(actors[i*4])|UInt32(actors[i*4+1])<<8|UInt32(actors[i*4+2])<<16|0xff000000
         try check(bkg.pixels[i]==c,"background scope changed an actor")
     }
-    view.customOptions.art=ArtOptions()
+    view.customOptions.artScopes=ArtScopeSettings()
     var timings=[String:Double]()
     for style in TrailStyle.allCases {
         view.customOptions.trailStyle=style;view.visuals.clear();view.applyCustomOptions()
@@ -117,7 +144,7 @@ func verifyFutariMenu(resources:URL,inputs:URL,folder:URL) throws {
     try check(view.image!.dataProvider!.data! as Data==saved[futari_frame_number(game)],"rewind restores custom display")
     key(12,up:true);try check(view.image!.dataProvider!.data! as Data==saved[futari_frame_number(game)],"rewind release preserves custom display")
     key(48);try check(view.menuOpen && !view.rewinding,"Tab stops rewind")
-    view.activateMenu(.clearArt);view.activateMenu(.resetArt);try check(!view.customOptions.art.active,"reset art")
+    view.visuals.clear();view.activateMenu(.resetArt);try check(!view.customOptions.art.active,"reset art")
     view.menuIndex=MetaAction.allCases.firstIndex(of:.speed)!;view.menuScroll=10000;view.clampMenuScroll();view.refreshImage();try snapshot("menu-time")
     let top=view.menuScroll;view.moveMenu(-1);try check(view.menuScroll<=top,"scroll selection visibility")
     view.setFrameSize(NSSize(width:320,height:360));view.menuIndex=0;view.menuScroll=0;try snapshot("menu-small")
@@ -128,6 +155,7 @@ func verifyFutariMenu(resources:URL,inputs:URL,folder:URL) throws {
     view.setMenu(true);view.activateMenu(.combined);view.activateMenu(.combined)
     try check(view.customOptions.combinedOpening == .endless && view.customOptions.infiniteLives && !view.exploration,"endless adaptation")
     view.activateMenu(.credit);try check(!view.menuOpen && view.controls.nextFrame().contains(.credit),"menu credit pulse")
+    try verifyFutariEffects(view:view,folder:folder)
     let report:[String:Any]=["checks":checks,"actions":MetaAction.allCases.count,"effect_variants":variants,"trail_styles":TrailStyle.allCases.count,"headless":true,"audio_device_opened":view.audioReady,"trail_frame_ms":timings,"rewind_frames_at_budget":historyBudget.rewind_frames,"rewind_bytes_at_budget":historyBudget.rewind_bytes]
     try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]).write(to:folder.appendingPathComponent("verification.json"))
     print("PASS \(checks) offscreen checks, \(MetaAction.allCases.count) menu actions, \(variants) effect variants, \(TrailStyle.allCases.count) trail styles; no window, audio device or posted input")

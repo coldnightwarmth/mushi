@@ -22,10 +22,12 @@ struct ArtBloom {
 struct ArtDeath { let key: UInt64;let x,y: Double;let colors: [UInt32] }
 struct ArtFrame {
     let image: ArtBitmap
+    var transparent=false
     var sprites: ArtBitmap?
     var effects: ArtBitmap?
     var blooms=[ArtBloom]()
     var deaths=[ArtDeath]()
+    var deathEffects: Set<ArtEffect>=[.pixelSediment,.tileShuffle]
     var woven=[ArtBitmap]()
     var playerX=0.5,playerY=0.75
     var words=["ESP","1UP","INSERT COIN","GAME OVER","×16"]
@@ -36,10 +38,24 @@ struct ArtFrame {
 /// never changed. A single lock also makes offscreen/worker rendering safe.
 final class ArtEffectEngine {
     private let lock=NSLock()
+    private let historyBudget: Int
+    private var transparentCanvas=false
+    private var layerEngines=[UInt8:ArtEffectEngine]()
+    init(historyBudget: Int=144*1024*1024) { self.historyBudget=historyBudget }
+    func retainLayerEngines(_ groups: Set<UInt8>) {
+        lock.lock();defer{lock.unlock()}
+        layerEngines=layerEngines.filter{groups.contains($0.key)}
+        if !groups.isEmpty { clear() }
+    }
+    func layerEngine(_ groups: UInt8)->ArtEffectEngine {
+        lock.lock();defer{lock.unlock()}
+        if let value=layerEngines[groups] { return value }
+        let value=ArtEffectEngine(historyBudget:historyBudget/4);layerEngines[groups]=value;return value
+    }
     private struct Grain { var x,y,vx,vy: Double;let color: UInt32;var age: Int }
     private struct Pulse { let x,y: Double,birth: Int,key: UInt64 }
     private struct Flower { let x,y: Double,stamp: ArtBitmap,birth,key: Int }
-    private struct Sample { let tick: Int,image: ArtBitmap,backgroundOnly: Bool }
+    private struct Sample { let tick: Int,image: ArtBitmap,scope: ArtOptions.Scope }
     private struct Entry {
         let tick,width,height: Int,memory: RewindMemory,flowers: [Flower],grains: [Grain]
         let options: ArtOptions
@@ -50,6 +66,7 @@ final class ArtEffectEngine {
     private var lastOptions=ArtOptions(),rewound=false
     private var samples=[Sample](),entries=[Entry](),entryBytes=0,sampleBytes=0
     private var previous=[UInt32](),sand=[UInt32](),lastEffects=[UInt32]()
+    private var codec=CodecDatamosh()
     private var sandAge=[UInt16](),grains=[Grain](),flowers=[Flower]()
     private var pulses=[Pulse](),seenDeaths=[UInt64]()
     private var polarRadius=[Float](),polarAngle=[Int](),polarWidth=0,polarHeight=0
@@ -62,7 +79,10 @@ final class ArtEffectEngine {
         let unsupported=height>1 ? (0..<max(0,sand.count-width)).filter{sand[$0] != 0 && sand[$0+width]==0}.count:0
         return (grains.count,count,unsupported)
     }
-    var retainedBytes: Int { lock.lock();defer{lock.unlock()};return entryBytes+sampleBytes }
+    var retainedBytes: Int {
+        lock.lock();let own=entryBytes+sampleBytes,children=Array(layerEngines.values);lock.unlock()
+        return own+children.reduce(0){$0+$1.retainedBytes}
+    }
     private static func hash(_ n: Int) -> UInt32 {
         var x=UInt32(truncatingIfNeeded:n);x ^= x>>16;x &*= 0x7feb352d;x ^= x>>15;x &*= 0x846ca68b;return x^(x>>16)
     }
@@ -75,6 +95,14 @@ final class ArtEffectEngine {
         let g8=(g &+ 1 &+ (g>>8))>>8
         return 0xff000000|rb8|(g8<<8)
     }
+    @inline(__always) private func blend(_ a:UInt32,_ b:UInt32,_ weight:Int)->UInt32 {
+        if !transparentCanvas { return Self.mix(a,b,weight) }
+        let k=UInt32(max(0,min(255,weight))),aw=(a>>24)*(255-k),bw=(b>>24)*k,total=aw+bw
+        guard total>0 else { return 0 }
+        var result=(total/255)<<24
+        for shift in [0,8,16] { result |= (((a>>shift&255)*aw+(b>>shift&255)*bw)/total)<<shift }
+        return result
+    }
     private static func difference(_ a: UInt32,_ b: UInt32)->Int {
         abs(Int(a&255)-Int(b&255))+abs(Int(a>>8&255)-Int(b>>8&255))+abs(Int(a>>16&255)-Int(b>>16&255))
     }
@@ -84,6 +112,7 @@ final class ArtEffectEngine {
     }
     private func clear() {
         lastTick = -1;width=0;height=0;previous=[];sand=[];sandAge=[];lastEffects=[]
+        codec.reset()
         grains=[];flowers=[];pulses=[];seenDeaths=[];samples=[];entries=[];entryBytes=0;sampleBytes=0;rewound=false
     }
     private func resize(_ w: Int,_ h: Int) {
@@ -106,18 +135,20 @@ final class ArtEffectEngine {
     private func restore(_ e: Entry) -> ArtBitmap {
         var reader=e.memory.reader();previous=reader.array(UInt32.self);sand=reader.array(UInt32.self)
         sandAge=reader.array(UInt16.self);lastEffects=reader.array(UInt32.self)
+        codec.read(from:&reader)
         width=e.width;height=e.height;lastTick=e.tick;lastOptions=e.options;flowers=e.flowers;grains=e.grains;pulses=e.pulses;seenDeaths=e.seenDeaths
         return ArtBitmap(width:width,height:height,pixels:previous)
     }
     func render(_ frame: ArtFrame,options: ArtOptions,tick: Int,context: String,rewinding: Bool=false) -> ArtBitmap {
         let started=ProcessInfo.processInfo.systemUptime
         lock.lock();defer{lastRenderMS=(ProcessInfo.processInfo.systemUptime-started)*1000;lock.unlock()}
+        transparentCanvas=frame.transparent
         if context != key { clear();key=context }
-        guard options.active else { return frame.image }
+        guard options.active else { codec.reset();return frame.image }
         let w=frame.image.width,h=frame.image.height
         if rewinding {
             rewound=true
-            if let e=entries.last(where:{$0.tick<=tick && $0.options.backgroundOnly==options.backgroundOnly}) {
+            if let e=entries.last(where:{$0.tick<=tick && $0.options.scope==options.scope}) {
                 return restore(e).resized(w,h)
             }
             return frame.image
@@ -132,25 +163,27 @@ final class ArtEffectEngine {
         let dt=lastTick<0 ? 1:max(0,min(12,tick-lastTick))
         resize(w,h)
         let input=frame.image.pixels,mask=frame.sprites?.pixels
-        if lastTick<0 || options.backgroundOnly != lastOptions.backgroundOnly {
+        if lastTick<0 || options.scope != lastOptions.scope {
             previous=input
             // Accumulation from On can contain live actors too. Keep retained
             // rewind entries, but start the new scope with a clean canvas.
             sand=[UInt32](repeating:0,count:w*h);lastEffects=sand
             sandAge=[UInt16](repeating:0,count:w*h)
             grains=[];flowers=[];pulses=[];seenDeaths=[]
+            codec.reset()
         }
         // The longest delay must still fit on a wide exploration canvas.
-        let sampleInterval=max(3,(options.memoryTicks*input.count*4+48*1024*1024-1)/(48*1024*1024))
-        if samples.isEmpty || samples.last?.backgroundOnly != options.backgroundOnly || tick-(samples.last?.tick ?? tick)>=sampleInterval {
-            samples.append(Sample(tick:tick,image:frame.image,backgroundOnly:options.backgroundOnly));sampleBytes+=input.count*4
+        let sampleBudget=max(1024*1024,historyBudget/3),entryBudget=historyBudget-sampleBudget
+        let sampleInterval=max(3,(options.memoryTicks*input.count*4+sampleBudget-1)/sampleBudget)
+        if samples.isEmpty || samples.last?.scope != options.scope || tick-(samples.last?.tick ?? tick)>=sampleInterval {
+            samples.append(Sample(tick:tick,image:frame.image,scope:options.scope));sampleBytes+=input.count*4
         }
-        while samples.count>2 && (tick-samples[0].tick>580 || sampleBytes>48*1024*1024) {
+        while samples.count>2 && (tick-samples[0].tick>580 || sampleBytes>sampleBudget) {
             sampleBytes-=samples.removeFirst().image.pixels.count*4
         }
         var delayed=[Int:[UInt32]]()
         func past(_ age: Int)->[UInt32] {
-            let index=samples.lastIndex(where:{$0.backgroundOnly==options.backgroundOnly && $0.tick<=tick-age}) ?? samples.firstIndex(where:{$0.backgroundOnly==options.backgroundOnly})!
+            let index=samples.lastIndex(where:{$0.scope==options.scope && $0.tick<=tick-age}) ?? samples.firstIndex(where:{$0.scope==options.scope})!
             if let cached=delayed[index] { return cached }
             let result=samples[index].image.resized(w,h).pixels;delayed[index]=result;return result
         }
@@ -160,7 +193,7 @@ final class ArtEffectEngine {
         if seenDeaths.count>512 { seenDeaths.removeFirst(seenDeaths.count-512) }
         if options[.tileShuffle]==3 {
             pulses.removeAll{tick-$0.birth>80}
-            pulses.append(contentsOf:deaths.map{Pulse(x:$0.x,y:$0.y,birth:tick,key:$0.key)})
+            if frame.deathEffects.contains(.tileShuffle) { pulses.append(contentsOf:deaths.map{Pulse(x:$0.x,y:$0.y,birth:tick,key:$0.key)}) }
             if pulses.count>32 { pulses.removeFirst(pulses.count-32) }
         } else { pulses=[] }
         if options[.pixelSediment] != lastOptions[.pixelSediment] {
@@ -187,7 +220,7 @@ final class ArtEffectEngine {
                 // sampled source time backward, until this band wraps.
                 let age=options[.timeBands]==2 && band%2==1 ? (tick*2+band*13)%memory:(band*memory/bands+tick/3)%memory
                 let source=past(age)
-                for y in band*h/bands..<(band+1)*h/bands { for x in 0..<w { let i=y*w+x;out[i]=Self.mix(out[i],source[i],210) } }
+                for y in band*h/bands..<(band+1)*h/bands { for x in 0..<w { let i=y*w+x;out[i]=blend(out[i],source[i],210) } }
             }
         }
         if options[.scanlineWeaving]>0 {
@@ -196,7 +229,7 @@ final class ArtEffectEngine {
             for y in 0..<h {
                 let which=(y/stripe+tick/24)%(layers.count+1)
                 if which>0 { let layer=layers[which-1];for x in 0..<w {
-                    let i=y*w+x;out[i]=Self.mix(out[i],layer[i],options[.scanlineWeaving]==1 ? 96:128)
+                    let i=y*w+x;out[i]=blend(out[i],layer[i],options[.scanlineWeaving]==1 ? 96:128)
                 } }
             }
         }
@@ -207,7 +240,7 @@ final class ArtEffectEngine {
             for y in 0..<h { for x in 0..<w {
                 let dx=Double(x)-cx,dy=Double(y)-cy
                 let sx=max(0,min(w-1,Int(cx+dx*c-dy*s))),sy=max(0,min(h-1,Int(cy+dx*s+dy*c)))
-                out[y*w+x]=Self.mix(source[y*w+x],previous[sy*w+sx],options[.videoFeedback]==2 ? 170:145)
+                out[y*w+x]=blend(source[y*w+x],previous[sy*w+sx],options[.videoFeedback]==2 ? 170:145)
             } }
         }
         if options[.datamosh]>0 {
@@ -229,15 +262,18 @@ final class ArtEffectEngine {
                 if mode==4 { mx += (Int(seed>>8&7)-3)*4;my += (Int(seed>>12&7)-3)*4 }
                 for y in by..<min(h,by+block) { for x in bx..<min(w,bx+block) {
                     let p=previous[max(0,min(h-1,y+my))*w+max(0,min(w-1,x+mx))]
-                    out[y*w+x]=Self.mix(source[y*w+x],p,mode==2 ? 160:(mode==3 ? 144:112))
+                    out[y*w+x]=blend(source[y*w+x],p,mode==2 ? 160:(mode==3 ? 144:112))
                 } }
             } }
         }
+        if options[.codecDatamosh]>0 {
+            out=codec.render(ArtBitmap(width:w,height:h,pixels:out),mode:options[.codecDatamosh],tick:tick,memory:memory)
+        } else { codec.reset() }
         if options[.negativeSpace]>0,let mask=mask {
             let old=past(memory)
             for i in out.indices where mask[i]>>24>0 {
                 let color=options[.negativeSpace]==1 ? old[i]:Self.color(i/w/12+i%w/18+tick/8)
-                out[i]=Self.mix(out[i],color,Int(mask[i]>>24))
+                out[i]=blend(out[i],color,Int(mask[i]>>24))
             }
         }
         if options[.inkBleed]>0,w>2,h>2,let mask=mask {
@@ -257,16 +293,16 @@ final class ArtEffectEngine {
                     }
                 } }
             }
-            for i in out.indices where mask[i]>>24==0 && ink[i]>>24>0 { out[i]=Self.mix(out[i],ink[i],Int(ink[i]>>24)) }
+            for i in out.indices where mask[i]>>24==0 && ink[i]>>24>0 { out[i]=blend(out[i],ink[i],Int(ink[i]>>24)) }
         }
-        if options[.pixelSediment]>0 { sediment(frame,deaths:deaths,tick:tick,dt:dt,density:options[.pixelSediment],into:&out) }
+        if options[.pixelSediment]>0 { sediment(frame,deaths:frame.deathEffects.contains(.pixelSediment) ? deaths:[],tick:tick,dt:dt,density:options[.pixelSediment],into:&out) }
         if options[.flowers]>0 { garden(frame,tick:tick,advance:dt>0,density:options[.flowers],into:&out) }
         if options[.typography]>0 { typography(frame.typographyStamps,tick:tick,mode:options[.typography],into:&out) }
         // A short live explosion must not vanish because delayed imagery or a
         // persistent flower covered the frame in which it happened. Restore
         // only currently visible native FX, then apply geometric effects once.
-        if [.slitScan,.timeBands,.videoFeedback,.datamosh,.scanlineWeaving,.flowers,.typography].contains(where:{options[$0]>0}),let effects=frame.effects?.pixels {
-            for i in out.indices where effects[i]>>24>0 { out[i]=Self.mix(out[i],effects[i],Int(effects[i]>>24)) }
+        if [.slitScan,.timeBands,.videoFeedback,.datamosh,.codecDatamosh,.scanlineWeaving,.flowers,.typography].contains(where:{options[$0]>0}),let effects=frame.effects?.pixels {
+            for i in out.indices where effects[i]>>24>0 { out[i]=blend(out[i],effects[i],Int(effects[i]>>24)) }
         }
         if options[.rasterFabric]>0 {
             let source=out,strength=options[.rasterFabric]==1 ? 4:18
@@ -308,17 +344,19 @@ final class ArtEffectEngine {
             for y in 0..<h { for x in 0..<w {
                 let i=y*w+x,a=source[max(0,min(h-1,y+dy))*w+max(0,min(w-1,x+dx))]
                 let b=source[max(0,min(h-1,y-dy))*w+max(0,min(w-1,x-dx))]
-                out[i]=0xff000000|(a&255)|(source[i]&0xff00)|(b&0xff0000)
+                let alpha=max(a>>24,source[i]>>24,b>>24)
+                out[i]=alpha<<24|(a&255)|(source[i]&0xff00)|(b&0xff0000)
             } }
         }
         if options[.foldedStage]>0 { fold(options[.foldedStage],tick:tick,into:&out) }
         previous=out;lastTick=tick;lastOptions=options;processedFrames+=1
         var writer=RewindWriter(capacity:out.count*12)
         writer.array(out);writer.array(sand);writer.array(sandAge);writer.array(lastEffects)
+        codec.write(to:&writer)
         let entry=Entry(tick:tick,width:w,height:h,memory:RewindMemory(writer.data),flowers:flowers,grains:grains,options:options,pulses:pulses,seenDeaths:seenDeaths)
         if entries.last?.tick==tick { entryBytes-=entries.removeLast().bytes }
         entries.append(entry);entryBytes+=entry.bytes
-        while entries.count>1 && (tick-entries[0].tick>580 || entryBytes>96*1024*1024) { entryBytes-=entries.removeFirst().bytes }
+        while entries.count>1 && (tick-entries[0].tick>580 || entryBytes>entryBudget) { entryBytes-=entries.removeFirst().bytes }
         return ArtBitmap(width:w,height:h,pixels:out)
     }
     private func fold(_ mode: Int,tick: Int,into out: inout [UInt32]) {
@@ -430,13 +468,13 @@ final class ArtEffectEngine {
                 }
             }
         }
-        if !burst { for i in sand.indices where sand[i] != 0 { out[i]=Self.mix(out[i],sand[i],255) } }
+        if !burst { for i in sand.indices where sand[i] != 0 { out[i]=blend(out[i],sand[i],255) } }
         for grain in grains {
             let x=Int(grain.x),y=Int(grain.y),alpha=burst ? min(255,max(0,(110-grain.age)*6)):255
             let size=grain.age<18 ? 2:1
             for dy in 0..<size { for dx in 0..<size {
                 let xx=x+dx,yy=y+dy
-                if xx>=0 && xx<w && yy>=0 && yy<h { let i=yy*w+xx;out[i]=Self.mix(out[i],grain.color,alpha) }
+                if xx>=0 && xx<w && yy>=0 && yy<h { let i=yy*w+xx;out[i]=blend(out[i],grain.color,alpha) }
             } }
         }
     }
@@ -496,9 +534,12 @@ final class ArtEffectEngine {
         }
         for at in touched {
             let base=out[at],packed=UInt64(base&255)|(UInt64(base>>8&255)<<16)|(UInt64(base>>16&255)<<32)
-            let total=sum[at] &+ packed &* UInt64(remaining[at])
+            let weight=UInt64(remaining[at])*UInt64(base>>24)/255
+            let total=sum[at] &+ packed &* weight
             let rgb=((total &+ 0x000100010001 &+ ((total>>8)&0x00ff00ff00ff))>>8)&0x00ff00ff00ff
-            out[at]=0xff000000|UInt32(rgb&255)|UInt32(rgb>>16&255)<<8|UInt32(rgb>>32&255)<<16
+            let alpha=255-UInt32(remaining[at])+UInt32(weight)
+            func channel(_ shift:Int)->UInt32 { min(255,UInt32(rgb>>shift&255)*255/max(1,alpha)) }
+            out[at]=alpha<<24|channel(0)|channel(16)<<8|channel(32)<<16
         }
     }
 
@@ -534,7 +575,7 @@ final class ArtEffectEngine {
             guard left<right && top<bottom else { continue }
             for yy in top..<bottom { for xx in left..<right {
                 let color=stamp.pixels[((yy-y)/scale)*stamp.width+(xx-x)/scale]
-                if color>>24>0 { let at=yy*width+xx;out[at]=Self.mix(out[at],color,220) }
+                if color>>24>0 { let at=yy*width+xx;out[at]=blend(out[at],color,220) }
             } }
         }
     }

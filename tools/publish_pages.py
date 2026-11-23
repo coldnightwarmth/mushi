@@ -28,8 +28,13 @@ def main():
     with tempfile.TemporaryDirectory(prefix="mushi-pages-") as temporary:
         checkout = Path(temporary) / "site"
         if exists:
-            git("clone", "--depth", "1", "--single-branch", "--branch", "gh-pages",
-                remote, str(checkout))
+            # Reuse the local object store: the catalog has tens of thousands
+            # of images, and downloading it again is unnecessary on each update.
+            git("fetch", "origin", "refs/heads/gh-pages:refs/remotes/origin/gh-pages")
+            revision = git("rev-parse", "refs/remotes/origin/gh-pages", capture=True).stdout.strip()
+            git("clone", "--shared", "--no-checkout", str(ROOT), str(checkout))
+            git("remote", "set-url", "origin", remote, cwd=checkout)
+            git("checkout", "--quiet", "-b", "gh-pages", revision, cwd=checkout)
             # This disposable checkout holds generated site files only.
             for child in checkout.iterdir():
                 if child.name == ".git":
@@ -46,8 +51,8 @@ def main():
             shutil.copyfile(ROOT / "mushi/web" / name, checkout / name)
         (checkout / ".nojekyll").touch()
         validate(checkout)
-        subprocess.run(["node", "--check", str(checkout / "catalog.js")], check=True)
-        subprocess.run(["node", "--check", str(checkout / "catalog-data.js")], check=True)
+        for script in sorted(checkout.rglob('*.js')):
+            subprocess.run(["node", "--check", str(script)], check=True)
         git("add", "--all", cwd=checkout)
         changes = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=checkout)
         if changes.returncode == 0:

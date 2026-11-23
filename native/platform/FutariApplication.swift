@@ -16,6 +16,8 @@ final class FutariView: NSView {
     var menuScroll:CGFloat=0, smoothFilteringOverride:Bool?=nil
     var playbackRate:Double {fastHeld ? 4:customOptions.speed}
     let visuals=FutariVisuals()
+    let effectPresets:EffectPresetLibrary
+    var effectPresetPicker=EffectPresetPicker(),presetSaveError:String?
     var audioPhase=0.0
     let headless:Bool
     let audioEngine = AVAudioEngine(), player = AVAudioPlayerNode()
@@ -32,6 +34,7 @@ final class FutariView: NSView {
     init(resources: URL, settings: URL, headless:Bool=false) {
         self.headless=headless
         self.resources = resources; self.settings = settings
+        effectPresets=EffectPresetLibrary(url:settings.deletingLastPathComponent().appendingPathComponent("Effect presets.plist"))
         super.init(frame: NSRect(x: 0, y: 0, width: 480, height: 640))
         wantsLayer = true; layer?.backgroundColor = NSColor.black.cgColor
         createGame()
@@ -112,7 +115,7 @@ final class FutariView: NSView {
         let playing=futari_scene(game)==3
         let width=playing && customOptions.horizontal ? 304:240
         let height=playing && customOptions.expandTallScreens ? min(384,max(320,Int(bounds.height/max(1,bounds.width/CGFloat(width))))):320
-        let custom=customOptions.art.active || customOptions.trailStyle != .off || customOptions.background != .art || hideHUD || width != 240 || height != 320 || futari_custom_status(game).worlds>1
+        let custom=customOptions.artScopes.active || customOptions.trailStyle != .off || customOptions.background != .art || hideHUD || width != 240 || height != 320 || futari_custom_status(game).worlds>1
         let bitmap:ArtBitmap
         if custom {
             bitmap=visuals.render(game,options:customOptions,hideHUD:hideHUD,rewinding:rewinding,width:width,height:height)
@@ -151,8 +154,12 @@ final class FutariView: NSView {
         if menuOpen {
             if [126,13].contains(event.keyCode) {moveMenu(-1)}
             else if [125,1].contains(event.keyCode) {moveMenu(1)}
-            else if [123,0].contains(event.keyCode) {activateMenu(direction:-1)}
-            else if [124,2,36,38,49].contains(event.keyCode) && !event.isARepeat {activateMenu(direction:1)}
+            else if [123,0,124,2].contains(event.keyCode) {
+                let direction=[123,0].contains(event.keyCode) ? -1:1
+                if menuEntries[menuIndex].action == .artPresets {cycleEffectPreset(direction)}
+                else {activateMenu(direction:direction)}
+            }
+            else if [36,38,49].contains(event.keyCode) && !event.isARepeat {activateMenu(direction:1)}
             else if [48,53].contains(event.keyCode) && !event.isARepeat {setMenu(false)}
             needsDisplay=true;return
         }
@@ -189,7 +196,14 @@ final class FutariView: NSView {
         if !menuPanel.contains(p) {setMenu(false);return}
         if p.x<=menuPanel.width && p.y>=42 && p.y<menuListBottom {
             for (i,y) in menuRowPositions.enumerated() where p.y>=y-menuScroll && p.y<y-menuScroll+28 {
-                menuIndex=i;activateMenu(direction:event.modifierFlags.contains(.shift) ? -1:1);break
+                menuIndex=i
+                if menuEntries[i].action == .artPresets {
+                    let arrows=presetArrowRects(rowY:y-menuScroll)
+                    if arrows.left.contains(p) {cycleEffectPreset(-1)}
+                    else if arrows.right.contains(p) {cycleEffectPreset(1)}
+                    else {activateEffectPreset()}
+                } else {activateMenu(direction:event.modifierFlags.contains(.shift) ? -1:1)}
+                break
             }
         }
     }

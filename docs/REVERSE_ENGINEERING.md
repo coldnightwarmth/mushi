@@ -141,3 +141,43 @@ do not establish game-specific semantics. Exports live under ignored `build/`.
 Pseudocode is an analysis aid, not buildable original source, and never counts
 toward native gameplay completion. Neither source-region observations nor
 repeated PC samples establish an object scheduler, hitbox or stage state machine.
+
+## Sound directory and native PCM extraction
+
+The concatenated u23/u24 bank is word-swapped, producing 8 MiB. Table 0 contains
+256 four-byte phrase entries: the high nibble selects the AMM parameter table;
+the lower 24 bits are a byte offset. Decoding begins at offset × 8 and ends on
+the original short/empty AMM packet. The extractor bounds each phrase by the
+next distinct directory offset, and all 167 unique entries terminate within
+that bound. One is empty; 166 produce 19,732,352 mono samples. Every nonempty
+packet reports 16 kHz. The native mixer at unity volume produces exactly the
+same signed PCM samples, then silence at the extracted end.
+
+The sequence directory starts at bank offset 0x400. All 256 pointers resolve
+to 23 distinct streams of register/value byte pairs terminated by register
+0x0f. Register 0x0e represents the native sequencer's delay operation. These
+streams are exported without guessing song names. Another pointer table at
+0x800 remains to be semantically reviewed; the published sequence coverage
+refers specifically to the 0x400 table. Sound-name recovery and original-hardware
+audio equivalence are separate from the native decoder consistency check.
+
+Reproduce with `tools/extract_audio.py --rom /path/to/futari15.zip`. The tool
+never starts an audio device or emulator. WAV files, alias metadata and sequence
+commands are included in the GitHub Pages sound archive.
+
+## Reviewed stable-priority graphics queue
+
+`RecoveredDrawQueue.hpp` expresses the append routine at 0x0c05c394 as a readable
+FIFO operation. The control record at 0x0c058338 stores a node-pool pointer and
+byte cursor; 512 head/tail buckets begin at 0x0c058340. Each 16-byte node stores
+next at +0, callback at +4 and payload at +8. Priorities are masked to nine bits.
+The 0x17700-byte pool admits 6,000 entries. A full pool rejects an append without
+writing queue state; the append leaves new-node next untouched, relying on the
+original initialization/drain contract.
+
+The accompanying exact ABI adapter and test compare every priority with empty,
+nonempty and full conditions: 1,536 cases. All RAM bytes, ordered writes,
+registers, status flags and the 17/28-instruction paths match compiled originals.
+This reviewed service is not yet enabled in the installed app: full replay and
+interrupt-boundary integration checks are the next step. See
+[evidence/recovered-draw-queue.json](evidence/recovered-draw-queue.json).

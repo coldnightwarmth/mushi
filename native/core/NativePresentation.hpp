@@ -6,14 +6,16 @@ namespace futari {
 // Presentation records retain the native draw order and original source pixels.
 // The board's VRAM and collision state are never edited by display options.
 struct NativePresentation {
-    struct Tag { int priority=-1;bool scenery=false;uint32_t callback=0; };
-    struct Draw {int x,y,w,h,layer;uint16_t attr,alpha;uint32_t tint;std::vector<uint32_t> source;uint64_t family=0;int priority=-1;};
+    struct Tag { int priority=-1;bool scenery=false;uint32_t callback=0,object=0; };
+    struct Draw {int x,y,w,h,layer;uint16_t attr,alpha;uint32_t tint;std::vector<uint32_t> source;uint64_t family=0;int priority=-1;int group=3;};
     struct Variant {uint64_t hash;std::vector<uint32_t> pixels;};
     std::unordered_map<uint32_t,Tag> tags;
     std::vector<Draw> draws;
     std::shared_ptr<std::vector<Draw>> displayDraws;
     std::map<std::pair<int,int>,std::shared_ptr<std::vector<Draw>>> buffers;
-    std::array<std::vector<uint32_t>,6> planes;
+    // 6..9: visible FX/player/enemy/other actor partitions. 10..13: their
+    // observed random variants. Group membership follows native draw bands.
+    std::array<std::vector<uint32_t>,14> planes;
     std::unordered_map<uint64_t,std::vector<Variant>> variants;
     size_t variantBytes=0;uint64_t tick=0;
     int originX=0,originY=0,displayOriginX=0,displayOriginY=0;

@@ -4,12 +4,13 @@ import AppKit
 final class FutariVisuals {
     let engine=ArtEffectEngine()
     let trails=FutariTrails()
+    private let groupTrails=(0..<4).map{_ in FutariTrails()}
     private var lastTick = -1
     private var context=0
     private var previousEffects: ArtBitmap?
     private struct SavedFrame {let tick,width,height:Int,memory:RewindMemory}
     private var history=[SavedFrame](),historyBytes=0
-    func clear(){trails.clear();lastTick = -1;previousEffects=nil;context+=1;history=[];historyBytes=0}
+    func clear(){trails.clear();groupTrails.forEach{$0.clear()};lastTick = -1;previousEffects=nil;context+=1;history=[];historyBytes=0}
     private func layer(_ game:FutariGame,_ world:UInt32,_ kind:Int,_ w:Int,_ h:Int)->ArtBitmap {
         var bytes=[UInt8](repeating:0,count:w*h*4)
         futari_layer_pixels(game,world,Int32(kind),Int32(w),Int32(h),&bytes)
@@ -17,7 +18,14 @@ final class FutariVisuals {
         return ArtBitmap(width:w,height:h,pixels:colors)
     }
     private func overlay(_ fg:ArtBitmap,_ bg:inout ArtBitmap) {
-        for i in bg.pixels.indices where fg.pixels[i]>>24 != 0 {bg.pixels[i]=fg.pixels[i]}
+        for i in bg.pixels.indices where fg.pixels[i]>>24 != 0 {
+            let a=fg.pixels[i],b=bg.pixels[i],aa=Int(a>>24),ba=Int(b>>24)
+            if aa==255 {bg.pixels[i]=a;continue}
+            let bw=ba*(255-aa)/255,alpha=aa+bw
+            var pixel=UInt32(alpha)<<24
+            for shift in [0,8,16] {pixel |= UInt32((Int(a>>shift&255)*aa+Int(b>>shift&255)*bw)/alpha)<<shift}
+            bg.pixels[i]=pixel
+        }
     }
     func render(_ game:FutariGame,options:CustomGameOptions,hideHUD:Bool,rewinding:Bool,width:Int,height:Int)->ArtBitmap {
         let tick=Int(futari_frame_number(game)),status=futari_custom_status(game)
@@ -29,7 +37,12 @@ final class FutariVisuals {
         let hud=layer(game,0,3,w,h)
         // Menus, loading and rewinding preserve their original completed framebuffer.
         if rewinding || futari_presentation_ready(game)==0 {
-            if rewinding {_=engine.render(ArtFrame(image:scene),options:options.art,tick:tick,context:effectContext,rewinding:true)}
+            if rewinding {
+                for plan in options.artScopes.plans where plan.options.active {
+                    let target=options.artScopes.plans.count==1 ? engine:engine.layerEngine(plan.groups.rawValue)
+                    _=target.render(ArtFrame(image:scene),options:plan.options,tick:tick,context:effectContext,rewinding:true)
+                }
+            }
             if let saved=history.last(where:{$0.tick<=tick}) {
                 var reader=saved.memory.reader()
                 return ArtBitmap(width:saved.width,height:saved.height,pixels:reader.array(UInt32.self)).resized(w,h)
@@ -44,22 +57,34 @@ final class FutariVisuals {
             return scene
         }
         if history.last.map({$0.tick>tick})==true {history.removeAll{$0.tick>tick};historyBytes=history.reduce(0){$0+$1.memory.data.count}}
+        var groups=(6..<10).map{layer(game,0,$0,w,h)}
+        var randomGroups=options.trailStyle == .random ? (10..<14).map{layer(game,0,$0,w,h)}:[]
         var woven=[ArtBitmap]()
         for world in 1..<status.worlds where futari_world_status(game,world).phase==3 {
             let peer=layer(game,world,1,w,h),sprites=layer(game,world,2,w,h),burst=layer(game,world,4,w,h)
             woven.append(peer)
             for i in scene.pixels.indices {background.pixels[i]=ArtEffectEngine.mix(background.pixels[i],peer.pixels[i],96)}
             overlay(sprites,&actors);overlay(burst,&effects)
+            for group in 0..<4 {
+                let peerGroup=layer(game,world,6+group,w,h)
+                // A visible peer actor owns its destination even when its group differs.
+                for i in groups[group].pixels.indices where sprites.pixels[i]>>24>0 {groups[group].pixels[i]=peerGroup.pixels[i]}
+                if !randomGroups.isEmpty {let random=layer(game,world,10+group,w,h);overlay(random,&randomGroups[group])}
+            }
         }
         if options.background != .art {background.pixels=[UInt32](repeating:options.background.rgba,count:w*h)}
-        var trailSource=actors
-        if options.trailStyle == .random {
-            trailSource=layer(game,0,5,w,h)
-            for world in 1..<status.worlds where futari_world_status(game,world).phase==3 {let peer=layer(game,world,5,w,h);overlay(peer,&trailSource)}
+        var groupImages=[ArtBitmap]()
+        for group in 0..<4 {
+            var echoes=ArtBitmap(width:w,height:h)
+            groupTrails[group].render(randomGroups.isEmpty ? groups[group]:randomGroups[group],over:&echoes,tick:tick,style:options.trailStyle)
+            // Echoes stay behind all live sprites, including different target groups.
+            for i in echoes.pixels.indices where actors.pixels[i]>>24>0 {echoes.pixels[i]=0}
+            var image=group==0 ? background:ArtBitmap(width:w,height:h)
+            overlay(echoes,&image);overlay(groups[group],&image);groupImages.append(image)
         }
-        trails.render(trailSource,over:&background,tick:tick,style:options.trailStyle)
-        scene=background;overlay(actors,&scene)
-        var frame=ArtFrame(image:options.art.backgroundOnly ? background:scene,sprites:actors,effects:effects)
+        scene=groupImages[0]
+        for group in 1..<4 {overlay(groupImages[group],&scene)}
+        var frame=ArtFrame(image:scene,sprites:actors,effects:effects)
         frame.woven=woven;frame.words=["FUTARI","1UP","ORIGINAL","INSERT COIN","GAME OVER"]
         frame.playerX=Double(Int(status.player_x)+(w-240)/2)/Double(w)
         frame.playerY=Double(Int(status.player_y)+(h-320)/2)/Double(h)
@@ -84,8 +109,47 @@ final class FutariVisuals {
             }
         }}
         if tick != lastTick {previousEffects=effects;lastTick=tick}
-        var result=engine.render(frame,options:options.art,tick:tick,context:effectContext,rewinding:false)
-        if options.art.backgroundOnly {overlay(actors,&result)}
+        let plans=options.artScopes.plans
+        var result:ArtBitmap
+        if !options.artScopes.active {
+            engine.retainLayerEngines([]);result=scene
+        } else if plans.count==1 {
+            engine.retainLayerEngines([])
+            result=engine.render(frame,options:plans[0].options,tick:tick,context:effectContext,rewinding:false)
+        } else {
+            engine.retainLayerEngines(Set(plans.filter{$0.options.active}.map{$0.groups.rawValue}))
+            result=ArtBitmap(width:w,height:h)
+            var deathOwners=[ArtEffect:UInt8](),typographyModes=Set<Int>()
+            for effect in [ArtEffect.pixelSediment,.tileShuffle] {
+                for group:ArtGroup in [.enemies,.background,.otherActors,.player] {
+                    if let plan=plans.first(where:{$0.groups.contains(group.mask) && $0.options[effect]>0}) {deathOwners[effect]=plan.groups.rawValue;break}
+                }
+            }
+            for plan in plans {
+                var input=ArtBitmap(width:w,height:h),sprites=input
+                for (index,group) in ArtGroup.allCases.enumerated() where plan.groups.contains(group.mask) {
+                    overlay(groupImages[index],&input);overlay(groups[index],&sprites)
+                }
+                var scoped=ArtFrame(image:input)
+                scoped.transparent = !plan.groups.contains(.background)
+                scoped.sprites=sprites
+                if plan.groups.contains(.background) {scoped.effects=effects;scoped.blooms=frame.blooms;scoped.woven=woven}
+                scoped.deaths=frame.deaths
+                scoped.deathEffects=Set(deathOwners.compactMap{$0.value==plan.groups.rawValue ? $0.key:nil})
+                scoped.playerX=frame.playerX;scoped.playerY=frame.playerY;scoped.words=frame.words
+                let typography=plan.options[.typography]
+                if typography>0 && typographyModes.insert(typography).inserted {scoped.typographyStamps=frame.typographyStamps}
+                let output=plan.options.active ? engine.layerEngine(plan.groups.rawValue).render(scoped,options:plan.options,tick:tick,context:effectContext):input
+                overlay(output,&result)
+            }
+            // A protected live actor must stay clear even when another group's
+            // spatial effect moves pixels across its original silhouette.
+            for plan in plans where !plan.options.active {
+                for (index,group) in ArtGroup.allCases.enumerated() where index>0 && plan.groups.contains(group.mask) {
+                    overlay(groupImages[index],&result)
+                }
+            }
+        }
         if !hideHUD {overlay(hud,&result)}
         if history.last?.tick==tick {historyBytes-=history.removeLast().memory.data.count}
         var writer=RewindWriter(capacity:w*h*4+4);writer.array(result.pixels)

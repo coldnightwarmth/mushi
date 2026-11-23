@@ -66,7 +66,13 @@ during busy frames and camera offsets. Layer
 zero is checked against the actual native framebuffer. Tilemaps and native
 foreground shading form scenery; priorities 236+ form HUD; explosion/impact
 priorities 150–153 feed the art effects. These are presentation categories,
-not complete semantic object/animation recovery.
+not complete semantic object/animation recovery. The 0.5 presentation adapter
+splits visible actors into disjoint FX, player/weapon, enemy/projectile and
+other-actor planes, retaining original occlusion. The renderer selects a separate
+shared effect engine for each resolved target combination. Broader/narrower banks
+resolve to one variant per effect per group; child histories share a bounded
+budget. Saved presets use the same named schema as ESP Ra.De. in a separate
+Futari Application Support directory.
 
 `NativeHistory` saves changed 4 KiB RAM pages and 32×32 VRAM tiles before their
 first write each frame, plus an independent device/audio checkpoint. Records use

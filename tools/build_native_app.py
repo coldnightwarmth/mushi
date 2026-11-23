@@ -32,13 +32,13 @@ def main():
     app=a.output.resolve();contents=app/'Contents';macos=contents/'MacOS';bundled=contents/'Resources'
     macos.mkdir(parents=True,exist_ok=True);bundled.mkdir(exist_ok=True)
     exe=macos/'Futari'
-    swift=['native/platform/ArcadeButtons.swift','native/platform/MacControls.swift','native/core/FutariInputPorts.swift','native/platform/FutariApplication.swift','native/platform/FutariMenu.swift','native/platform/FutariVisuals.swift','native/platform/FutariTrails.swift','native/tests/MenuVerification.swift','native/shared/MetaMenuModel.swift','native/shared/ArtEffectOptions.swift','native/shared/ArtEffects.swift','native/shared/ArtMemory.swift','native/shared/RetroMenuFont.swift']
+    swift=['native/platform/ArcadeButtons.swift','native/platform/MacControls.swift','native/core/FutariInputPorts.swift','native/platform/FutariApplication.swift','native/platform/FutariMenu.swift','native/platform/FutariVisuals.swift','native/platform/FutariTrails.swift','native/tests/MenuVerification.swift','native/tests/EffectsVerification.swift','native/tests/CodecDatamoshVerification.swift','native/shared/MetaMenuModel.swift','native/shared/ArtEffectOptions.swift','native/shared/ArtEffects.swift','native/shared/ArtScopeSettings.swift','native/shared/EffectPresets.swift','native/shared/CodecDatamosh.swift','native/platform/FutariPresets.swift','native/shared/ArtMemory.swift','native/shared/RetroMenuFont.swift']
     subprocess.run(['xcrun','swiftc','-O','-import-objc-header','native/core/NativeGame.h','-framework','AppKit','-framework','AVFoundation',*swift,*compiled,'build/aot/libFutariProgram.a','-lc++','-lcompression','-o',str(exe)],check=True)
     for name in ['u4-be.bin','expanded.bin','nand.bin','sound.bin']:shutil.copy2(resources/name,bundled/name)
     shutil.copy2(ROOT/'native/THIRD_PARTY_NOTICES.md',bundled/'THIRD_PARTY_NOTICES.md')
     (bundled/'runtime.json').write_text(json.dumps(dict(kind='Ahead-of-time native game code and native board services',architecture='arm64',cpu_interpreter=False,jit=False,mame_runtime=False,program=manifest,roms=verification),indent=2)+'\n')
     with (contents/'Info.plist').open('wb') as f:
-        plistlib.dump(dict(CFBundleName='Mushihimesama Futari',CFBundleDisplayName='Mushihimesama Futari',CFBundleExecutable='Futari',CFBundleIdentifier='local.mushi.native',CFBundlePackageType='APPL',CFBundleVersion='3',CFBundleShortVersionString='0.4.0',NSHighResolutionCapable=True,LSMinimumSystemVersion='13.0'),f)
+        plistlib.dump(dict(CFBundleName='Mushihimesama Futari',CFBundleDisplayName='Mushihimesama Futari',CFBundleExecutable='Futari',CFBundleIdentifier='local.mushi.native',CFBundlePackageType='APPL',CFBundleVersion='4',CFBundleShortVersionString='0.5.0',NSHighResolutionCapable=True,LSMinimumSystemVersion='13.0'),f)
     subprocess.run(['codesign','--force','--sign','-',str(app)],check=True)
     subprocess.run(['codesign','--verify','--deep','--strict',str(app)],check=True)
     print(app)

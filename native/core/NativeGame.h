@@ -40,6 +40,7 @@ int futari_rewind(FutariGame game,unsigned frames);
 int futari_presentation_ready(FutariGame game);
 // Layers: 0 native composition, 1 scenery, 2 actors, 3 HUD, 4 burst effects,
 // 5 observed sprite variants for Random trails (presentation only).
+// 6..9 visible FX/player/enemy/other-actor partitions; 10..13 random variants.
 // Width <= 304 and height <= 384 reveal the original rendered overscan.
 void futari_layer_pixels(FutariGame game,unsigned world,int layer,int width,int height,uint8_t *rgba);
 #ifdef __cplusplus

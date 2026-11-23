@@ -1,0 +1,23 @@
+{
+  "entry": "0x0c05c394",
+  "name": "stable-priority draw queue append",
+  "cases": 1536,
+  "priorities": 512,
+  "conditions": [
+    "empty bucket",
+    "nonempty bucket",
+    "full pool"
+  ],
+  "exact": [
+    "all 8 MiB RAM bytes",
+    "ordered memory writes",
+    "all general registers",
+    "banked registers",
+    "status flags",
+    "instruction count"
+  ],
+  "oracle": "Ahead-of-time translation of original SH-3 instructions; not an independent hardware oracle",
+  "integrated_in_app": false,
+  "source_sha256": "f20930367eacdd4bd1b1473bcc3b744630bf7f624c5f703510adfe870e033373",
+  "result": "PASS 1536 draw-queue cases: all priority buckets, empty/nonempty/full, every RAM byte, write order, registers, flags and instruction counts"
+}

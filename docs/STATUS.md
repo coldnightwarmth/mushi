@@ -1,7 +1,7 @@
-# Status — 2026-11-21
+# Status — 2026-11-22
 
 **Native menus and all five Original-mode stages are playable on Apple Silicon
-macOS.** The signed 0.4.0 app uses ahead-of-time compiled game code, native
+macOS.** The signed 0.5.0 app uses ahead-of-time compiled game code, native
 peripheral services and Swift/AppKit. It has no MAME runtime, CPU interpreter,
 or runtime compiler.
 
@@ -42,11 +42,15 @@ needed for the full-game runs. Bundle identity is in
 
 ## Custom menu
 
-The 0.4.0 build adds the ESP Ra.De. custom menu, adapted to Futari: 43 actions,
-all 43 art-effect variants, ten trail styles, Reco/Palm formation, combined and
+The native build includes the ESP Ra.De. custom menu, adapted to Futari: 45 actions,
+all 45 art-effect variants, ten trail styles, Reco/Palm formation, combined and
 endless stages, exploration, infinite bombs/credits, protection modes, expanded
 view, playback speeds and rewind. Shared art code and game-specific simulation
 remain separated for future combinations.
+
+The 0.5.0 update adds independent effect banks, persistent presets, randomization,
+Melt/Bloom Datamosh and target-specific trails. The updated menu passes 142,193
+offscreen assertions; all four routes and combined-stage checks pass.
 
 The [menu guide](CUSTOM_MENU.md) explains the adaptations and shortcuts.
 [Custom-menu evidence](evidence/native-custom-menu.json) records native and
@@ -68,6 +72,9 @@ above remain separate from custom-option stress runs.
 | Native stage coverage | All five stages, four routes |
 | Screenshot / framebuffer comparisons | 21, all exact |
 | Verified animation sequences | 0 |
+| Sound-directory entries accounted for | 256 / 256 |
+| Nonempty sound phrases decoded | 166 |
+| Native audio samples compared exactly | 19,732,352 |
 | Native decoder streams checked against original SH-3 | 273, all exact |
 | Decoder output bytes compared | 38,602,880 |
 
@@ -82,6 +89,17 @@ count. Many are cropped glyphs, background strips, partial UI pieces or partial 
 The browser supports stage filtering and uses a compact index; complete evidence
 is retained in per-region JSON and the downloadable compressed manifest.
 Draws from dynamic/cross-page VRAM sources are retained as unmapped counts.
+
+## Sound recovery
+
+The [sound archive](https://coldnightwarmth.github.io/mushi/audio/) adds every
+nonempty phrase in the verified u23/u24 directory as 16 kHz mono WAV, with source
+ranges, hashes and aliases. There are 167 unique entries: 166 nonempty and one
+empty; 89 additional slots alias an existing entry. Every extracted PCM sample
+matches the native audio path at unity gain. The 256-entry sequence directory
+has 23 distinct terminated command streams, preserved in compressed JSON.
+Names, gameplay roles and assembled soundtrack arrangements remain unverified.
+See [audio evidence](evidence/audio-extraction.json).
 
 ## Reference playthroughs
 
@@ -119,7 +137,7 @@ not established by these numerical checks.
   resources and the program match Python and the isolated original decoder.
 - Every exported PNG and metadata link exists. Every observed-region PNG exactly
   equals its recorded crop of the source sheet.
-- The installed 0.4.0 bundle passes code-signature verification and a Launch
+- The installed 0.5.0 bundle passes code-signature verification and a Launch
   Services diagnostic that executes 120 native frames without opening a window
   or audio device. Resources are bundled locally and writable settings use
   Application Support. The earlier MAME launcher has been replaced entirely.

@@ -17,6 +17,7 @@ extension FutariView {
         futari_configure(game,options)
     }
     var menuEntries:[MetaMenuEntry] {
+        synchronizePresetPicker()
         let status=game.map{futari_status($0)},custom=game.map{futari_custom_status($0)}
         let playing=status?.phase==3
         func on(_ b:Bool)->String {b ? "On":"Off"}
@@ -47,14 +48,15 @@ extension FutariView {
             case .speed:return .init(action:a,value:String(format:"%gx",customOptions.speed),help:"Set gameplay and audio speed: 0.25, 0.5, 1, 2, 4 or 10 times normal.")
             case .rewind:return .init(action:a,value:"Start",enabled:playing && (custom?.rewind_frames ?? 0)>0,help:"Rewind recent gameplay at 2x speed. Tab stops; close the menu to continue from that point.")
             case .sound:return .init(action:a,value:on(!muted),help:"Toggle all music and sound effects.")
-            case .artMaster:return .init(action:a,value:customOptions.art.scope.title,help:"On affects the scene; Bkg keeps actors clear. HUD and menu stay outside the effects. Off keeps your selections.")
-            case .artMemory:return .init(action:a,value:["1 sec","2 sec","4 sec"][customOptions.art.memoryIndex],help:"Choose how far time-based effects reach into recent images.")
-            case .clearArt:return .init(action:a,value:"Clear",help:"Clear trails, flowers and accumulated images without changing options or restarting.")
-            case .resetArt:return .init(action:a,value:"All off",help:"Turn off all art effects and clear their canvas. Image trails keep their setting.")
+            case .artMaster:return .init(action:a,value:customOptions.art.scope.title,help:customOptions.artScopes.menuHelp)
+            case .artPresets:return .init(action:a,value:effectPresetPicker.selection.title,help:effectPresetHelp)
+            case .artMemory:return .init(action:a,value:["1 sec","2 sec","4 sec"][customOptions.art.memoryIndex],help:"Set this group’s time-effect history and Datamosh interval. Specific active groups supply memory when settings overlap.")
+            case .randomArt:return .init(action:a,value:"Random",help:"Randomize every group’s effects and memory, image trails and the selected group.")
+            case .resetArt:return .init(action:a,value:"Reset",help:"Restore default effects and clear their canvases and image trails. Saved presets stay available.")
             default:
                 let e=a.artEffect!
                 let help=e == .pixelSediment ? "Native explosions and impacts shed colorful pixels. Light and Heavy settle into drifting piles; Burst scatters without accumulating.":e == .tileShuffle ? "Shuffle small or large tiles. Burst sends rings out from native explosions and impacts.":e.help
-                return .init(action:a,value:e.choices[customOptions.art.values[e.rawValue]],help:help)
+                return .init(action:a,value:e.choices[customOptions.art.values[e.rawValue]],help:help+" "+customOptions.artScopes.optionHelp)
             }
         }
     }
@@ -97,10 +99,13 @@ extension FutariView {
             customOptions.speed=rates[(i+direction+rates.count)%rates.count];syncAudio();accumulator=0
         case .rewind:menuWasPaused=false;setMenu(false);paused=false;rewinding=true;syncAudio()
         case .sound:muted.toggle();player.volume=muted ? 0:1
-        case .artMaster:customOptions.art.cycleScope(direction)
+        case .artMaster:customOptions.artScopes.cycle(direction)
+        case .artPresets:activateEffectPreset()
         case .artMemory:customOptions.art.memoryIndex=(customOptions.art.memoryIndex+direction+3)%3
-        case .clearArt:visuals.clear()
-        case .resetArt:customOptions.art=ArtOptions();visuals.clear()
+        case .randomArt:
+            var random=SystemRandomNumberGenerator()
+            applyEffectSettings(EffectSettings.randomized(using:&random),as:.add)
+        case .resetArt:applyEffectSettings(EffectSettings(),as:.standard)
         default:customOptions.art.cycle(action.artEffect!,direction)
         }
         applyCustomOptions();refreshImage();needsDisplay=true
@@ -133,9 +138,16 @@ extension FutariView {
             let y=positions[i]-menuScroll
             if i==0 || e.action.section != entries[i-1].action.section {RetroMenuFont.draw(e.action.section,in:NSRect(x:16,y:y-17,width:panel.width-32,height:14),scale:1,color:.gray)}
             if i==menuIndex {NSColor(calibratedWhite:0.16,alpha:1).setFill();NSRect(x:8,y:y,width:panel.width-16,height:26).fill()}
-            let valueWidth:CGFloat=e.action == .invincibility ? 126:96
+            let valueWidth:CGFloat=e.action == .artPresets ? 124:e.action == .invincibility ? 126:96
             RetroMenuFont.draw(e.action.title,in:NSRect(x:16,y:y+5,width:panel.width-valueWidth-34,height:20),scale:1.5,color:e.enabled ? .white:.gray)
-            RetroMenuFont.draw(e.value,in:NSRect(x:panel.width-valueWidth-16,y:y+5,width:valueWidth,height:20),scale:1.5,color:e.enabled ? .lightGray:.gray,right:true)
+            if e.action == .artPresets {
+                let arrows=presetArrowRects(rowY:y)
+                RetroMenuFont.draw("<",in:arrows.left,scale:1.5,color:.lightGray)
+                RetroMenuFont.draw(">",in:arrows.right,scale:1.5,color:.lightGray)
+                RetroMenuFont.draw(e.value,in:NSRect(x:arrows.left.maxX,y:y+5,width:arrows.right.minX-arrows.left.maxX-8,height:20),scale:1.5,color:.lightGray,right:true)
+            } else {
+                RetroMenuFont.draw(e.value,in:NSRect(x:panel.width-valueWidth-16,y:y+5,width:valueWidth,height:20),scale:1.5,color:e.enabled ? .lightGray:.gray,right:true)
+            }
         }
         NSGraphicsContext.restoreGraphicsState()
         RetroMenuFont.draw(entries[menuIndex].help,in:NSRect(x:16,y:menuListBottom+8,width:panel.width-32,height:70),scale:1,color:.lightGray,wrapWords:true)

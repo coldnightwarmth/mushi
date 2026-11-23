@@ -1,6 +1,6 @@
 # Native custom menu
 
-Press **Tab** in the 0.4.0 Mac build. The menu pauses the game, preserves an
+Press **Tab** in the 0.5.0 Mac build. The menu pauses the game, preserves an
 existing pause, and clears held gameplay inputs. Use arrows/WASD to move,
 Left/Right to change a value, and J/Return/Space to activate it. Mouse selection,
 Shift-click to cycle backward, and scrolling also work. Tab or Escape closes it.
@@ -15,15 +15,14 @@ No ESP Ra.De. ROM data or machine state is incorporated into this game.
 | --- | --- |
 | Run | Resume, restart run, restart stage, title, insert credit, original operator settings |
 | Custom play | Infinite credits/bombs, combined stages, Reco/Palm formation, exploration, camera zoom, four protection modes, Shift boost |
-| Display | Ten trail styles, original scenery or ten solid colors, HUD, vertical/horizontal expansion, Auto/Sharp/Smooth filtering, fullscreen |
-| Art | All fourteen effect families and their variants; On/Bkg/Off scope; 1/2/4-second memory; clear canvas; reset effects |
+| Display | Original scenery or ten solid colors, HUD, vertical/horizontal expansion, Auto/Sharp/Smooth filtering, fullscreen |
+| Art | Ten trail styles; fifteen effect families / 45 variants; independent effect targets; saved presets; randomization; 1/2/4-second memory; reset |
 | Time and sound | Pause, 0.25/0.5/1/2/4/10× speed, 2× rewind, mute |
 
 Art effects are slit-scan, time bands, video feedback, motion-block datamosh,
-raster fabric, pixel sediment, tile shuffle, scanline weaving, misregistration,
+predictive Datamosh (Melt/Bloom), raster fabric, pixel sediment, tile shuffle, scanline weaving, misregistration,
 ink bleed, negative space, explosions as flowers, folded stage and typography
-invasion. HUD and menu are drawn after these effects. Bkg scope leaves the live
-actors clear. Typography uses Futari's own captured lettering and HUD art.
+invasion. HUD and menu are drawn after these effects. Bkg affects scenery and visual FX while leaving live players and enemies clear. Typography uses Futari's own captured lettering and HUD art.
 
 Trail styles are Off, Normal, Spaced, Sparse, Fade, Loop, Scale, Scale2x, Flash
 and Random. Scaling uses individual connected sprite shapes. Random uses
@@ -36,6 +35,38 @@ they are not a recovered enemy-death event API.
 ![Custom menu](images/native-custom-menu.png)
 
 ![Art effects](images/native-custom-art.png)
+
+
+## Independent targets and saved presets
+
+**Other effects** selects the bank to edit: Yes (whole scene), Bkg, Non-player,
+Player or Enemies. Each bank retains its own variants and memory. They run
+together: an enabled specific choice overrides the broader choice for that
+effect. An Off variant inherits broader settings; selecting global Off pauses
+all banks without erasing them. Image trails keep running, and each echo follows
+its source's target group. HUD and menu remain outside these effects.
+
+**Presets** offers Default, Add, and numbered saved looks. Left/Right or A/D
+browse; J, Return, Space, or the center of the row applies or saves. Mouse arrows
+browse without applying. Presets persist in
+`~/Library/Application Support/Mushi/Native/Effect presets.plist` and include
+all five banks, disabled choices, memory settings and trails. They do not change
+game rules, sound, playback rate or the current run. Existing invalid files are
+left intact and reported in the menu. ESP Ra.De.'s preset files remain separate.
+
+**Randomize effects** randomizes the banks, their memory, image trails and the
+selected editing bank. **Reset effects** restores all effect defaults and clears
+visual history and trails; saved presets survive.
+
+The new **Datamosh** has Melt and Bloom modes. It uses the same deterministic
+predictive-video model as ESP Ra.De., retaining a damaged reference and applying
+measured motion and signed residuals. The older four-mode filter is now labeled
+**Motion-block datamosh**. Both participate in presets, scope banks and rewind.
+
+Target ownership currently follows Futari's recovered draw queue and observed
+priority bands. It is a presentation partition, not a claim of completed enemy
+object or animation recovery. The native groups recombine to exact native pixels;
+spatial effects preserve the live pixels of protected groups.
 
 ## Futari adaptations
 

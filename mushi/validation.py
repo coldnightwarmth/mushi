@@ -32,5 +32,8 @@ def validate(path: Path):
     for file in ('index.html','catalog.css','catalog.js','catalog-data.js','coverage.json'):
         assert (path/file).is_file(),file
     result=dict(resource_images=len(resources),observed_images=len(observed),exact_source_crops=True,all_links_present=True)
+    if manifest.get('audio_catalog'):
+        from .audio_catalog import validate_audio
+        result['audio']=validate_audio(path/Path(manifest['audio_catalog']).parent)
     print(json.dumps(result,indent=2))
     return result
