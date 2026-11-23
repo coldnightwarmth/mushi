@@ -35,5 +35,8 @@ def validate(path: Path):
     if manifest.get('audio_catalog'):
         from .audio_catalog import validate_audio
         result['audio']=validate_audio(path/Path(manifest['audio_catalog']).parent)
+    if manifest.get('frame_catalog'):
+        from .frame_catalog import validate_frames
+        result['frames']=validate_frames(path/Path(manifest['frame_catalog']).parent)
     print(json.dumps(result,indent=2))
     return result

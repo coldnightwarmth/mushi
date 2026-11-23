@@ -1,0 +1,29 @@
+{
+  "frame_entries": 49589,
+  "distinct_source_rectangles": 49538,
+  "source_resources": 947,
+  "unique_pixel_images": 48214,
+  "duplicate_pixel_images": 1375,
+  "empty_frames": 260,
+  "pixels": 51987136,
+  "program_sha256": "2d21872e06fd4d1a1e1505ae0dc0e1bfeff78f0730eb9730e5787347f97c6f35",
+  "table_address": "0x0c20bf14",
+  "count_address": "0x0c285028",
+  "record_bytes": 10,
+  "table_sha256": "f966575b3c4416cc28bb5f7c8ef5ebe99b39041524636143e323946c264e4be0",
+  "original_wrapper": "0x0c063740",
+  "all_original_wrapper_arguments_exact": true,
+  "native_directory_identity_entries": 1201,
+  "verified_animation_sequences": 0,
+  "validation": {
+    "frame_images": 49589,
+    "exact_upright_source_crops": true,
+    "original_descriptors_exact": true,
+    "pixel_hashes_exact": true,
+    "all_links_present": true
+  },
+  "native_checks": [
+    "PASS 49589 frame descriptors and four out-of-range IDs against original drawing wrapper",
+    "PASS 1201 native resource-directory entries match NAND indices byte for byte"
+  ]
+}

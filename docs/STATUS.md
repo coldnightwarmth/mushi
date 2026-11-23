@@ -69,6 +69,9 @@ above remain separate from custom-option stress runs.
 | Sheets matched exactly to original VRAM | 569 |
 | Sheets matched exactly to native source pages | 1,091 |
 | Observed draw rectangles exported | 64,458 |
+| Original frame-directory entries | 49,589 |
+| Sheets referenced by original frames | 947 |
+| Distinct frame pixel images | 48,214 |
 | Native stage coverage | All five stages, four routes |
 | Screenshot / framebuffer comparisons | 21, all exact |
 | Verified animation sequences | 0 |
@@ -89,6 +92,13 @@ count. Many are cropped glyphs, background strips, partial UI pieces or partial 
 The browser supports stage filtering and uses a compact index; complete evidence
 is retained in per-region JSON and the downloadable compressed manifest.
 Draws from dynamic/cross-page VRAM sources are retained as unmapped counts.
+
+The separate [original-frame browser](https://coldnightwarmth.github.io/mushi/frames/)
+contains the complete program frame directory. All 49,589 descriptors were checked
+against the compiled original drawing wrapper, including its rotated source
+coordinates. Every upright PNG matches its source crop. There are 1,375 repeated
+pixel images and 260 transparent entries; both remain cataloged. Consecutive IDs
+are not assumed to be an animation sequence. See [frame evidence](evidence/frame-extraction.json).
 
 ## Sound recovery
 

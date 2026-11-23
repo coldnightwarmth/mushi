@@ -76,6 +76,35 @@ source PNGs preserve board orientation and source coordinates.
 
 ## Blitter observations
 
+### Original frame directory
+
+The table at `0x0c20bf14` contains 49,589 ten-byte records; its u32 count is at
+`0x0c285028`. `RecoveredSpriteFrames.hpp` expresses the reviewed read/coordinate
+contract consumed by original wrapper `0x0c063740`:
+
+| Byte offset | Field |
+| --- | --- |
+| 0 | u16 resource-directory ID |
+| 2, 3 | u8 upright x, y |
+| 4, 6 | u16 upright width, height |
+| 8 | u16 frame ID, equal to the record index |
+
+The wrapper passes board source rectangle `(256-y-height, x, height, width)`
+to `0x0c05df30`, with destination axes exchanged from the 16.16 input positions.
+All 49,589 entries and four unsigned out-of-range IDs were compared against the
+original compiled wrapper. A booted native board also confirms that its 1,201
+16-byte resource entries are an exact copy of the NAND directory, preserving IDs.
+The table spans 947 resource sheets. All crop bounds are inside their 256-square
+source page; the table ends at `0x0c285026`, before the aligned count word.
+
+`tools/extract_frames.py` exports upright RGBA PNGs and exact descriptor bytes,
+addresses, source rectangles and pixel hashes. All crops are compared pixel for
+pixel, including transparent RGB channels. The 49,589 entries correspond to
+49,538 distinct source rectangles and 48,214 distinct dimension/pixel hashes.
+This table supplies frame boundaries, not animation links or duration fields.
+
+### Runtime drawing observations
+
 Reference VRAM is 8,192 × 4,096, exported as little-endian u32 values on this
 arm64 MAME build. A decoded source pixel is represented as
 `(opacity << 29) | (red << 16) | (green << 8) | blue`.

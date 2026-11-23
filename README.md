@@ -88,6 +88,9 @@ The smaller first-stage regression remains `tools/verify_native_playthroughs.py`
 ## Asset catalog
 
 [Browse the asset catalog online](https://coldnightwarmth.github.io/mushi/).
+The [original frame browser](https://coldnightwarmth.github.io/mushi/frames/)
+and [sound archive](https://coldnightwarmth.github.io/mushi/audio/) are separate
+collections with per-entry provenance.
 
 [Download the older v0.1.0 offline snapshot](https://github.com/coldnightwarmth/mushi/releases/download/v0.1.0/futari15-asset-catalog.zip),
 extract it, and open `futari15-asset-catalog/index.html`. That snapshot contains
@@ -102,6 +105,12 @@ The catalog includes:
   Native observation covers every draw in all four completed campaigns. Filter
   sheets or regions by stage; search by Reco, Palm, shot type, ID or dimensions.
   Downloads preserve source orientation.
+- **49,589 original frame entries**, recovered from the program's ten-byte
+  descriptor table and checked against its original drawing wrapper. These span
+  947 sheets and contain 48,214 distinct pixel images. Downloads are upright.
+- **166 nonempty sound phrases**, decoded to 16 kHz mono WAV with source ranges,
+  aliases and exact native-mixer sample comparisons; 23 distinct sound-sequencer
+  streams are retained as command metadata.
 - **1,091 sheets matched exactly to native source pages**, with per-stage usage.
   The browser index is compact; full evidence is downloadable as compressed JSON
   and each region retains its complete metadata file.
@@ -115,6 +124,8 @@ effects and partial assemblies; these counts do not mean 64,458 independent
 characters or complete animation frames. Family names, multipart composition,
 animation order, timing and complete gameplay reachability remain to recover.
 Coverage and unmapped draws are recorded explicitly in the downloadable manifest.
+
+![Original frame directory browser](docs/images/original-frame-browser.png)
 
 ![A selection of recovered source sheets](docs/images/resource-overview.png)
 
@@ -162,6 +173,12 @@ This rebuilds all 1,201 source sheets. To add runtime-observed regions, make the
 reference captures below and run `mushi observe`. Regenerating the base catalog
 replaces its manifest; rerun `observe` and `tools/export_native_assets.py` afterward
 to restore reference and native observations.
+After building the native program, recover original frame entries and sound:
+
+```sh
+.venv/bin/python tools/extract_frames.py
+.venv/bin/python tools/extract_audio.py --rom /path/to/futari15.zip
+```
 
 GitHub Pages serves the generated catalog from the `gh-pages` branch at
 <https://coldnightwarmth.github.io/mushi/>. To publish an updated local catalog
