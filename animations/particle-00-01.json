@@ -1,0 +1,2708 @@
+{
+  "id": "particle-00-01",
+  "label": "Particle fast \u00b7 table 2",
+  "particle_type": 0,
+  "table_index": 1,
+  "source_table_address": "0x0c28e2c8",
+  "source_initializer": "0x0c099e00",
+  "source_callback": "0x0c099fe0",
+  "source_scheduler": "0x0c099ad0",
+  "frame_ids": [
+    "frame-04181",
+    "frame-04182",
+    "frame-04183",
+    "frame-04184",
+    "frame-04185",
+    "frame-04186"
+  ],
+  "frames": [
+    {
+      "id": "frame-04181",
+      "source": "../frames/images/frame-04181.png",
+      "width": 8,
+      "height": 16,
+      "metadata": "../frames/metadata/frame-04181.json",
+      "ticks": 3
+    },
+    {
+      "id": "frame-04182",
+      "source": "../frames/images/frame-04182.png",
+      "width": 8,
+      "height": 16,
+      "metadata": "../frames/metadata/frame-04182.json",
+      "ticks": 4
+    },
+    {
+      "id": "frame-04183",
+      "source": "../frames/images/frame-04183.png",
+      "width": 8,
+      "height": 16,
+      "metadata": "../frames/metadata/frame-04183.json",
+      "ticks": 4
+    },
+    {
+      "id": "frame-04184",
+      "source": "../frames/images/frame-04184.png",
+      "width": 8,
+      "height": 16,
+      "metadata": "../frames/metadata/frame-04184.json",
+      "ticks": 4
+    },
+    {
+      "id": "frame-04185",
+      "source": "../frames/images/frame-04185.png",
+      "width": 8,
+      "height": 16,
+      "metadata": "../frames/metadata/frame-04185.json",
+      "ticks": 4
+    },
+    {
+      "id": "frame-04186",
+      "source": "../frames/images/frame-04186.png",
+      "width": 8,
+      "height": 16,
+      "metadata": "../frames/metadata/frame-04186.json",
+      "ticks": 4
+    }
+  ],
+  "ticks": 23,
+  "profiles": [
+    {
+      "initial_fade": 239,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 235
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 231
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 227
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 223
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 219
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 215
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 211
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 207
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 203
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 199
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 195
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 191
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 187
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 183
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 179
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 175
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 171
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 167
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 163
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 159
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 155
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 151
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 147
+        }
+      ],
+      "rng_seeds_by_flip": [
+        21,
+        42
+      ],
+      "termination_tick": 23,
+      "termination_fade": 143
+    },
+    {
+      "initial_fade": 240,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 236
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 232
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 228
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 224
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 220
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 216
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 212
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 208
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 204
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 200
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 196
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 192
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 188
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 184
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 180
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 176
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 172
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 168
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 164
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 160
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 156
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 152
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 148
+        }
+      ],
+      "rng_seeds_by_flip": [
+        213,
+        306
+      ],
+      "termination_tick": 23,
+      "termination_fade": 144
+    },
+    {
+      "initial_fade": 241,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 237
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 233
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 229
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 225
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 221
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 217
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 213
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 209
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 205
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 201
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 197
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 193
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 189
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 185
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 181
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 177
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 173
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 169
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 165
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 161
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 157
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 153
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 149
+        }
+      ],
+      "rng_seeds_by_flip": [
+        44,
+        63
+      ],
+      "termination_tick": 23,
+      "termination_fade": 145
+    },
+    {
+      "initial_fade": 242,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 238
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 234
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 230
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 226
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 222
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 218
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 214
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 210
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 206
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 202
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 198
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 194
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 190
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 186
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 182
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 178
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 174
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 170
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 166
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 162
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 158
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 154
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 150
+        }
+      ],
+      "rng_seeds_by_flip": [
+        8,
+        124
+      ],
+      "termination_tick": 23,
+      "termination_fade": 146
+    },
+    {
+      "initial_fade": 243,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 239
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 235
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 231
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 227
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 223
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 219
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 215
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 211
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 207
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 203
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 199
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 195
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 191
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 187
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 183
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 179
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 175
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 171
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 167
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 163
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 159
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 155
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 151
+        }
+      ],
+      "rng_seeds_by_flip": [
+        31,
+        50
+      ],
+      "termination_tick": 23,
+      "termination_fade": 147
+    },
+    {
+      "initial_fade": 244,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 240
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 236
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 232
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 228
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 224
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 220
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 216
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 212
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 208
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 204
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 200
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 196
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 192
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 188
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 184
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 180
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 176
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 172
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 168
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 164
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 160
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 156
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 152
+        }
+      ],
+      "rng_seeds_by_flip": [
+        52,
+        164
+      ],
+      "termination_tick": 23,
+      "termination_fade": 148
+    },
+    {
+      "initial_fade": 245,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 241
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 237
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 233
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 229
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 225
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 221
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 217
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 213
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 209
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 205
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 201
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 197
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 193
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 189
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 185
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 181
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 177
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 173
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 169
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 165
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 161
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 157
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 153
+        }
+      ],
+      "rng_seeds_by_flip": [
+        73,
+        16
+      ],
+      "termination_tick": 23,
+      "termination_fade": 149
+    },
+    {
+      "initial_fade": 246,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 242
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 238
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 234
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 230
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 226
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 222
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 218
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 214
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 210
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 206
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 202
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 198
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 194
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 190
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 186
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 182
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 178
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 174
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 170
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 166
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 162
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 158
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 154
+        }
+      ],
+      "rng_seeds_by_flip": [
+        37,
+        18
+      ],
+      "termination_tick": 23,
+      "termination_fade": 150
+    },
+    {
+      "initial_fade": 247,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 243
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 239
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 235
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 231
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 227
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 223
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 219
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 215
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 211
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 207
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 203
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 199
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 195
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 191
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 187
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 183
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 179
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 175
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 171
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 167
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 163
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 159
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 155
+        }
+      ],
+      "rng_seeds_by_flip": [
+        58,
+        39
+      ],
+      "termination_tick": 23,
+      "termination_fade": 151
+    },
+    {
+      "initial_fade": 248,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 244
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 240
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 236
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 232
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 228
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 224
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 220
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 216
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 212
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 208
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 204
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 200
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 196
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 192
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 188
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 184
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 180
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 176
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 172
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 168
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 164
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 160
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 156
+        }
+      ],
+      "rng_seeds_by_flip": [
+        60,
+        117
+      ],
+      "termination_tick": 23,
+      "termination_fade": 152
+    },
+    {
+      "initial_fade": 249,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 245
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 241
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 237
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 233
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 229
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 225
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 221
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 217
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 213
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 209
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 205
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 201
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 197
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 193
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 189
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 185
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 181
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 177
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 173
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 169
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 165
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 161
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 157
+        }
+      ],
+      "rng_seeds_by_flip": [
+        119,
+        26
+      ],
+      "termination_tick": 23,
+      "termination_fade": 153
+    },
+    {
+      "initial_fade": 250,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 246
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 242
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 238
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 234
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 230
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 226
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 222
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 218
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 214
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 210
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 206
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 202
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 198
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 194
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 190
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 186
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 182
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 178
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 174
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 170
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 166
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 162
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 158
+        }
+      ],
+      "rng_seeds_by_flip": [
+        104,
+        330
+      ],
+      "termination_tick": 23,
+      "termination_fade": 154
+    },
+    {
+      "initial_fade": 251,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 247
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 243
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 239
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 235
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 231
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 227
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 223
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 219
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 215
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 211
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 207
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 203
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 199
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 195
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 191
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 187
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 183
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 179
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 175
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 171
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 167
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 163
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 159
+        }
+      ],
+      "rng_seeds_by_flip": [
+        28,
+        47
+      ],
+      "termination_tick": 23,
+      "termination_fade": 155
+    },
+    {
+      "initial_fade": 252,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 248
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 244
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 240
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 236
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 232
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 228
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 224
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 220
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 216
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 212
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 208
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 204
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 200
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 196
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 192
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 188
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 184
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 180
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 176
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 172
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 168
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 164
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 160
+        }
+      ],
+      "rng_seeds_by_flip": [
+        13,
+        70
+      ],
+      "termination_tick": 23,
+      "termination_fade": 156
+    },
+    {
+      "initial_fade": 253,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 249
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 245
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 241
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 237
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 233
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 229
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 225
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 221
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 217
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 213
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 209
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 205
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 201
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 197
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 193
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 189
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 185
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 181
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 177
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 173
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 169
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 165
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 161
+        }
+      ],
+      "rng_seeds_by_flip": [
+        296,
+        34
+      ],
+      "termination_tick": 23,
+      "termination_fade": 157
+    },
+    {
+      "initial_fade": 254,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 250
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 246
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 242
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 238
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 234
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 230
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 226
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 222
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 218
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 214
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 210
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 206
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 202
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 198
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 194
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 190
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 186
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 182
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 178
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 174
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 170
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 166
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 162
+        }
+      ],
+      "rng_seeds_by_flip": [
+        36,
+        55
+      ],
+      "termination_tick": 23,
+      "termination_fade": 158
+    },
+    {
+      "initial_fade": 255,
+      "ticks": 23,
+      "frames": [
+        {
+          "id": "frame-04181",
+          "source": "../frames/images/frame-04181.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04181.json",
+          "ticks": 3
+        },
+        {
+          "id": "frame-04182",
+          "source": "../frames/images/frame-04182.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04182.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04183",
+          "source": "../frames/images/frame-04183.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04183.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04184",
+          "source": "../frames/images/frame-04184.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04184.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04185",
+          "source": "../frames/images/frame-04185.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04185.json",
+          "ticks": 4
+        },
+        {
+          "id": "frame-04186",
+          "source": "../frames/images/frame-04186.png",
+          "width": 8,
+          "height": 16,
+          "metadata": "../frames/metadata/frame-04186.json",
+          "ticks": 4
+        }
+      ],
+      "updates": [
+        {
+          "frame_id": "frame-04181",
+          "fade": 251
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 247
+        },
+        {
+          "frame_id": "frame-04181",
+          "fade": 243
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 239
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 235
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 231
+        },
+        {
+          "frame_id": "frame-04182",
+          "fade": 227
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 223
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 219
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 215
+        },
+        {
+          "frame_id": "frame-04183",
+          "fade": 211
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 207
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 203
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 199
+        },
+        {
+          "frame_id": "frame-04184",
+          "fade": 195
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 191
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 187
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 183
+        },
+        {
+          "frame_id": "frame-04185",
+          "fade": 179
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 175
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 171
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 167
+        },
+        {
+          "frame_id": "frame-04186",
+          "fade": 163
+        }
+      ],
+      "rng_seeds_by_flip": [
+        114,
+        57
+      ],
+      "termination_tick": 23,
+      "termination_fade": 159
+    }
+  ],
+  "default_initial_fade": 255,
+  "flip_choices": [
+    0,
+    1
+  ],
+  "blend_arguments": [
+    2,
+    1,
+    "current fade byte",
+    0
+  ],
+  "frame_counter_offset": "0x03",
+  "countdown_offset": "0x04",
+  "delay_offset": "0x05",
+  "initial_delay": 3,
+  "loop": false,
+  "status": "verified-primary-layer-sequence",
+  "metadata": "particle-00-01.json",
+  "note": "Original initializer and complete callback lifetimes verified for every fade/table/flip choice. Frame advancement happens before drawing. Fade decreases by four each update and can end a slow track early. Preview shows unflipped source frames and their verified durations; original blending, fade appearance, movement and offscreen culling are not reproduced. Preview speed does not establish hardware timing."
+}
