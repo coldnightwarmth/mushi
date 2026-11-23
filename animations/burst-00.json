@@ -1,0 +1,95 @@
+{
+  "id": "burst-00",
+  "label": "Green burst 1",
+  "variants": [
+    0,
+    1
+  ],
+  "frame_ids": [
+    "frame-43106",
+    "frame-43107",
+    "frame-43108",
+    "frame-43109",
+    "frame-43110",
+    "frame-43111",
+    "frame-43112",
+    "frame-43113"
+  ],
+  "frames": [
+    {
+      "id": "frame-43106",
+      "source": "../frames/images/frame-43106.png",
+      "width": 24,
+      "height": 24,
+      "metadata": "../frames/metadata/frame-43106.json",
+      "ticks": 1
+    },
+    {
+      "id": "frame-43107",
+      "source": "../frames/images/frame-43107.png",
+      "width": 24,
+      "height": 24,
+      "metadata": "../frames/metadata/frame-43107.json",
+      "ticks": 1
+    },
+    {
+      "id": "frame-43108",
+      "source": "../frames/images/frame-43108.png",
+      "width": 24,
+      "height": 24,
+      "metadata": "../frames/metadata/frame-43108.json",
+      "ticks": 1
+    },
+    {
+      "id": "frame-43109",
+      "source": "../frames/images/frame-43109.png",
+      "width": 24,
+      "height": 24,
+      "metadata": "../frames/metadata/frame-43109.json",
+      "ticks": 1
+    },
+    {
+      "id": "frame-43110",
+      "source": "../frames/images/frame-43110.png",
+      "width": 24,
+      "height": 24,
+      "metadata": "../frames/metadata/frame-43110.json",
+      "ticks": 1
+    },
+    {
+      "id": "frame-43111",
+      "source": "../frames/images/frame-43111.png",
+      "width": 24,
+      "height": 24,
+      "metadata": "../frames/metadata/frame-43111.json",
+      "ticks": 1
+    },
+    {
+      "id": "frame-43112",
+      "source": "../frames/images/frame-43112.png",
+      "width": 24,
+      "height": 24,
+      "metadata": "../frames/metadata/frame-43112.json",
+      "ticks": 1
+    },
+    {
+      "id": "frame-43113",
+      "source": "../frames/images/frame-43113.png",
+      "width": 24,
+      "height": 24,
+      "metadata": "../frames/metadata/frame-43113.json",
+      "ticks": 1
+    }
+  ],
+  "source_callback": "0x0c07bf60",
+  "source_scheduler": "0x0c07b8c0",
+  "loop": false,
+  "ticks": 8,
+  "frame_counter_offset": "0x6e",
+  "countdown_offset": "0x70",
+  "delay_offset": "0x71",
+  "initial_delay": 0,
+  "status": "verified-primary-layer-sequence",
+  "metadata": "burst-00.json",
+  "note": "Frame order and one active callback tick per frame are verified in original code. This preview shows the primary layer only. The original effect also draws a tinted glow at its previous position. Preview speed is adjustable and does not establish hardware timing."
+}

@@ -1,0 +1,33 @@
+{
+  "id": "frame-00101",
+  "index": 101,
+  "resource_index": 0,
+  "resource_id": "u2-0000",
+  "width": 8,
+  "height": 8,
+  "upright_rect": [
+    40,
+    24,
+    8,
+    8
+  ],
+  "source_rect": [
+    224,
+    40,
+    8,
+    8
+  ],
+  "source": "images/frame-00101.png",
+  "metadata": "metadata/frame-00101.json",
+  "source_sheet": "../sheets/u2-0000.png",
+  "resource_metadata": "../metadata/u2-0000.json",
+  "descriptor_address": "0x0c20c306",
+  "program_offset": 2147078,
+  "descriptor_hex": "00002818000800080065",
+  "sha256": "7de1975eebc0bbad5332178fbd6a27c338c4fa7cda7f9886d0e71ebd37a08936",
+  "duplicate_of": null,
+  "opaque_pixels": 37,
+  "status": "original-frame-entry",
+  "classification": "unclassified",
+  "note": "Original frame directory entry. PNG is upright; source_rect is in the unrotated sheet. Frame boundaries are verified against the compiled draw wrapper. IDs do not establish animation order, timing, or gameplay identity."
+}
