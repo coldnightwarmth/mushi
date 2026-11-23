@@ -4,6 +4,7 @@
 #include <array>
 #include <cstring>
 #include <iostream>
+namespace futari {void runCompiledOriginal(CompiledState &,uint64_t);}
 
 struct Memory:futari::Bus {
  std::vector<uint8_t> bytes=std::vector<uint8_t>(0x800000);
@@ -28,7 +29,7 @@ int main(int argc,char **argv){try{
   a.r[4]=next();a.r[5]=next();a.r[6]=priority|0xfffffe00u;a.r[15]=0xc7fe000;
   a.pc=0xc05c394;a.pr=0xc7ff000;a.sr=next();a.cycles=23;a.deadline=1000;
   auto b=a;native.bytes=original.bytes;a.bus=&original;b.bus=&native;original.writes.clear();native.writes.clear();
-  try{futari::runCompiled(a,1000);}catch(const std::exception &){if(a.pc!=a.pr)throw;}
+  try{futari::runCompiledOriginal(a,1000);}catch(const std::exception &){if(a.pc!=a.pr)throw;}
   futari::recovered::DrawQueue::call(b);
   if(a.pc!=b.pc||a.sr!=b.sr||a.cycles!=b.cycles||std::memcmp(a.r,b.r,sizeof(a.r))||std::memcmp(a.bank,b.bank,sizeof(a.bank))||original.bytes!=native.bytes||original.writes!=native.writes){
    std::cerr<<"Mismatch priority="<<priority<<" situation="<<situation<<" cycles="<<a.cycles<<'/'<<b.cycles<<'\n';return 1;
@@ -36,4 +37,23 @@ int main(int argc,char **argv){try{
   ++checks;
  }
  std::cout<<"PASS "<<checks<<" draw-queue cases: all priority buckets, empty/nonempty/full, every RAM byte, write order, registers, flags and instruction counts\n";
+ // Compare every short host slice against an independently compiled original
+ // dispatcher. A slice may end at any original basic-block boundary.
+ unsigned boundaries=0;
+ for(unsigned priority=0;priority<512;priority++)for(unsigned situation=0;situation<3;situation++)for(unsigned budget=1;budget<=40;budget++){
+  original.bytes=seed.bytes;auto used=situation==2?0x17700u:16u;
+  auto bucket=0xc058340+priority*8;
+  original.write(0xc058338,0xc600000,4);original.write(0xc05833c,used,4);
+  original.write(bucket,situation==1?0xc600000:0,4);original.write(bucket+4,situation==1?0xc600000:0,4);
+  futari::CompiledState a;for(auto &r:a.r)r=next();a.r[4]=next();a.r[5]=next();a.r[6]=priority|0xfffffe00u;a.r[15]=0xc7fe000;
+  a.pc=0xc05c394;a.pr=0xc7ff000;a.sr=next();a.cycles=23;auto b=a;
+  native.bytes=original.bytes;a.bus=&original;b.bus=&native;original.writes.clear();native.writes.clear();
+  try{futari::runCompiledOriginal(a,23+budget);}catch(const std::exception &){if(a.pc!=a.pr)throw;}
+  try{futari::runCompiled(b,23+budget);}catch(const std::exception &){if(b.pc!=b.pr)throw;}
+  if(a.pc!=b.pc||a.sr!=b.sr||a.cycles!=b.cycles||std::memcmp(a.r,b.r,sizeof(a.r))||original.bytes!=native.bytes||original.writes!=native.writes){
+   std::cerr<<"Boundary mismatch priority="<<priority<<" situation="<<situation<<" budget="<<budget<<'\n';return 1;
+  }
+  ++boundaries;
+ }
+ std::cout<<"PASS "<<boundaries<<" dispatcher boundary cases: budgets 1..40, all priority buckets and queue states\n";
 }catch(const std::exception &e){std::cerr<<e.what()<<'\n';return 1;}}

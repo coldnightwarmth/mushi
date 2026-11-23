@@ -1,0 +1,19 @@
+{
+  "verified_primary_sequences": 3,
+  "verified_effect_variants": 4,
+  "frame_references": 24,
+  "original_callback_fixtures": 1024,
+  "original_callback_ticks": 239360,
+  "tested_delay_bytes": 256,
+  "trace_sha256": "8e27ea84cdab00ead79742e0d90dc4a46aa539f24a0ba68c98427c7ab624bdc2",
+  "rendering_comparison": false,
+  "verification_scope": "Original callback frame IDs, glow IDs, motion offsets, signed countdown and termination. Renderer is stubbed; preview is not a complete blended effect.",
+  "native_checks": [
+    {
+      "name": "effects",
+      "result": [
+        "PASS 1024 animation fixtures / 239360 original callback ticks: four reachable variants, all 256 delay bytes, frame/glow IDs, offsets, countdown and completion"
+      ]
+    }
+  ]
+}

@@ -13,9 +13,12 @@ generated=ROOT/'build/aot/generated'
 objects=ROOT/'build/aot/objects';objects.mkdir(parents=True,exist_ok=True)
 sources=json.loads((generated/'manifest.json').read_text())['sources']
 header=ROOT/'native/core/CompiledState.hpp'
+recovered=ROOT/'native/core/RecoveredDrawQueue.hpp'
 def compile(name):
     src=generated/name;obj=objects/(src.stem+'.o')
-    if obj.exists() and obj.stat().st_mtime>max(src.stat().st_mtime,header.stat().st_mtime): return False
+    dependency=max(src.stat().st_mtime,header.stat().st_mtime,
+                   recovered.stat().st_mtime if name=='dispatch.cpp' else 0)
+    if obj.exists() and obj.stat().st_mtime>dependency: return False
     result=subprocess.run(['xcrun','clang++','-std=c++17','-O1','-Wno-tautological-compare','-I',str(header.parent),'-c',str(src),'-o',str(obj)],capture_output=True,text=True)
     if result.returncode: raise RuntimeError(name+'\n'+result.stderr[-6000:])
     return True

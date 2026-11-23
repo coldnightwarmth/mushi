@@ -5,7 +5,7 @@ Reverse engineering of **Mushihimesama Futari 1.5**, set `futari15`, revision
 **five-stage Original-mode campaign**, with **Reco and Palm, Normal and Abnormal**.
 
 **All five stages and both characters' epilogues are playable on Apple Silicon
-macOS.** The signed 0.5.0 app runs ahead-of-time compiled ARM64 game code with
+macOS.** The signed 0.5.1 app runs ahead-of-time compiled ARM64 game code with
 native graphics, resources, input, audio and an AppKit frontend. Four full native
 runs completed **360,048 frames**, defeating every stage boss and returning from
 the epilogue/ranking sequence to attract mode. Runs use ordinary damage and paid
@@ -111,6 +111,9 @@ The catalog includes:
 - **166 nonempty sound phrases**, decoded to 16 kHz mono WAV with source ranges,
   aliases and exact native-mixer sample comparisons; 23 distinct sound-sequencer
   streams are retained as command metadata.
+- **Three verified animation tracks / four effect variants**, with original
+  frame order, countdown behavior, termination and an adjustable preview in the
+  [sequence browser](https://coldnightwarmth.github.io/mushi/animations/).
 - **1,091 sheets matched exactly to native source pages**, with per-stage usage.
   The browser index is compact; full evidence is downloadable as compressed JSON
   and each region retains its complete metadata file.
@@ -178,6 +181,7 @@ After building the native program, recover original frame entries and sound:
 ```sh
 .venv/bin/python tools/extract_frames.py
 .venv/bin/python tools/extract_audio.py --rom /path/to/futari15.zip
+.venv/bin/python tools/extract_animations.py
 ```
 
 GitHub Pages serves the generated catalog from the `gh-pages` branch at

@@ -103,6 +103,32 @@ pixel, including transparent RGB channels. The 49,589 entries correspond to
 49,538 distinct source rectangles and 48,214 distinct dimension/pixel hashes.
 This table supplies frame boundaries, not animation links or duration fields.
 
+### First verified effect sequences
+
+`RecoveredEffectSequence.hpp` recovers the active frame-selection/countdown
+portion of `0x0c07bf60`. Its caller `0x0c07b8c0` walks two pools with 75 slots
+each and invokes each active slot's callback; a zero return releases the slot.
+The eight configuration lists at `0x0c2860b8`, sized by bytes at `0x0c28686c`,
+contain exactly four reachable type values: 0, 1, 2 and 3.
+
+For those types, the u16 bases at `0x0c285e90` are 43106, 43106, 43098 and
+43090. The active callback draws base + signed frame byte, then a secondary
+glow (403 + type × 3) at the previous position. The primary frame byte is
+object +0x6e; countdown and reload delay are +0x70 and +0x71. Drawing happens
+before decrement. A negative signed countdown reloads the delay and increments
+the frame; advancing beyond seven returns zero. Initialization sets both timer
+bytes and the frame byte to zero, so the normal track has eight one-tick frames.
+Type 0 and 1 share the primary sequence but use different glow frames.
+
+`RecoveredEffectSequence.cpp` compares all four types and all 256 delay byte
+values with the original callback: 1,024 fixtures / 239,360 callback ticks.
+It checks both frame IDs, relative motion offsets, priority, countdown and
+lifetime. Rendering is stubbed as unavailable, with original null-record setters;
+this proves sequencing, not final blended pixels. The readable sequence helper
+is currently an extraction/verification service, not a replacement for the
+entire original effect callback. `tools/extract_animations.py` publishes three
+primary tracks and four variants, with links to the original frame entries.
+
 ### Runtime drawing observations
 
 Reference VRAM is 8,192 × 4,096, exported as little-endian u32 values on this
@@ -207,6 +233,27 @@ original initialization/drain contract.
 The accompanying exact ABI adapter and test compare every priority with empty,
 nonempty and full conditions: 1,536 cases. All RAM bytes, ordered writes,
 registers, status flags and the 17/28-instruction paths match compiled originals.
-This reviewed service is not yet enabled in the installed app: full replay and
-interrupt-boundary integration checks are the next step. See
+The append service is enabled in native 0.5.1 after 90,240 exact native/original
+frames through all five stages, ending and attract, with 758 complete VRAM
+comparisons. The updated app also passes all four route checks, combined-stage
+checks and 142,193 offscreen menu assertions. See
 [evidence/recovered-draw-queue.json](evidence/recovered-draw-queue.json).
+
+The recovered dispatcher also passes 61,440 short-slice comparisons (budgets
+1–40, all 512 priorities, three queue states). It uses the readable append only
+when 28 instruction units remain before the slice deadline; shorter slices
+retain the original basic-block continuations.
+
+`RecoveredDrawQueueDrain.hpp` describes the queue-body semantics of
+`0x0c05c3f4..0x0c05c442`. Buckets are cleared before their callback chain runs;
+next pointers are read and cleared after each callback, allowing callbacks to
+append to later buckets. The final bucket, 511, is cleared without invoking or
+unlinking its chain. This unusual behavior matches the original branch order.
+The cursor resets after the scan. In 516 fixtures, all 5,683 callback invocations,
+their order, queue RAM and writes match the compiled original, including callbacks
+that append to current, future and reserved buckets. Interrupt masking and the
+final graphics submission are excluded from this queue-body comparison. This
+drain service is not yet a runtime replacement.
+
+Reproduce the service checks with `tools/verify_recovered.py`; add
+`--checks campaign --route reco-normal` for the full native/original replay.

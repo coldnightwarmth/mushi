@@ -1,6 +1,6 @@
 {
   "app": "Mushihimesama Futari.app",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "architecture": "arm64",
   "code_signing": "ad-hoc; codesign --verify --deep --strict passed",
   "launch_services_diagnostic": "120 native frames; no window or audio device",
@@ -9,9 +9,10 @@
   "jit": false,
   "compiled_instruction_sites": 796843,
   "program_sha256": "2d21872e06fd4d1a1e1505ae0dc0e1bfeff78f0730eb9730e5787347f97c6f35",
-  "translator_sha256": "b36214eb7ddcf313c5309d8dbd118637e2237086d6ea27ee98d0ad3e406f4124",
-  "executable_sha256": "0df4790353154e0f5ea84ee97de115fac1d057609935d11d6e353455089cd2f2",
+  "translator_sha256": "95fe837fb484dd73dfd0b304b4b6d3cad41d1c13e4cd877a76033c812d961ac4",
+  "executable_sha256": "ff0d7ffb29ad7dabc48e4dcb37485376d5adc8f6143ef0e57899de55e96dedc3",
   "physical_window_tested": false,
   "custom_menu_evidence": "native-custom-menu-update.json",
-  "checked_at": "2026-11-22"
+  "checked_at": "2026-11-22",
+  "recovered_service_evidence": "recovered-draw-queue.json"
 }

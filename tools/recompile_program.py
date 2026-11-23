@@ -197,15 +197,27 @@ def generate(program,out,end):
     declarations='\n'.join(f'void page_{p:x}(CompiledState &);' for p,_ in pages)
     table=','.join(f'page_{p:x}' for p,_ in pages if p>=BASE)
     dispatch=f'''#include "CompiledState.hpp"
+#include "RecoveredDrawQueue.hpp"
 namespace futari {{
 {declarations}
 static NativePage pages[]={{{table}}};
+#ifdef FUTARI_ORIGINAL_DISPATCH
+void runCompiledOriginal(CompiledState &c,uint64_t deadline) {{
+#else
 void runCompiled(CompiledState &c,uint64_t deadline) {{
+#endif
  c.deadline=deadline;
  while(c.cycles<deadline) {{
   uint32_t physical=c.pc&0x1fffffff;
   c.pc=physical;
   if(physical<{PAGE}) {{page_0(c);continue;}}
+#ifndef FUTARI_ORIGINAL_DISPATCH
+  // A whole recovered call must fit before the host interrupt boundary.
+  // Short slices retain the original basic-block boundaries and scratch state.
+  if(physical==0x0c05c394 && deadline-c.cycles>=28) {{
+   recovered::DrawQueue::call(c);continue;
+  }}
+#endif
   // Reviewed frame-counter wait loop. No memory it observes changes until
   // the host services an interrupt at this slice boundary. Preserve the
   // final loop register/flag state while eliding redundant polling.

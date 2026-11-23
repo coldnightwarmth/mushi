@@ -17,7 +17,99 @@
     "instruction count"
   ],
   "oracle": "Ahead-of-time translation of original SH-3 instructions; not an independent hardware oracle",
-  "integrated_in_app": false,
+  "integrated_in_app": true,
   "source_sha256": "f20930367eacdd4bd1b1473bcc3b744630bf7f624c5f703510adfe870e033373",
-  "result": "PASS 1536 draw-queue cases: all priority buckets, empty/nonempty/full, every RAM byte, write order, registers, flags and instruction counts"
+  "result": "PASS 1536 draw-queue cases: all priority buckets, empty/nonempty/full, every RAM byte, write order, registers, flags and instruction counts",
+  "dispatcher_boundary_cases": 61440,
+  "deadline_budgets": [
+    1,
+    40
+  ],
+  "dispatcher_rule": "Use recovered append only with at least 28 instruction units remaining; otherwise retain original basic blocks",
+  "boundary_result": "PASS 61440 dispatcher boundary cases: budgets 1..40, all priority buckets and queue states",
+  "drain": {
+    "name": "drain",
+    "result": [
+      "PASS 516 queue-drain fixtures / 5683 callbacks: FIFO order, every priority, reserved bucket 511, callback appends, exact queue RAM and ordered writes"
+    ],
+    "integrated_in_app": false,
+    "source_sha256": "e92ac0a9e5cea9490294b23d219ffec1750d16e76d4cc7a0cd81b022f4c6e9b5"
+  },
+  "app_version": "0.5.1",
+  "campaign_result": "PASS 90240 native/original frames: all registers, instruction counts, RAM, IO, audio and interrupt counts exact; 758 complete VRAM comparisons; five stages, ending and attract",
+  "campaign_frames": 90240,
+  "full_vram_comparisons": 758,
+  "menu_offscreen_checks": 142193,
+  "custom_core": [
+    {
+      "name": "reco-normal",
+      "mode": "standard",
+      "route": "reco-normal",
+      "passed": true,
+      "checks": [
+        "PASS baseline equivalence and exact 60-frame reverse/replay (2.782s)",
+        "PASS Shift boost and original/open horizontal movement limits",
+        "PASS native resources, invincibility and Reco/Palm formation",
+        "PASS exploration stop, forward and reverse scenery",
+        "PASS absorbing contacts refill bombs",
+        "PASS infinite respawns"
+      ],
+      "input_sha256": "bed3cf2ce766f0f3d8763fe6b5f0a0d547ad461a944b46f44b928aacc465cd53"
+    },
+    {
+      "name": "reco-abnormal",
+      "mode": "standard",
+      "route": "reco-abnormal",
+      "passed": true,
+      "checks": [
+        "PASS baseline equivalence and exact 60-frame reverse/replay (1.181s)",
+        "PASS Shift boost and original/open horizontal movement limits",
+        "PASS native resources, invincibility and Reco/Palm formation",
+        "PASS exploration stop, forward and reverse scenery",
+        "PASS absorbing contacts refill bombs",
+        "PASS infinite respawns"
+      ],
+      "input_sha256": "9538b9f320118d33badf9c6de2e5106ea932e5725f3a9349411499d7592d4e21"
+    },
+    {
+      "name": "palm-normal",
+      "mode": "standard",
+      "route": "palm-normal",
+      "passed": true,
+      "checks": [
+        "PASS baseline equivalence and exact 60-frame reverse/replay (1.563s)",
+        "PASS Shift boost and original/open horizontal movement limits",
+        "PASS native resources, invincibility and Reco/Palm formation",
+        "PASS exploration stop, forward and reverse scenery",
+        "PASS absorbing contacts refill bombs",
+        "PASS infinite respawns"
+      ],
+      "input_sha256": "1eebaeb9f6ae153fc1387fde6301bbda9f6665edd396f7a4c3460502eb4e3932"
+    },
+    {
+      "name": "palm-abnormal",
+      "mode": "standard",
+      "route": "palm-abnormal",
+      "passed": true,
+      "checks": [
+        "PASS baseline equivalence and exact 60-frame reverse/replay (1.345s)",
+        "PASS Shift boost and original/open horizontal movement limits",
+        "PASS native resources, invincibility and Reco/Palm formation",
+        "PASS exploration stop, forward and reverse scenery",
+        "PASS absorbing contacts refill bombs",
+        "PASS infinite respawns"
+      ],
+      "input_sha256": "de72a148e3cc5d19d0e454af74c2890de14a1e6f58756b8d1a46bec33ff7569e"
+    },
+    {
+      "name": "combined",
+      "mode": "combined",
+      "route": "reco-normal",
+      "passed": true,
+      "checks": [
+        "PASS combined three stages, formation and exact 30-frame rewind/replay"
+      ],
+      "input_sha256": "bed3cf2ce766f0f3d8763fe6b5f0a0d547ad461a944b46f44b928aacc465cd53"
+    }
+  ]
 }

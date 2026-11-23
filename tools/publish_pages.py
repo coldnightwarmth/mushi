@@ -13,7 +13,9 @@ from mushi.validation import validate
 
 
 def git(*args, cwd=ROOT, capture=False):
-    return subprocess.run(["git", *args], cwd=cwd, check=True, text=True,
+    return subprocess.run(["git", "-c", "http.version=HTTP/1.1",
+                           "-c", "http.lowSpeedLimit=1024", "-c", "http.lowSpeedTime=60",
+                           *args], cwd=cwd, check=True, text=True,
                           stdout=subprocess.PIPE if capture else None)
 
 
@@ -63,6 +65,10 @@ def main():
         git("commit", "--quiet", "-m", "Publish validated Futari asset catalog", cwd=checkout)
         git("-c", "http.version=HTTP/1.1", "-c", "http.postBuffer=524288000",
             "push", "origin", "HEAD:refs/heads/gh-pages", cwd=checkout)
+        # Keep generated objects locally before the temporary checkout is
+        # removed. The next publication should not download its own last build.
+        git("fetch", "--no-tags", str(checkout),
+            "+HEAD:refs/remotes/origin/gh-pages")
         print("Catalog pushed. GitHub Pages will publish https://coldnightwarmth.github.io/mushi/")
 
 

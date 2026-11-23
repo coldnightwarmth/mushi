@@ -1,7 +1,7 @@
 # Status — 2026-11-22
 
 **Native menus and all five Original-mode stages are playable on Apple Silicon
-macOS.** The signed 0.5.0 app uses ahead-of-time compiled game code, native
+macOS.** The signed 0.5.1 app uses ahead-of-time compiled game code, native
 peripheral services and Swift/AppKit. It has no MAME runtime, CPU interpreter,
 or runtime compiler.
 
@@ -40,6 +40,12 @@ active desktop. All work in this milestone was headless; no MAME process was
 needed for the full-game runs. Bundle identity is in
 [native-bundle.json](evidence/native-bundle.json).
 
+The 0.5.1 build replaces the draw-queue append with reviewed native code. A
+90,240-frame comparison against the original AOT dispatcher matched registers,
+RAM, IO, audio and interrupt counts through all five stages, ending and attract;
+758 complete VRAM comparisons also matched. See
+[recovered queue evidence](evidence/recovered-draw-queue.json).
+
 ## Custom menu
 
 The native build includes the ESP Ra.De. custom menu, adapted to Futari: 45 actions,
@@ -74,7 +80,7 @@ above remain separate from custom-option stress runs.
 | Distinct frame pixel images | 48,214 |
 | Native stage coverage | All five stages, four routes |
 | Screenshot / framebuffer comparisons | 21, all exact |
-| Verified animation sequences | 0 |
+| Verified primary-layer animation sequences | 3 |
 | Sound-directory entries accounted for | 256 / 256 |
 | Nonempty sound phrases decoded | 166 |
 | Native audio samples compared exactly | 19,732,352 |
@@ -99,6 +105,14 @@ against the compiled original drawing wrapper, including its rotated source
 coordinates. Every upright PNG matches its source crop. There are 1,375 repeated
 pixel images and 260 transparent entries; both remain cataloged. Consecutive IDs
 are not assumed to be an animation sequence. See [frame evidence](evidence/frame-extraction.json).
+
+Three green-burst tracks now have verified order and duration from callback
+`0x0c07bf60`: eight frames, one active update tick each, then termination. Four
+reachable variants share these tracks and use different secondary glow images.
+All 256 countdown-delay byte values were checked against original code in 1,024
+fixtures / 239,360 callback ticks. The [sequence browser](https://coldnightwarmth.github.io/mushi/animations/)
+previews the primary layer; final glow blending and motion are not claimed as a
+pixel-exact animation reconstruction. See [animation evidence](evidence/animation-extraction.json).
 
 ## Sound recovery
 
@@ -147,7 +161,7 @@ not established by these numerical checks.
   resources and the program match Python and the isolated original decoder.
 - Every exported PNG and metadata link exists. Every observed-region PNG exactly
   equals its recorded crop of the source sheet.
-- The installed 0.5.0 bundle passes code-signature verification and a Launch
+- The installed 0.5.1 bundle passes code-signature verification and a Launch
   Services diagnostic that executes 120 native frames without opening a window
   or audio device. Resources are bundled locally and writable settings use
   Application Support. The earlier MAME launcher has been replaced entirely.

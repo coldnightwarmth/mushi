@@ -5,7 +5,9 @@ import json
 from pathlib import Path
 import shutil
 import struct
+from collections import OrderedDict
 from PIL import Image
+from .json_stream import array_records
 
 from .catalog import read_manifest, write_manifest, write_browser_data, write_json
 
@@ -90,35 +92,39 @@ def export(program: bytes, catalog: Path):
 
 def validate_frames(output: Path):
     manifest = json.loads((output/'catalog.json').read_text())
-    records = json.loads(gzip.decompress((output/manifest['full_manifest']).read_bytes()))
-    assert len(records) == manifest['coverage']['frame_entries']
-    sheets, directory, seen = {}, bytearray(), {}
-    for index, r in enumerate(records):
-        assert r['index'] == index and r['id'] == f'frame-{index:05d}'
-        assert json.loads((output/r['metadata']).read_text()) == r
-        raw = bytes.fromhex(r['descriptor_hex']); directory.extend(raw)
-        resource, x, y, w, h, ident = struct.unpack('>HBBHHH', raw)
-        assert ident == index and resource == r['resource_index']
-        assert r['upright_rect'] == [x, y, w, h]
-        assert r['source_rect'] == [256-y-h, x, h, w]
-        assert r['program_offset'] == TABLE+index*10
-        assert r['descriptor_address'] == f'0x{0x0c000000+TABLE+index*10:08x}'
-        if resource not in sheets:
-            with Image.open(output/r['source_sheet']) as im: sheets[resource] = im.copy()
-        sx, sy, sw, sh = r['source_rect']
-        assert 0 <= sx and 0 <= sy and sx+sw <= 256 and sy+sh <= 256
-        expected = sheets[resource].crop((sx, sy, sx+sw, sy+sh)).transpose(Image.Transpose.ROTATE_90)
-        with Image.open(output/r['source']) as actual:
-            assert actual.mode == 'RGBA' and actual.size == (w, h)
-            assert actual.tobytes() == expected.tobytes(), r['id']
-            digest = hashlib.sha256(struct.pack('>HH', w, h)+actual.tobytes()).hexdigest()
-            assert digest == r['sha256']
-            assert sum(a != 0 for a in actual.getchannel('A').getdata()) == r['opaque_pixels']
-        assert r['duplicate_of'] == seen.get(digest)
-        seen.setdefault(digest, r['id'])
-        assert (output/r['resource_metadata']).is_file()
+    sheets, directory, seen = OrderedDict(), bytearray(), {}
+    count=0
+    with gzip.open(output/manifest['full_manifest'],'rt',encoding='utf-8') as stream:
+        for index, r in enumerate(array_records(stream)):
+            count+=1
+            assert r['index'] == index and r['id'] == f'frame-{index:05d}'
+            assert json.loads((output/r['metadata']).read_text()) == r
+            raw = bytes.fromhex(r['descriptor_hex']); directory.extend(raw)
+            resource, x, y, w, h, ident = struct.unpack('>HBBHHH', raw)
+            assert ident == index and resource == r['resource_index']
+            assert r['upright_rect'] == [x, y, w, h]
+            assert r['source_rect'] == [256-y-h, x, h, w]
+            assert r['program_offset'] == TABLE+index*10
+            assert r['descriptor_address'] == f'0x{0x0c000000+TABLE+index*10:08x}'
+            if resource not in sheets:
+                with Image.open(output/r['source_sheet']) as im: sheets[resource] = im.copy()
+                if len(sheets)>32:sheets.popitem(last=False)
+            else:sheets.move_to_end(resource)
+            sx, sy, sw, sh = r['source_rect']
+            assert 0 <= sx and 0 <= sy and sx+sw <= 256 and sy+sh <= 256
+            expected = sheets[resource].crop((sx, sy, sx+sw, sy+sh)).transpose(Image.Transpose.ROTATE_90)
+            with Image.open(output/r['source']) as actual:
+                assert actual.mode == 'RGBA' and actual.size == (w, h)
+                assert actual.tobytes() == expected.tobytes(), r['id']
+                digest = hashlib.sha256(struct.pack('>HH', w, h)+actual.tobytes()).hexdigest()
+                assert digest == r['sha256']
+                assert sum(a != 0 for a in actual.getchannel('A').getdata()) == r['opaque_pixels']
+            assert r['duplicate_of'] == seen.get(digest)
+            seen.setdefault(digest, r['id'])
+            assert (output/r['resource_metadata']).is_file()
+    assert count==manifest['coverage']['frame_entries']
     assert hashlib.sha256(directory).hexdigest() == manifest['coverage']['table_sha256']
     for name in ('index.html', 'frames.js', 'frames.css', 'frames-data.js'):
         assert (output/name).is_file()
-    return dict(frame_images=len(records), exact_upright_source_crops=True,
+    return dict(frame_images=count, exact_upright_source_crops=True,
                 original_descriptors_exact=True, pixel_hashes_exact=True, all_links_present=True)
