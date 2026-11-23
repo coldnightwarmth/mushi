@@ -111,8 +111,9 @@ The catalog includes:
 - **166 nonempty sound phrases**, decoded to 16 kHz mono WAV with source ranges,
   aliases and exact native-mixer sample comparisons; 23 distinct sound-sequencer
   streams are retained as command metadata.
-- **Three verified animation tracks / four effect variants**, with original
-  frame order, countdown behavior, termination and an adjustable preview in the
+- **Nine verified animation tracks**, covering four green-burst variants and
+  two particle types with 17 fade settings. Original frame order, duration and
+  termination are preserved in the adjustable previews in the
   [sequence browser](https://coldnightwarmth.github.io/mushi/animations/).
 - **1,091 sheets matched exactly to native source pages**, with per-stage usage.
   The browser index is compact; full evidence is downloadable as compressed JSON

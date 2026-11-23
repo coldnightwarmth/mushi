@@ -12,7 +12,7 @@ ROOT=Path(__file__).resolve().parents[1]
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output',type=Path,default=ROOT/'build/recovered-verified')
-    p.add_argument('--checks',nargs='+',choices=['queue','drain','effects','campaign'],default=['queue','drain','effects'])
+    p.add_argument('--checks',nargs='+',choices=['queue','drain','effects','particles','particle-init','particle-sequences','random','campaign'],default=['queue','drain','effects','particles','particle-init','particle-sequences','random'])
     p.add_argument('--route',choices=list(ROUTES),default='reco-normal')
     a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
     resources=ROOT/'build/aot/resources';generated=ROOT/'build/aot/generated'
@@ -25,7 +25,7 @@ def main():
     report=dict(program_sha256=manifest['program_sha256'],translator_sha256=manifest['translator_sha256'],
                 oracle='Original AOT dispatcher, recovered service bypassed; not an independent hardware oracle',checks=[])
     for check in a.checks:
-        name={'queue':'RecoveredDrawQueue','drain':'RecoveredDrawQueueDrain','effects':'RecoveredEffectSequence','campaign':'RecoveredReplay'}[check]
+        name={'queue':'RecoveredDrawQueue','drain':'RecoveredDrawQueueDrain','effects':'RecoveredEffectSequence','particles':'RecoveredParticleTrack','particle-init':'RecoveredParticleInit','particle-sequences':'RecoveredParticleSequence','random':'RecoveredRandom','campaign':'RecoveredReplay'}[check]
         exe=out/name;extra=[]
         if check=='campaign':
             codec=out/'codec.o'
@@ -35,6 +35,7 @@ def main():
                         str(ROOT/'native/tests'/f'{name}.cpp'),*extra,str(baseline),str(ROOT/'build/aot/libFutariProgram.a'),'-o',str(exe)],check=True)
         args=[str(resources/'expanded.bin')]
         if check=='effects':args.append(str(out/'effect-sequence.tsv'))
+        if check=='particle-sequences':args.append(str(out/'particle-sequence.tsv'))
         if check=='campaign':
             replay=out/f'{a.route}.inputs.tsv';convert_replay(ROOT/'docs/evidence/replays'/f'{ROUTES[a.route]}.lua',replay)
             args=[str(resources),str(replay)]

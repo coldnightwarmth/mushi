@@ -1,18 +1,50 @@
 {
-  "verified_primary_sequences": 3,
+  "verified_primary_sequences": 9,
   "verified_effect_variants": 4,
-  "frame_references": 24,
+  "frame_references": 54,
   "original_callback_fixtures": 1024,
   "original_callback_ticks": 239360,
   "tested_delay_bytes": 256,
   "trace_sha256": "8e27ea84cdab00ead79742e0d90dc4a46aa539f24a0ba68c98427c7ab624bdc2",
   "rendering_comparison": false,
-  "verification_scope": "Original callback frame IDs, glow IDs, motion offsets, signed countdown and termination. Renderer is stubbed; preview is not a complete blended effect.",
+  "verification_scope": "Original callback frame IDs, glow IDs, motion offsets, signed countdown and termination. Particle profiles also verify original RNG, initialization, fade, flip and blend arguments. Renderer is stubbed; previews are not complete blended effects.",
+  "verified_particle_types": 2,
+  "verified_particle_tracks": 6,
+  "verified_particle_timing_profiles": 102,
+  "particle_lifetime_fixtures": 204,
+  "particle_callback_ticks": 8808,
+  "particle_draw_submissions": 8604,
+  "particle_trace_sha256": "b0de4ad5ebab083659100427a738810d1022b2f559df5b6024ef2da62f7d124c",
   "native_checks": [
     {
       "name": "effects",
       "result": [
         "PASS 1024 animation fixtures / 239360 original callback ticks: four reachable variants, all 256 delay bytes, frame/glow IDs, offsets, countdown and completion"
+      ]
+    },
+    {
+      "name": "random",
+      "result": [
+        "PASS 131072 RNG cases: every nonnegative signed-16 inclusive bound, four seed boundaries, exact values/seed/writes, zero-bound non-advancement"
+      ]
+    },
+    {
+      "name": "particles",
+      "result": [
+        "PASS 224640 particle-track cases: three original tables, fade boundaries, signed countdown, reload, frame wrap, write order and early termination"
+      ]
+    },
+    {
+      "name": "particle-init",
+      "result": [
+        "PASS 28672 polar-velocity cases: angle wrap, overflow, optional destinations and write order",
+        "PASS 122880 particle initializers: two types, preserve/random velocity, six spreads, five angles, 1024 seeds; every fade/table/flip combination reached"
+      ]
+    },
+    {
+      "name": "particle-sequences",
+      "result": [
+        "PASS 204 complete particle tracks / 8808 update ticks / 8604 draws: every reachable fade/table/flip for types 0 and 5, original RNG, initializer, frame timing, blend arguments and termination"
       ]
     }
   ]

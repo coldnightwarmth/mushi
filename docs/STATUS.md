@@ -80,7 +80,8 @@ above remain separate from custom-option stress runs.
 | Distinct frame pixel images | 48,214 |
 | Native stage coverage | All five stages, four routes |
 | Screenshot / framebuffer comparisons | 21, all exact |
-| Verified primary-layer animation sequences | 3 |
+| Verified primary-layer animation sequences | 9 |
+| Verified particle timing profiles | 102 |
 | Sound-directory entries accounted for | 256 / 256 |
 | Nonempty sound phrases decoded | 166 |
 | Native audio samples compared exactly | 19,732,352 |
@@ -113,6 +114,19 @@ All 256 countdown-delay byte values were checked against original code in 1,024
 fixtures / 239,360 callback ticks. The [sequence browser](https://coldnightwarmth.github.io/mushi/animations/)
 previews the primary layer; final glow blending and motion are not claimed as a
 pixel-exact animation reconstruction. See [animation evidence](evidence/animation-extraction.json).
+
+Six additional particle tracks cover types 0 and 5 across three original frame
+tables. Every initial fade (239–255), table choice and flip was compared through
+termination: 204 complete cases, 8,808 updates and 8,604 draw submissions. The
+fast tracks last 23 updates; slow tracks last 59–63 depending on fade. The browser
+exposes all 102 timing profiles, without counting parameter choices as new
+animation families. Source frames and durations are previewed; original fade
+blending, motion and offscreen culling are recorded or excluded explicitly.
+
+The random helper, polar velocity, both initializers and sequencing body now
+have readable implementations and original-code comparisons. They support
+verified extraction and have not replaced their original native AOT routines.
+See [particle recovery](evidence/recovered-particles.json).
 
 ## Sound recovery
 

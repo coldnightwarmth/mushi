@@ -1,0 +1,60 @@
+{
+  "program_sha256": "2d21872e06fd4d1a1e1505ae0dc0e1bfeff78f0730eb9730e5787347f97c6f35",
+  "translator_sha256": "95fe837fb484dd73dfd0b304b4b6d3cad41d1c13e4cd877a76033c812d961ac4",
+  "oracle": "Original AOT dispatcher, recovered service bypassed; not an independent hardware oracle",
+  "checks": [
+    {
+      "name": "effects",
+      "result": [
+        "PASS 1024 animation fixtures / 239360 original callback ticks: four reachable variants, all 256 delay bytes, frame/glow IDs, offsets, countdown and completion"
+      ]
+    },
+    {
+      "name": "random",
+      "result": [
+        "PASS 131072 RNG cases: every nonnegative signed-16 inclusive bound, four seed boundaries, exact values/seed/writes, zero-bound non-advancement"
+      ]
+    },
+    {
+      "name": "particles",
+      "result": [
+        "PASS 224640 particle-track cases: three original tables, fade boundaries, signed countdown, reload, frame wrap, write order and early termination"
+      ]
+    },
+    {
+      "name": "particle-init",
+      "result": [
+        "PASS 28672 polar-velocity cases: angle wrap, overflow, optional destinations and write order",
+        "PASS 122880 particle initializers: two types, preserve/random velocity, six spreads, five angles, 1024 seeds; every fade/table/flip combination reached"
+      ]
+    },
+    {
+      "name": "particle-sequences",
+      "result": [
+        "PASS 204 complete particle tracks / 8808 update ticks / 8604 draws: every reachable fade/table/flip for types 0 and 5, original RNG, initializer, frame timing, blend arguments and termination"
+      ]
+    }
+  ],
+  "scope": "Reviewed semantics for nonnegative RNG bounds, polar velocity, particle types 0/5 initialization and sequencing. Original AOT comparison; no independent hardware oracle. Renderer stubbed at frame submission; draw/flip/blend arguments verified.",
+  "integrated_in_app": false,
+  "program_entries": {
+    "random": "0x0c0631f0",
+    "polar_velocity": "0x0c063680",
+    "fast_initializer": "0x0c099e00",
+    "slow_initializer": "0x0c099ef0",
+    "particle_update": "0x0c099fe0"
+  },
+  "source_sha256": {
+    "native/core/RecoveredRandom.hpp": "d8cf4af13b7424911b5c86b1ada7a43c2c8cb594bab4b06f47d574c4f007af73",
+    "native/core/RecoveredParticleInit.hpp": "e58292650725189ab13fd0e0aeeada699f6e008189f582d6668bb2d16663be19",
+    "native/core/RecoveredParticleTrack.hpp": "302a35abe3211f66a395c3c332a086d7e6437bddc1f95b4a4249e208b0b5e331"
+  },
+  "browser_checks": [
+    "Nine tracks rendered without autoplay or audio",
+    "Slow table 1: initial fade 255 gives four frames / 63 updates",
+    "Changing fade to 239 gives three frames / 59 updates",
+    "Next frame selects second frame / 21 updates",
+    "60 ticks/s playback reaches final third frame / 18 updates and Replay",
+    "Screenshot saved in docs/images/particle-sequence-browser.png"
+  ]
+}

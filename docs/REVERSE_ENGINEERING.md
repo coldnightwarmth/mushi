@@ -257,3 +257,53 @@ drain service is not yet a runtime replacement.
 
 Reproduce the service checks with `tools/verify_recovered.py`; add
 `--checks campaign --route reco-normal` for the full native/original replay.
+
+## Reviewed particle timing and initialization
+
+`RecoveredRandom.hpp` recovers the nonnegative signed-16-bit contract of
+`0x0c0631f0`. Zero returns zero without advancing the seed at `0x0c1ed590`.
+Otherwise the seed advances as `seed * 1103515245 + 12345` modulo 2³², and the
+upper 16 bits are reduced modulo `upperBound + 1`. The upper bound is inclusive.
+All 32,768 supported bounds and four seed boundaries match original results,
+seed state and writes: 131,072 comparisons. Negative bounds are outside this
+helper's reviewed contract; the original runtime continues to handle them.
+
+`RecoveredParticleInit.hpp` expresses initializers `0x0c099e00` and
+`0x0c099ef0`, for particle types 0 and 5. Both start at frame index 6, choose
+initial fade as `255 - random(16)` and select one of three 12-entry tables at
+`0x0c28e2b0`, `0x0c28e2c8`, and `0x0c28e2e0`. Their countdown/reload values are
+3 and 20 respectively. Flag bit 2 preserves supplied velocity; otherwise speed
+and angular spread consume two additional random values. A zero random flip
+leaves the existing flip word unchanged. The three table ranges are frames
+4163–4174, 4175–4186, and 4187–4198.
+
+The polar helper `0x0c063680` masks the angle to nine bits and multiplies a
+512-entry table at `0x0c1ed5c0` by speed, retaining the original 32-bit product
+wrap. It writes the +128-angle component to y before the direct component to x;
+either destination may be null. 28,672 component comparisons cover angle wrap,
+overflow and optional destinations. Another 122,880 full initializer comparisons
+cover two particle types, velocity flags, six spreads, five angles and 1,024
+seeds, reaching every fade/table/flip combination.
+
+`RecoveredParticleTrack.hpp` recovers sequencing in `0x0c099fe0`. It subtracts
+four from signed-16-bit fade before checking termination, then decrements the
+signed-byte countdown before selecting a frame. On expiry it reloads the delay,
+increments the unsigned frame byte and terminates beyond index 11. This order
+makes the first frame one update shorter than following frames. Fade can end a
+slow track before its last frame. 224,640 isolated state comparisons check the
+three tables, signed boundaries, timer wrap, object writes and termination.
+
+The exporter compares 204 entire lifetimes against original initialization and
+updates: all 17 initial fades × three tables × two flips × two particle types.
+It checks 8,808 callback ticks, 8,604 draw submissions, frame and fade values,
+position/priority and flip/blend arguments. Rendering is stubbed as unavailable;
+these checks do not establish final blended pixels or scheduler culling. The
+six tracks retain 102 timing profiles and original RNG seeds in metadata. Fast
+tracks draw for 23 updates; slow tracks draw for 59–63. The last non-drawing
+termination tick is also retained in the downloadable trace.
+
+These readable helpers are used for extraction and verification; they are not
+runtime ABI replacements. Reproduce with `tools/extract_animations.py` or the
+`random`, `particles`, `particle-init`, and `particle-sequences` checks of
+`tools/verify_recovered.py`. Evidence is in
+[evidence/recovered-particles.json](evidence/recovered-particles.json).
