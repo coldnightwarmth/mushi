@@ -36,25 +36,25 @@ def main():
             revision = git("rev-parse", "refs/remotes/origin/gh-pages", capture=True).stdout.strip()
             git("clone", "--shared", "--no-checkout", str(ROOT), str(checkout))
             git("remote", "set-url", "origin", remote, cwd=checkout)
-            git("checkout", "--quiet", "-b", "gh-pages", revision, cwd=checkout)
-            # This disposable checkout holds generated site files only.
-            for child in checkout.iterdir():
-                if child.name == ".git":
-                    continue
-                if child.is_dir() and not child.is_symlink():
-                    shutil.rmtree(child)
-                else:
-                    child.unlink()
+            # Seed the branch and index without checking out its 300k+ files.
+            # The generated catalog below is the entire intended working tree;
+            # git add --all will also remove any obsolete indexed site files.
+            git("branch", "gh-pages", revision, cwd=checkout)
+            git("symbolic-ref", "HEAD", "refs/heads/gh-pages", cwd=checkout)
+            git("read-tree", "HEAD", cwd=checkout)
         else:
             git("init", "--initial-branch=gh-pages", str(checkout))
             git("remote", "add", "origin", remote, cwd=checkout)
+        print("Copying generated catalog into publication checkout", flush=True)
         shutil.copytree(catalog, checkout, dirs_exist_ok=True)
         for name in ("index.html", "catalog.css", "catalog.js"):
             shutil.copyfile(ROOT / "mushi/web" / name, checkout / name)
         (checkout / ".nojekyll").touch()
+        print("Validating all published pixels, provenance and sequence links", flush=True)
         validate(checkout)
         for script in sorted(checkout.rglob('*.js')):
             subprocess.run(["node", "--check", str(script)], check=True)
+        print("Preparing validated catalog commit", flush=True)
         git("add", "--all", cwd=checkout)
         changes = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=checkout)
         if changes.returncode == 0:

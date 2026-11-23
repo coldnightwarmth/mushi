@@ -307,3 +307,42 @@ runtime ABI replacements. Reproduce with `tools/extract_animations.py` or the
 `random`, `particles`, `particle-init`, and `particle-sequences` checks of
 `tools/verify_recovered.py`. Evidence is in
 [evidence/recovered-particles.json](evidence/recovered-particles.json).
+
+### Particle pool, allocation and scheduler body
+
+`RecoveredParticlePool.hpp` now records reset `0x0c099c30`, allocation
+`0x0c099c90`, anchor setter `0x0c099d80`, velocity setter `0x0c099da0`, and the
+body of scheduler `0x0c099a70`. There are 64 slots of 0x34 bytes at `0x0c51c8e8`;
+the active count is at `0x0c51d5e8`. A 64-pointer recycle ring starts at
+`0x0c51d5f0`, with recycle head at `0x0c51d6f0` and allocation tail at
+`0x0c51d6f4`. Reset clears active bytes, not entire objects. Spawn initializes
+only its documented fields, leaving other bytes for the type initializer.
+
+Allocation first requires an unsigned active count below 64. If the unsigned
+word at `0x0c38a654` is zero, the signed counter at `0x0c1e1050` must be at most
+14. These fields' gameplay meanings are not inferred from the admission rule.
+Ring indices are reviewed in valid 0–63 state. Nine reset patterns, 1,344 spawn
+cases and 72 null/non-null setter cases reproduce ordered writes and results.
+
+The scheduler obtains four world-scroll values and four anchor delta pairs,
+then chooses scroll value 1 or 2 using the original selector. The three getters are now reviewed: scroll words at context +0xbc, anchor
+pairs at +0xfc, and selector at +0x54. Their scene-field producers remain original
+AOT code. The scan snapshots the active
+count and walks slots in ascending address order until it has processed that
+many active objects. A phase-zero object is initialized, marked phase one and
+updated in the same pass; the initializer return value is ignored. A callback
+can spawn into a later slot and make that new object consume the remaining scan
+count, deferring an older object near the end of the pool. This matches the
+original rather than imposing a fixed list of objects to update.
+
+An attached particle first subtracts the selected anchor delta, then adds its
+velocity and horizontal world scroll. Negative anchor bytes mean unattached;
+0–3 select the reviewed anchor snapshots. The valid position rectangle includes
+x = 0 through 240×65536 and y = 0 through 320×65536. Bounds are checked before
+calling the type update. Out-of-bounds particles and updates returning zero are
+recycled immediately. Tests cover 522 scheduler fixtures, 9,954 controlled
+callbacks and 4,626 world queries (half original, half stubbed), including exact
+endpoints, signed wrap, callback spawning, pool bytes and ordered writes. Scene
+field production, full game callbacks, malformed pool states and the register ABI
+remain outside this helper's verification scope. It is not integrated as a runtime
+replacement.

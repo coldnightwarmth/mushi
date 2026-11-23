@@ -33,6 +33,18 @@
       "result": [
         "PASS 204 complete particle tracks / 8808 update ticks / 8604 draws: every reachable fade/table/flip for types 0 and 5, original RNG, initializer, frame timing, blend arguments and termination"
       ]
+    },
+    {
+      "name": "particle-pool",
+      "result": [
+        "PASS 9 pool resets / 1344 allocation cases / 72 setters: capacity/admission, ring wrap, partial initialization, null handling and exact ordered writes"
+      ]
+    },
+    {
+      "name": "particle-scheduler",
+      "result": [
+        "PASS 522 scheduler fixtures / 9954 callbacks / 4626 world queries (half original, half stubbed): initialization, same-pass updates, anchor motion, exact bounds, recycling and callback spawning; exact pool state and ordered writes (13438 count writes)"
+      ]
     }
   ],
   "scope": "Reviewed semantics for nonnegative RNG bounds, polar velocity, particle types 0/5 initialization and sequencing. Original AOT comparison; no independent hardware oracle. Renderer stubbed at frame submission; draw/flip/blend arguments verified.",
@@ -42,12 +54,22 @@
     "polar_velocity": "0x0c063680",
     "fast_initializer": "0x0c099e00",
     "slow_initializer": "0x0c099ef0",
-    "particle_update": "0x0c099fe0"
+    "particle_update": "0x0c099fe0",
+    "pool_reset": "0x0c099c30",
+    "pool_spawn": "0x0c099c90",
+    "anchor_setter": "0x0c099d80",
+    "velocity_setter": "0x0c099da0",
+    "scheduler": "0x0c099a70",
+    "scheduler_body": "0x0c099ad0",
+    "scroll_read": "0x0c0683c0",
+    "anchor_pair_read": "0x0c068480",
+    "scroll_selector_read": "0x0c0680d0"
   },
   "source_sha256": {
     "native/core/RecoveredRandom.hpp": "d8cf4af13b7424911b5c86b1ada7a43c2c8cb594bab4b06f47d574c4f007af73",
     "native/core/RecoveredParticleInit.hpp": "e58292650725189ab13fd0e0aeeada699f6e008189f582d6668bb2d16663be19",
-    "native/core/RecoveredParticleTrack.hpp": "302a35abe3211f66a395c3c332a086d7e6437bddc1f95b4a4249e208b0b5e331"
+    "native/core/RecoveredParticleTrack.hpp": "302a35abe3211f66a395c3c332a086d7e6437bddc1f95b4a4249e208b0b5e331",
+    "native/core/RecoveredParticlePool.hpp": "11f33e87177671a4cd81cefbeae58caf374c8d1d71f8dd362216d7328b6dba66"
   },
   "browser_checks": [
     "Nine tracks rendered without autoplay or audio",
@@ -56,5 +78,6 @@
     "Next frame selects second frame / 21 updates",
     "60 ticks/s playback reaches final third frame / 18 updates and Replay",
     "Screenshot saved in docs/images/particle-sequence-browser.png"
-  ]
+  ],
+  "scheduler_scope": "Half of the fixtures execute original world-query helpers; half use controlled scroll/anchor snapshots. All initializer/update callbacks are controlled mutations. Exact pool bytes, callback order and all non-stack writes are compared. Scene-field producers and full game callbacks remain original AOT."
 }

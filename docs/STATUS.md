@@ -126,7 +126,10 @@ blending, motion and offscreen culling are recorded or excluded explicitly.
 The random helper, polar velocity, both initializers and sequencing body now
 have readable implementations and original-code comparisons. They support
 verified extraction and have not replaced their original native AOT routines.
-See [particle recovery](evidence/recovered-particles.json).
+Pool reset, allocation, setters, world reads and the scheduler body are also
+reviewed. The scheduler matches 522 fixtures / 9,954 controlled callbacks,
+including same-pass spawns and offscreen recycling. These helpers are not runtime
+replacements. See [particle recovery](evidence/recovered-particles.json).
 
 ## Sound recovery
 
